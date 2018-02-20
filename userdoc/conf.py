@@ -49,8 +49,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'hpc user guide'
-copyright = '2017, Mher Kazandjian'
-author = 'Mher Kazandjian'
+copyright = '2018, HPC admin team, IT helpdesk'
+author = 'HPC admin team'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -130,7 +130,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'hpcuserguide.tex', 'hpc user guide Documentation',
-     'Mher Kazandjian', 'manual'),
+     'HPC admin team', 'manual'),
 ]
 
 
