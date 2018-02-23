@@ -19,6 +19,7 @@ AUB HPC user guide
    hybrid_jobs.rst
    using_enzo.rst
    machine_learning.rst
+   genomics.rst
 
 Indices and tables
 ==================
