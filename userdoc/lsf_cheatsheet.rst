@@ -4,7 +4,7 @@ LSF cheatsheet help
 -------------------
 
 This page is dedicated to commonly used LSF commands with short tips and howto
-quickies.
+quickies. You can find more details at https://hpcwiki.genomics.upenn.edu/index.php/HPC:User_Guide
 
 Submitting a job
 ================
