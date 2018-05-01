@@ -15,6 +15,12 @@ should be passed to ``bsub``
 
     $ bsub < my_job_script.sh
 
+To submitting an interactive job on a compute node
+
+.. code-block:: bash
+
+    $ bsub -Is bash
+
 List of running jobs
 ====================
 
