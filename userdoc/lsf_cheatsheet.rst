@@ -19,7 +19,7 @@ To submitting an interactive job on a compute node
 
 .. code-block:: bash
 
-    $ bsub -Is bash
+    $ bsub -np 64 -Is bash
 
 List of running jobs
 ====================
