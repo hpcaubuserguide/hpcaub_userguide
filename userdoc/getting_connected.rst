@@ -111,4 +111,40 @@ that allow for customized in the graphical session.
 Connecting to a Jupyter-Lab notebook
 ====================================
 
-.. todo:: not written yet
+Jupyter notebooks (http://jupyter.org/) are very handy for prototyping, testing
+and running interactive computations in Python, R, C#, C++ and many other
+languages https://github.com/jupyter/jupyter/wiki/Jupyter-kernels
+
+
+To submit a job that runs a notebook server on one of the compute nodes,
+the following job script can be used:
+
+
+Assuming that there is already a vnc session running
+
+.. literalinclude:: jupyter/job.sh
+   :linenos:
+   :language: bash
+
+From lines 1 to 4 the job resource options are set (for more info on
+using the scheduler click :ref:`here <_lsf_cheatsheet>`)
+
+On the last two lines, the jupter notebook server is launched using port
+38888 (this port number is arbitrary, any other available port can be used) and
+in the last line, traffic to the port 38888 from the head node (head2) is
+forwarded to the same port on the compute node.
+
+After submitting the script, open a browser (e.g. firefox) on the head node
+in your desktop of the vnc session and open the page
+
+     http://localhost:38888
+
+The access token can be found in the file ``jupyter.log`` in the job directory.
+
+It is possible to set a fixed password or disable a password prompt.
+Both are explained in http://jupyter-notebook.readthedocs.io/en/stable/public_server.html
+
+.. note:: It is possible to connect to the jupyter server without a vnc session
+ by using ssh tunnels. E.g:
+
+      $ ssh -L localhost:38888:localhost:38888 hpcaub -N

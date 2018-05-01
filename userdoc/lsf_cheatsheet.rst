@@ -1,3 +1,5 @@
+.. _lsf_cheatsheet:
+
 LSF cheatsheet help
 -------------------
 
