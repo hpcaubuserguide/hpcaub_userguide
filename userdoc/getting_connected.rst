@@ -15,6 +15,8 @@ any of the following mehtod can be used to login to the head node of the cluster
     ssh my_user_name@head1.aub.edu.lb     # optional
     ssh my_user_name@192.168.19.49        # not recommended
 
+TIP: Passwordless login can be set up to avoid typing the password everytime.
+
 Connecting to a graphical user interface
 ========================================
 
