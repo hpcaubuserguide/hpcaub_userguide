@@ -1,8 +1,10 @@
+.. _lsf_cheatsheet:
+
 LSF cheatsheet help
 -------------------
 
 This page is dedicated to commonly used LSF commands with short tips and howto
-quickies.
+quickies. You can find more details at https://hpcwiki.genomics.upenn.edu/index.php/HPC:User_Guide
 
 Submitting a job
 ================
@@ -12,6 +14,13 @@ should be passed to ``bsub``
 .. code-block:: bash
 
     $ bsub < my_job_script.sh
+
+To submitting an interactive job on a compute node
+
+.. code-block:: bash
+
+    $ bsub -np 64 -Is bash
+    $ bsub -np 64 -XF bash    # with X forwarding
 
 List of running jobs
 ====================

@@ -10,6 +10,7 @@ AUB HPC user guide
    :maxdepth: 1
    :caption: Contents:
 
+   getting_connected.rst
    lsf_cheatsheet.rst
    modules_cheatsheet.rst
    serial_jobs.rst
