@@ -5,4 +5,4 @@
 
 module load matlab/2017b
 
-matlab -nodisplay -r my_matlab_script.m
+matlab -nodisplay -r "run('my_scirpt.m')"
