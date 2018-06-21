@@ -17,6 +17,20 @@ any of the following mehtod can be used to login to the head node of the cluster
 
 TIP: Passwordless login can be set up to avoid typing the password everytime.
 
+.. warning:: SECURITY: make sure to change your account password after the
+ administrators have created your account.
+
+.. note:: if ``hpc.aub.edu.lb`` does not work (due to, e.g. name resolution)
+ use ``head2.aub.edu.lb``. This applied to the rest of the user guide as well.
+
+Tools for connecting
+====================
+
+- mobaxterm (most user freindly): https://mobaxterm.mobatek.net/
+- winscp: https://winscp.net/eng/index.php
+- putty: https://putty.org/
+
+
 Connecting to a graphical user interface
 ========================================
 
@@ -36,6 +50,13 @@ and executing the command:
 .. code-block:: bash
 
        vncserver
+
+Set a password to the new vnc session (otherwise anyone can connect to your
+vnc session).
+
+.. code-block:: bash
+
+        vncpasswd
 
 To make sure that the server has started, the list of running VNC server can
 be obtained through:
@@ -110,8 +131,8 @@ There are several options that can be set in the file ``~/.vnc/xstartup``
 that allow for customized in the graphical session.
 
 
-Connecting to a Jupyter-Lab notebook
-====================================
+Connecting to a Jupyter-Lab notebook with vnc
+=============================================
 
 Jupyter notebooks (http://jupyter.org/) are very handy for prototyping, testing
 and running interactive computations in Python, R, C#, C++ and many other
@@ -146,7 +167,27 @@ The access token can be found in the file ``jupyter.log`` in the job directory.
 It is possible to set a fixed password or disable a password prompt.
 Both are explained in http://jupyter-notebook.readthedocs.io/en/stable/public_server.html
 
-.. note:: It is possible to connect to the jupyter server without a vnc session
- by using ssh tunnels. E.g:
+.. warning:: Users must be aware that the head nodes are intended for light
+ computations only. Thus, users must be self conscious about the cpu and memory
+ consumption of the notebook running on the head node, although the heavy work
+ is being done on the compute nodes.
+
+
+Connecting to a Jupyter-Lab notebook without vnc
+================================================
+
+It is possible to connect to the jupyter server without a vnc session
+by using ssh tunnels. i.e the client would be the user's
+terminal/laptop/workstation. This can be achieved by creating a ssh tunnel
+from the machine where e.g a browser will be used where the notebook will be
+interacted with:
+
+.. code-block:: bash
 
       $ ssh -L localhost:38888:localhost:38888 hpcaub -N
+
+The diagram for the steps involved is:
+
+.. figure:: jupyter/jupyter_hpc_usage_model.png
+   :scale: 100 %
+   :alt:
