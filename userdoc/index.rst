@@ -21,6 +21,7 @@ AUB HPC user guide
    using_enzo.rst
    machine_learning.rst
    genomics.rst
+   matlab.rst
 
 Indices and tables
 ==================
