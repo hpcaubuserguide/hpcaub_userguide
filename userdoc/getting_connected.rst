@@ -10,10 +10,10 @@ any of the following mehtod can be used to login to the head node of the cluster
 
 .. code-block:: bash
 
-    ssh my_user_name@hpc.aub.edu.lb       # preffered
-    ssh my_user_name@head2.aub.edu.lb     # optional
-    ssh my_user_name@head1.aub.edu.lb     # optional
-    ssh my_user_name@192.168.19.49        # not recommended
+    ssh my_user_name@hpc.aub.edu.lb       # preffered (inside AUB network only)
+    ssh my_user_name@head2.aub.edu.lb     # optional  (when on AUB VPN network)
+    ssh my_user_name@head1.aub.edu.lb     # optional  (when on AUB VPN network)
+    ssh my_user_name@192.168.19.49        # not recommended (anywhere)
 
 TIP: Passwordless login can be set up to avoid typing the password everytime.
 
