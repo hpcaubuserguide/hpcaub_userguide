@@ -238,7 +238,7 @@ web browser. To create the tunnel, execute (on your local terminal)
 
 .. code-block:: bash
 
-      $ ssh -L localhost:38888:localhost:38888 hpcaub -N
+      $ ssh -L localhost:38888:localhost:38888 hpc.aub.edu.lb -N
 
 The diagram for the steps involved is:
 
