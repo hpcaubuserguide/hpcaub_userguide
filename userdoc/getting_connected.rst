@@ -34,6 +34,9 @@ Tools for connecting
 Connecting to a graphical user interface
 ========================================
 
+VNC clients
+^^^^^^^^^^^
+
 VNC is a simple way to join a remote desktop session on the cluster. There
 are several flavours and clients of VNC. We recommend the following:
 
@@ -43,6 +46,26 @@ are several flavours and clients of VNC. We recommend the following:
 TigerVNC can be easily installed on most linux operating systems. RealVNC
 is more user freindly and is available on most common operating systems.
 
+Creating SSH tunnels
+====================
+
+SSH tunnels are handy for redirecting traffic from one host/port to another.
+Here are some links on how to create tunnels on various platfroms, since we
+will be using them in what follows:
+
+  - native linux tunnel https://www.revsys.com/writings/quicktips/ssh-tunnel.html
+  - tunnels with putty
+        + https://infosecaddicts.com/perform-local-ssh-tunneling/
+        + https://www.youtube.com/watch?v=7YNd1tFJfwc
+  - tunnels with powershell https://www.youtube.com/watch?v=gh03CpaUxbQ
+  - tunnels with mobaxterm
+        + https://blog.mobatek.net/post/ssh-tunnels-and-port-forwarding/
+        + http://emp.byui.edu/ercanbracks/cs213/SSH%20tunneling%20with%20Mobaxterm.htm
+  - contact it.helpdesk and mention ``HPC getting connected``
+
+Create a VNC session
+^^^^^^^^^^^^^^^^^^^^
+
 To connect to a remote session, a vnc server must be already running on the
 the HPC cluster. This can be done once by logging through the command line
 and executing the command:
@@ -50,6 +73,13 @@ and executing the command:
 .. code-block:: bash
 
        vncserver
+
+When the session is created, a similiar output to this screenshot is shown
+on the terminal
+
+.. figure:: imgs/vnc_session_create.png
+   :scale: 50 %
+   :alt:
 
 Set a password to the new vnc session (otherwise anyone can connect to your
 vnc session).
@@ -69,24 +99,50 @@ keep note of the process ID (VNCPID) of the vnc server. We will assume it is
 VNCPORT. The default port number if 5900, but if this port is already used,
 the port number will be different.
 
-.. figure:: imgs/vnc2.png
+.. figure:: imgs/vnc_server_list.png
    :scale: 50 %
    :alt:
 
-What is relevant the most is the ``port`` at which the server is running. e.g
-to find the port number of the session we want to connect to, execute
+Find the port number of a certain VNC session
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The port number is needed to create a SSH tunnel to the head node (where the
+VNC server session is running). There are two ways to get the ``port`` number
+of the VNC session.
+
+For every VNC session there is an associated ``.log`` file. In the screenshot
+above, there is one VNC session running, ``:7``. The log file of session ``:7``
+is the file ``~/.vnc/head2:7.log``. Each user gets a different session number,
+The log file of session ``:NNN`` is the file ``~/.vnc/head2:NNN.log``.
+
+To find the port number, search for the line
+
+    ``vncext: Listening for VNC connections on all interface(s), port 5907``
+
+see the following screenshot.
+
+.. figure:: imgs/vnc_session_log.png
+   :scale: 50 %
+   :alt:
+
+Another way of getting the ``port`` number is using the command ``netstat``.
+To find the port number of the session we want to connect to, execute
 
 .. code-block:: bash
 
       netstat -tnlp | grep VNCPID
 
-.. figure:: imgs/vnc1.png
+.. figure:: imgs/vnc_netstat.png
    :scale: 50 %
    :alt:
+
+In this case the ``VNCPORT`` is ``5907`` (the first line in the screenshot).
 
 .. warning:: make sure to set secure a password to the VNC session. This can
  be set to anthing irrespective of the login password.
 
+Create the ssh tunnel
+^^^^^^^^^^^^^^^^^^^^^
 
 Once the port (VNCPORT) is known, create a ssh tunnel by local port forwarding
 to the bound port on the HPC cluster. On a terminal on your local machine
@@ -94,10 +150,10 @@ to the bound port on the HPC cluster. On a terminal on your local machine
 
 .. code-block:: bash
 
-    ssh -L localhost:VNCPORT:localhost:VNCPORT my_user_name@hpc.aub.edu.lb
+    ssh -L localhost:VNCPORT:localhost:VNCPORT my_user_name@hpc.aub.edu.lb -N
 
 It is recommended to use the actual IP address of the node where the vnc server
-is running since the VNCPORT would most likely be closed when connected
+is running since the ``VNCPORT`` would most likely be closed when connected
 through the VPN. An actual example could look like:
 
 .. code-block:: bash
@@ -131,13 +187,14 @@ There are several options that can be set in the file ``~/.vnc/xstartup``
 that allow for customized in the graphical session.
 
 
-Connecting to a Jupyter-Lab notebook with vnc
-=============================================
+Connecting to a Jupyter-Lab notebook with the HPC backend
+=========================================================
 
 Jupyter notebooks (http://jupyter.org/) are very handy for prototyping, testing
 and running interactive computations in Python, R, C#, C++ and many other
-languages https://github.com/jupyter/jupyter/wiki/Jupyter-kernels
-
+languages https://github.com/jupyter/jupyter/wiki/Jupyter-kernels from the web
+browser on your local terminal/workstation (local client). Also a notebook
+can be fully exectued on the compute nodes.
 
 To submit a job that runs a notebook server on one of the compute nodes,
 the following job script can be used:
@@ -153,34 +210,31 @@ From lines 1 to 4 the job resource options are set (for more info on
 using the scheduler click :ref:`here <_lsf_cheatsheet>`)
 
 On the last two lines, the jupter notebook server is launched using port
-38888 (this port number is arbitrary, any other available port can be used) and
-in the last line, traffic to the port 38888 from the head node (head2) is
-forwarded to the same port on the compute node.
+38888 and in the last line, traffic to the port 38888 from the head node (head2)
+is forwarded to the same port on the compute node.
 
-After submitting the script, open a browser (e.g. firefox) on the head node
-in your desktop of the vnc session and open the page
+.. note::
 
-     http://localhost:38888
+   The port number 38888 is arbitrary, it is recommended to use any other
+   **available** port other than 38888, since probably many other users will
+   use 38888 by mistake. Basically, if you run into problem and things don't work
+   chose a port number > 1000.
 
-The access token can be found in the file ``jupyter.log`` in the job directory.
+Access token of the jupyer server
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The access token can be found in the file ``jupyter.log`` in the job directory
+along with a url through which you can connect to the server.
 
 It is possible to set a fixed password or disable a password prompt.
 Both are explained in http://jupyter-notebook.readthedocs.io/en/stable/public_server.html
 
-.. warning:: Users must be aware that the head nodes are intended for light
- computations only. Thus, users must be self conscious about the cpu and memory
- consumption of the notebook running on the head node, although the heavy work
- is being done on the compute nodes.
+Connect to the jupyter server from a client (recommended)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-
-Connecting to a Jupyter-Lab notebook without vnc
-================================================
-
-It is possible to connect to the jupyter server without a vnc session
-by using ssh tunnels. i.e the client would be the user's
-terminal/laptop/workstation. This can be achieved by creating a ssh tunnel
-from the machine where e.g a browser will be used where the notebook will be
-interacted with:
+After the job is submitted it is possible to connect to the jupyter server (that
+is running on the compute node) using ssh tunnels from your local client machine's
+web browser. To create the tunnel, execute (on your local terminal)
 
 .. code-block:: bash
 
@@ -188,6 +242,31 @@ interacted with:
 
 The diagram for the steps involved is:
 
+After creating the tunnel, you can access the server from your browser by
+typing in the url (with the token) found in ``jupyter.log`` (see previous
+section)
+
 .. figure:: jupyter/jupyter_hpc_usage_model.png
    :scale: 100 %
    :alt:
+
+
+Connect to the jupyter server on the head node (not recommended)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. warning:: Users must be aware that the head nodes are intended for light
+ computations only. Thus, users must be self conscious about the cpu and memory
+ consumption of the notebook running on the head node, although the heavy work
+ is being done on the compute nodes. This mode of using the notebook is not
+ recommended since it is easy for a user to overlook resource usage and clog
+ the head node and possible bring down the whole cluster.
+
+After submitting the script, open a browser (e.g. firefox) on the head node
+in your desktop of the vnc session and open the page
+
+.. code-block:: bash
+
+      /gpfs1/apps/sw/firefox/firefox-45.0/firefox http://localhost:38888/?token=a3b51a9ee42324d6a371002e433f5ca863ea60c4733b087a
+
+
+
