@@ -1,11 +1,11 @@
-#BSUB -J my_tensorflow_job
-#BSUB -n 1
-#BSUB -oo my_tensorflow_job.o%J
-#BSUB -eo my_tensorflow_job.e%J
-#BSUB -a gpushared
+#!/usr/bin/env bash
+#BSUB -J my_gpu_job
+#BSUB -n 16
+#BSUB -oo output.o%J
+#BSUB -eo output.e%J
 #BSUB -m node01
 
-module load tensorflow/1.1-py3
+module load singularity/2.4
 
 # copy the training and testing data to the /tmp dir where
 # tensorflow expects to find it. Currently the compute nodes
@@ -14,4 +14,6 @@ module load tensorflow/1.1-py3
 # dir, we short circuit that step by putting the data before hand.
 cp -fvr /gpfs1/data_public/tensorflow/data /tmp
 
-python convolutional_network.py
+singularity exec \
+    /gpfs1/apps/sw/singularity/containers/deep_learning/latest \
+    python convolutional_network.py
