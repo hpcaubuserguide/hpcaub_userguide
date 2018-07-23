@@ -39,7 +39,7 @@ Setting up
 
   .. code-block:: bash
 
-     C:\ProgramFiles\MATLAB\R2017b\toolbox\distcomp\examples\integration\
+     C:\Program Files\MATLAB\R2017b\toolbox\distcomp\examples\integration\
 
 - Open Matlab R2017b on the client machine (e.g your laptop)
 - Select ``Set Path``, click on ``Add Folder`` and browse to the following folder and click save:
@@ -95,6 +95,10 @@ Setting up
              :alt:
 
 - When finished, press done and make sure to set the HPC profile as ``Default``.
+
+- Press ``validate`` to validate the parallel configuratin. It is expected for
+ the last validation step (``parallel pool test``) to fail when using a remote
+ client with a ``non-shared`` configuration.
 
 Matlab as a client on Linux or Mac OS
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -187,4 +191,7 @@ Parallelize your code
 Typically replacing ``for`` with ``parfor`` is enough for parallelizing simple
 programs that involve loops.
 
-For more details see http://www.mathworks.com/products/parallel-computing
+For more details see:
+
+  - http://www.mathworks.com/products/parallel-computing
+  - https://nl.mathworks.com/videos/parallel-computing-tutorial-batch-processing-5-of-9-91567.html?s_tid=srchtitle
