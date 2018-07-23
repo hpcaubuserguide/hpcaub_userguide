@@ -21,7 +21,7 @@ TIP: Passwordless login can be set up to avoid typing the password everytime.
  administrators have created your account.
 
 .. note:: if ``hpc.aub.edu.lb`` does not work (due to, e.g. name resolution)
- use ``head2.aub.edu.lb``. This applied to the rest of the user guide as well.
+ use ``head2.aub.edu.lb``. This applies to the rest of the user guide as well.
 
 Tools for connecting
 ====================
