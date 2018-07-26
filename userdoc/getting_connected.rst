@@ -31,6 +31,96 @@ Tools for connecting
 - putty: https://putty.org/
 
 
+Generating a ssh private-public key pair
+========================================
+
+SSH keys can be used to authenticate yourself to login to the cluster. This is
+the recommended method and is more secure than typing in password or saving
+the passowrd in the ssh client (e.g putty). The generated key pair will allow
+you to login to the cluster from your local machine.
+
+
+.. code-block:: text
+
+       my machine         ---------->    HPC cluster
+       (linux/win/mac)                   (linux)
+
+on linux and mac
+^^^^^^^^^^^^^^^^
+
+To generate the key files:
+
+   - public key : ``~/.ssh/id_rsa.pub``
+   - private key: ``~/.ssh/id_rsa``
+
+execute the following command in a termanl on you machine:
+
+.. code-block:: bash
+
+    # first generate an ssh key on A
+    my machine> ssh-keygen -t rsa -b 4096
+
+.. warning:: this will overwrite any keys that already exist. You can specify
+ a new identity name using the ``-f my_ouptut_keyfie``
+
+.. note:: this same process can be done on windows also from the command line
+ assuming that you already have openssh installed. (e.g using ``msys2``)
+
+.. raw:: html
+
+    <iframe width="560" height="315" src="http://www.youtube.com/embed/6Dakd7EIgBE?rel=0" frameborder="0" allowfullscreen></iframe>
+
+
+on windwows using mobaxterm
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``Mobaxterm`` can be used to generate a ssh private-public key pair. The
+screencast can be found here.
+
+.. raw:: html
+
+    <iframe width="560" height="315" src="http://www.youtube.com/embed/6Dakd7EIgBE?rel=0" frameborder="0" allowfullscreen></iframe>
+
+.. todo:: embed the video from the FAQ page on the hpc website
+
+Login to the HPC cluster using a ssh public key
+===============================================
+
+At this point, it is assumed that you already have a ssh identity
+(public-private key pair). If not, see the section above.
+
+on linux/mac
+^^^^^^^^^^^^
+
+to push you public key to the cluster, the command ``ssh-copy-id`` can be
+used.
+
+.. code-block:: bash
+
+    $ ssh-copy-id -i id_rsa john@hpc.aub.edu.lb
+
+To test if the key has been added correctly:
+
+.. code-block:: bash
+
+    $ ssh -i ~/.ssh/id_rsa john@hpc.aub.edu.lb
+
+.. raw:: html
+
+    <iframe width="560" height="315" src="http://www.youtube.com/embed/6Dakd7EIgBE?rel=0" frameborder="0" allowfullscreen></iframe>
+
+on windows using mobaxterm
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The second part of the following screencast covers using mobaxterm and a ssh
+identity to log in without a password.
+
+.. raw:: html
+
+    <iframe width="560" height="315" src="http://www.youtube.com/embed/6Dakd7EIgBE?rel=0" frameborder="0" allowfullscreen></iframe>
+
+.. todo:: embed the video from the FAQ page on the hpc website
+
 Connecting to a graphical user interface
 ========================================
 
@@ -250,6 +340,21 @@ section)
    :scale: 100 %
    :alt:
 
+
+all in one
+++++++++++
+
+linux
+
+.. raw:: html
+
+    <iframe width="560" height="315" src="http://www.youtube.com/embed/6Dakd7EIgBE?rel=0" frameborder="0" allowfullscreen></iframe>
+
+windows (mobaxterm)
+
+.. raw:: html
+
+    <iframe width="560" height="315" src="http://www.youtube.com/embed/6Dakd7EIgBE?rel=0" frameborder="0" allowfullscreen></iframe>
 
 Connect to the jupyter server on the head node (not recommended)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
