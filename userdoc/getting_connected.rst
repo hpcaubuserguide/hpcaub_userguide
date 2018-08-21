@@ -66,22 +66,13 @@ execute the following command in a termanl on you machine:
 .. note:: this same process can be done on windows also from the command line
  assuming that you already have openssh installed. (e.g using ``msys2``)
 
-.. raw:: html
-
-    <iframe width="560" height="315" src="http://www.youtube.com/embed/6Dakd7EIgBE?rel=0" frameborder="0" allowfullscreen></iframe>
-
+<`screencast <http://website.aub.edu.lb/it/hpc/SiteAssets/Pages/faq/generate_ssh_key_linux.mp4>`_>
 
 on windwows using mobaxterm
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-``Mobaxterm`` can be used to generate a ssh private-public key pair. The
-screencast can be found here.
-
-.. raw:: html
-
-    <iframe width="560" height="315" src="http://www.youtube.com/embed/6Dakd7EIgBE?rel=0" frameborder="0" allowfullscreen></iframe>
-
-.. todo:: embed the video from the FAQ page on the hpc website
+``Mobaxterm`` can be used to generate a ssh private-public key pair.
+<`screencast <http://website.aub.edu.lb/it/hpc/SiteAssets/Pages/faq/generate_ssh_public_private_key_pair_mobaxterm_windows_and_enable_passwordless_login.mp4>`_>
 
 Login to the HPC cluster using a ssh public key
 ===============================================
@@ -105,21 +96,13 @@ To test if the key has been added correctly:
 
     $ ssh -i ~/.ssh/id_rsa john@hpc.aub.edu.lb
 
-.. raw:: html
-
-    <iframe width="560" height="315" src="http://www.youtube.com/embed/6Dakd7EIgBE?rel=0" frameborder="0" allowfullscreen></iframe>
+<`screencast <http://website.aub.edu.lb/it/hpc/SiteAssets/Pages/faq/login_with_ssh_key_linux.mp4>`_>
 
 on windows using mobaxterm
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The second part of the following screencast covers using mobaxterm and a ssh
+The second part of the following `screencast <http://website.aub.edu.lb/it/hpc/SiteAssets/Pages/faq/generate_ssh_public_private_key_pair_mobaxterm_windows_and_enable_passwordless_login.mp4>`_ covers using mobaxterm and a ssh
 identity to log in without a password.
-
-.. raw:: html
-
-    <iframe width="560" height="315" src="http://www.youtube.com/embed/6Dakd7EIgBE?rel=0" frameborder="0" allowfullscreen></iframe>
-
-.. todo:: embed the video from the FAQ page on the hpc website
 
 Connecting to a graphical user interface
 ========================================
@@ -248,7 +231,7 @@ through the VPN. An actual example could look like:
 
 .. code-block:: bash
 
-    ssh -L localhost:5907:localhost:5907 mk250@192.168.19.49
+    ssh -L localhost:5907:localhost:5907 my_user_name@hpc.aub.edu.lb
 
 The IP address of the HPC node where the server is running can be obtaine with
 ``ifconfig``
@@ -310,6 +293,9 @@ is forwarded to the same port on the compute node.
    use 38888 by mistake. Basically, if you run into problem and things don't work
    chose a port number > 1000.
 
+In the following screencast the whole processes is demonstrated both for linux
+and windows clients <`linux <http://website.aub.edu.lb/it/hpc/SiteAssets/Pages/faq/jupyter_with_hpc_backend_linux.mp4>`_> <`windwos <http://website.aub.edu.lb/it/hpc/SiteAssets/Pages/faq/jupyter_with_hpc_backend_windows.mp4>`_>
+
 Access token of the jupyer server
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -339,22 +325,6 @@ section)
 .. figure:: jupyter/jupyter_hpc_usage_model.png
    :scale: 100 %
    :alt:
-
-
-all in one
-++++++++++
-
-linux
-
-.. raw:: html
-
-    <iframe width="560" height="315" src="http://www.youtube.com/embed/6Dakd7EIgBE?rel=0" frameborder="0" allowfullscreen></iframe>
-
-windows (mobaxterm)
-
-.. raw:: html
-
-    <iframe width="560" height="315" src="http://www.youtube.com/embed/6Dakd7EIgBE?rel=0" frameborder="0" allowfullscreen></iframe>
 
 Connect to the jupyter server on the head node (not recommended)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
