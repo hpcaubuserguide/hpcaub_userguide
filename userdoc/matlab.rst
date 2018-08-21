@@ -19,7 +19,7 @@ Matlab as a client on Windows
 This configuration allows the user to use MATLAB on a local machine e.g. a
 laptop or a terminal on the AUB network and run heavy computations on the HPC
 cluster. After the execution on the HPC cluster is complete the results are
-transparently retrieved by MATLAB and shown in the matlab session on the
+transparently retrieved by MATLAB and shown in the matlab workspace on the
 client.
 
 .. note:: this section of the guide has been tested with:
@@ -32,7 +32,7 @@ Pre-requisites:
 
   - Matlab R2017b installed on your Laptop/Workstation.
   - `LSF.zip <https://mailaub-my.sharepoint.com/:u:/g/personal/sitani_aub_edu_lb/EbYcUpFEUZ5FrMQQgVNw4JUBeDjoWqBnmwLqcCzco7Aogg?e=lZeCJH>`_ folder to be installed in integration folder
-  - `AUBHPC2017b.settings <https://mailaub-my.sharepoint.com/:u:/g/personal/sitani_aub_edu_lb/ESbSMyH-jbZMk8urpNpYPnUBYMaqXxsoXMxEEkTXd-9MkA?e=mZ0Vz3>`_ profile.
+  - :download:`Arza Matlab client settings <matlab/Arza.settings>`
   - A working directory (folder) on your “C” or “D” drive.
   - Have your Matlab code modified to exploit parallelism.
   - One of the Matlab versions that are available on the cluster. Preferably
@@ -54,36 +54,36 @@ Setting up
 
     C:\Program Files\MATLAB\R2017b\toolbox\distcomp\examples\integration\lsf\nonshared
 
-.. figure:: imgs/matlab/matlab_Screenshot_1.png
+.. figure:: matlab/screenshots/matlab_Screenshot_1.png
    :scale: 100 %
    :alt:
 
-- To import ``AUBHPC2017b.settings`` profile:
+- To import the ``Arza.settings`` profile:
 
     + click on ``Parallel``
     + click on ``Manage Cluster Profiles``
 
-      .. figure:: imgs/matlab/matlab_Screenshot_2.png
+      .. figure:: matlab/screenshots/matlab_Screenshot_2.png
          :scale: 100 %
          :alt:
 
-    + Choose ``Import`` then browse to ``AUBHPC2017b.settings`` file
+    + Choose ``Import`` then browse to ``Arza.settings`` file
       (downloaded in step 3 in the Pre-requisites section above)
 
-      .. figure:: imgs/matlab/matlab_Screenshot_3.png
+      .. figure:: matlab/screenshots/matlab_Screenshot_3.png
          :scale: 100 %
          :alt:
 
-    + Once ``AUBHPC`` profile gets loaded, click on ``Edit``, and modify 3 options:
+    + Once the ``Arza`` profile gets loaded, click on ``Edit``, and modify 3 options:
 
-      .. figure:: imgs/matlab/matlab_Screenshot_4.png
+      .. figure:: matlab/screenshots/matlab_Screenshot_4.png
          :scale: 100 %
          :alt:
 
       + ``JobStorageLocation``: Modify the path to the folder you created for
         storing data (the workdir), see the screenshot is an example below.
 
-          .. figure:: imgs/matlab/matlab_Screenshot_5.png
+          .. figure:: matlab/screenshots/matlab_Screenshot_5.png
              :scale: 100 %
              :alt:
 
@@ -93,13 +93,13 @@ Setting up
       + ``Submit Functions``: Change the username, in the below example my
         username is ``john``, change it to your HPC account username.
 
-          .. figure:: imgs/matlab/matlab_Screenshot_6.png
+          .. figure:: matlab/screenshots/matlab_Screenshot_6.png
              :scale: 100 %
              :alt:
 
       +  Files and Folders: You may add files for submission to the HPC by selecting folder path:
 
-          .. figure:: imgs/matlab/matlab_Screenshot_7.png
+          .. figure:: matlab/screenshots/matlab_Screenshot_7.png
              :scale: 100 %
              :alt:
 
@@ -111,6 +111,46 @@ Setting up
 
 .. note:: Multiple such parallel configuration can co-exist and can be selected
  at runtime.
+
+:download:`Below <matlab/test_batch_jobs.m>` is a sample Matlab program for
+submitting independent jobs on the cluster. In this script four functions are
+exectued on the cluster and the results are collected back one job a time back
+to back in blocking mode (this can be improved on but that is beyond the scope
+of this guide).
+
+.. code-block:: matlab
+
+    clc; clear;
+
+    % run a function locally
+    output_local = my_linalg_function(80, 300);
+
+    % run 4 jobs on the cluster, wait for the remote jobs to finish
+    % and fetch the results.
+    cluster = parcluster('Arza');
+
+    % run the jobs (asyncroneously)
+    for i=1:4
+        jobs(i) = batch(cluster, @my_linalg_function, 1, {80, 600});
+    end
+
+    % wait for the jobs to finish
+    for i=1:4
+        status = wait(jobs(i));
+        outputs(i) = fetchOutputs(jobs(i));
+    end
+
+    % define a function that does some linaer algebra
+    function results = my_linalg_function(n_iters, mat_sz)
+        results = zeros(n_iters, 1);
+        for i = 1:n_iters
+            results(i) = max(abs(eig(rand(mat_sz))));
+        end
+    end
+
+.. note:: For communicating jobs using shared memory or MPI the jobs should be
+ submitted on the cluster directly and it is not possible to submit such jobs
+ through the client in the configuration described above.
 
 Matlab as a client on Linux or Mac OS
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
