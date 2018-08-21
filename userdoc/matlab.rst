@@ -16,6 +16,12 @@ Matlab can be used on the cluster in several configurations.
 Matlab as a client on Windows
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+This configuration allows the user to use MATLAB on a local machine e.g. a
+laptop or a terminal on the AUB network and run heavy computations on the HPC
+cluster. After the execution on the HPC cluster is complete the results are
+transparently retrieved by MATLAB and shown in the matlab session on the
+client.
+
 .. note:: this section of the guide has been tested with:
 
         - Matlab 2017b
@@ -61,7 +67,8 @@ Setting up
          :scale: 100 %
          :alt:
 
-    + Choose ``Import`` then browse to ``AUBHPC2017b.settings`` file (downloaded in step 3 in the Pre-requisites section above)
+    + Choose ``Import`` then browse to ``AUBHPC2017b.settings`` file
+      (downloaded in step 3 in the Pre-requisites section above)
 
       .. figure:: imgs/matlab/matlab_Screenshot_3.png
          :scale: 100 %
@@ -73,16 +80,18 @@ Setting up
          :scale: 100 %
          :alt:
 
-      + ``JobStorageLocation``: Modify the path to the folder you created for storing data (the workdir), see the screenshot is an example below.
+      + ``JobStorageLocation``: Modify the path to the folder you created for
+        storing data (the workdir), see the screenshot is an example below.
 
           .. figure:: imgs/matlab/matlab_Screenshot_5.png
              :scale: 100 %
              :alt:
 
-      + ``NumWokers``: Modify the number of cores to be used on HPC cluster (e.g. 4,6,8,10,12)
+      + ``NumWokers``: Modify the number of cores to be used on HPC cluster
+        (e.g. 4,6,8,10,12)
 
-      + ``Submit Functions``: Change the username, in the below example my username is:
-        ``sitani`` change it to your HPC account.
+      + ``Submit Functions``: Change the username, in the below example my
+        username is ``john``, change it to your HPC account username.
 
           .. figure:: imgs/matlab/matlab_Screenshot_6.png
              :scale: 100 %
@@ -100,6 +109,9 @@ Setting up
  the last validation step (``parallel pool test``) to fail when using a remote
  client with a ``non-shared`` configuration.
 
+.. note:: Multiple such parallel configuration can co-exist and can be selected
+ at runtime.
+
 Matlab as a client on Linux or Mac OS
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -107,6 +119,13 @@ Matlab as a client on Linux or Mac OS
 
 Matlab on the compute nodes of the cluster
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This configuration allows the user to run MATLAB scripts on the HPC cluster
+directly through the scheduler. Once the jobs are complete the user can
+chose to transfer the results to a local machine and analyze them or analyze
+everything on the cluster as well and e.g retrieve a final product that could
+be a plot or a some data files. This setup does not require the user to have
+matlab installed on their local machine.
 
 Serial jobs
 +++++++++++
