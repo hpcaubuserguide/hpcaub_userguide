@@ -13,7 +13,7 @@ AUB HPC user guide
    getting_connected.rst
    lsf_cheatsheet.rst
    modules_cheatsheet.rst
-   serial_jobs.rst
+   jobs.rst
    smp_parallel_jobs.rst
    mpi_parallel_jobs.rst
    gpu_jobs.rst

@@ -24,7 +24,34 @@ for a serial or parallel programs.
 - ``#BSUB -N``: Enable email notification when the job starts and exits.
 - ``#BSUB -u foo42@aub.edu.lb``: Specify the email address to be used.
 
-Serial job
-==========
-For a serial job ``-n 1`` should be requested. The rest of the flags are
-arbitrary.
+.. note:: For a serial job ``-n 1`` should be requested. The rest of the flags
+ are arbitrary.
+
+Batch jos submission and monitoring procedure
+=============================================
+
+- submit the job script using LSF
+
+  .. code-block:: bash
+
+      $ bsun < mY_job_script.sh
+
+  This will submit the job to the queueing system. The job could run immediately
+  or set in pending mode until the requested resources are available for the job
+  to run.
+
+- check the status of the job
+
+  .. code-block:: bash
+
+      $ bjobs -u all
+
+- After the job is dispatched for executing (starts running), monitor the
+ output by checking the ``.e`` and the ``.o`` files, our any other diagnositic
+ files the program created.
+
+For more information on using LSF, please consult the ``man`` pages:
+
+.. code-block:: bash
+
+   $ man bsub
