@@ -22,6 +22,7 @@ AUB HPC user guide
    machine_learning.rst
    genomics.rst
    matlab.rst
+   fluent.rst
    faq.rst
 
 Indices and tables
