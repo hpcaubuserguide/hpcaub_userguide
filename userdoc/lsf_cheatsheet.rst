@@ -19,8 +19,8 @@ To submitting an interactive job on a compute node
 
 .. code-block:: bash
 
-    $ bsub -n 64 -Is bash
-    $ bsub -n 64 -XF bash    # with X forwarding
+    $ bsub -n 64 -Is bash       # interactive job without X
+    $ bsub -n 64 -XF -I bash    # interactive job with X forwarding
 
 List of running jobs
 ====================
