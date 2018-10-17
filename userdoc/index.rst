@@ -18,6 +18,7 @@ AUB HPC user guide
    mpi_parallel_jobs.rst
    gpu_jobs.rst
    hybrid_jobs.rst
+   using_python.rst
    using_enzo.rst
    machine_learning.rst
    genomics.rst
