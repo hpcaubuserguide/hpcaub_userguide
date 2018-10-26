@@ -29,7 +29,7 @@ In this guide the following will be done:
      $ tar -xzvf spark-2.3.2-bin-hadoop2.7.tgz
 
 2) Create the ``spark-env.sh`` file and customize it to your configuration. The
- following template can be used
+ following template can be used.
 
  .. code-block:: bash
 
@@ -46,7 +46,13 @@ In this guide the following will be done:
     export PYSPARK_DRIVER_PYTHON_OPTS="notebook"
     export PYSPARK_PYTHON=`which python`
 
- and copy it to the ``spark`` configuration directory
+ Make the script executable using:
+
+ .. code-block:: bash
+
+    $ chmod +x spark-env.sh
+
+  and copy it to the ``spark`` configuration directory
 
  .. code-block:: bash
 
@@ -80,7 +86,9 @@ In this guide the following will be done:
     start-slaves.sh
 
     echo "create the reverse tunnel for the master web ui"
-    ssh -R localhost:${SPARK_MASTER_WEBUI_PORT}:localhost:${SPARK_MASTER_WEBUI_PORT} head2 -N #-f
+    ssh -R localhost:${SPARK_MASTER_WEBUI_PORT}:localhost:${SPARK_MASTER_WEBUI_PORT} head2 -N -f
+
+    sleep infinity
 
 4) submit the job
 
