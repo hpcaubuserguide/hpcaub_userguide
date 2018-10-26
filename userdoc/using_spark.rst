@@ -101,4 +101,4 @@ In this guide the following will be done:
    troubleshoot in case something un-exepected happens.
 
 5) After the job execution is complete, make sure that the master and slaves
- are stopped.
+   are stopped.
