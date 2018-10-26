@@ -102,3 +102,4 @@ In this guide the following will be done:
 
 5) After the job execution is complete, make sure that the master and slaves
    are stopped.
+
