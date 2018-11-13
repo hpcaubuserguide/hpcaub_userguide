@@ -70,7 +70,7 @@ See also other the rest of the user guide for GPU jobs..etc.
 How do I report a problem with a job submission?
 ================================================
 
-For any problems, issues and requests, please send an email to ``it.helpdesk@aub.edu.lb`
+For any problems, issues and requests, please send an email to ``it.helpdesk@aub.edu.lb``
 
 How can I find out what software is available on the HPC cluster?
 =================================================================

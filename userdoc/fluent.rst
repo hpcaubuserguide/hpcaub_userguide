@@ -75,17 +75,17 @@ For simulations that do not fit in a single node, ``Fluent`` can automatically
 allocate resources on multiple nodes. In this case the following steps must be
 followed:
 
-- use the command ``fluent`` on the terminal to open the ``Fluent`` launcher
-- tick ``Use Job Scheduler`` and specify the number of cores to use
+ - use the command ``fluent`` on the terminal to open the ``Fluent`` launcher
+ - tick ``Use Job Scheduler`` and specify the number of cores to use
 
-.. image:: fluent/fluent_multi_node_1.png
-   :scale: 100 %
-   :align: center
+    .. image:: fluent/fluent_multi_node_1.png
+       :scale: 100 %
+       :align: center
 
-- in the ``Scheduler`` tab select the queue to be used. The ``bqueues`` command
- can be used to see the available queues. These queues are also described in the
- `HPC usage policy <http://website.aub.edu.lb/it/hpc/SiteAssets/Pages/contact-us/HPC_Usage_Policy_v2.pdf>`_.
+ - in the ``Scheduler`` tab select the queue to be used. The ``bqueues`` command
+   can be used to see the available queues. These queues are also described in the
+   `HPC usage policy <http://website.aub.edu.lb/it/hpc/SiteAssets/Pages/contact-us/HPC_Usage_Policy_v2.pdf>`_.
 
-.. image:: fluent/fluent_multi_node_2.png
-   :scale: 100 %
-   :align: center
+    .. image:: fluent/fluent_multi_node_2.png
+       :scale: 100 %
+       :align: center

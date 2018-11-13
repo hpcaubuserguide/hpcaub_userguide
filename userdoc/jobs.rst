@@ -47,8 +47,8 @@ Batch jos submission and monitoring procedure
       $ bjobs -u all
 
 - After the job is dispatched for executing (starts running), monitor the
- output by checking the ``.e`` and the ``.o`` files, our any other diagnositic
- files the program created.
+  output by checking the ``.e`` and the ``.o`` files, our any other diagnositic
+  files the program created.
 
 For more information on using LSF, please consult the ``man`` pages:
 

@@ -106,8 +106,8 @@ Setting up
 - When finished, press done and make sure to set the HPC profile as ``Default``.
 
 - Press ``validate`` to validate the parallel configuratin. It is expected for
- the last validation step (``parallel pool test``) to fail when using a remote
- client with a ``non-shared`` configuration.
+  the last validation step (``parallel pool test``) to fail when using a remote
+  client with a ``non-shared`` configuration.
 
 .. note:: Multiple such parallel configuration can co-exist and can be selected
  at runtime.
