@@ -12,8 +12,16 @@ for a serial or parallel programs.
 
 - ``#BSUB -J myjob``: set the name of the job. This will appear e.g. when the
   command ``bjobs`` is executed to query the queued or running jobs.
-- ``#BSUB -n 1``: Specify the number of slots/cores. For more complicated
+- ``#BSUB -n 8``: Specify the number of slots/cores. For more complicated
   resources allocation, have a look at the man pages of ``bsub``.
+- ``#BSUB -R "span[ptile=2]``: The value of the parameter that is passed to
+  ``ptile`` instructs the the scheduler to distribute 2 slots per node. This
+  flag must be used in conjuction with ``-n``. In this case with ``-n 8`` the 8
+  slots are spread accross 4 nodes. To allocate 1 slot per node for 8 nodes
+  ``ptile=1`` must be used. This is typically useful for GPU jobs or jobs that
+  require a large amount of memory. Another typical use case is to set
+  ``ptile=16`` with ``-n 16``, that guarantees allocating all slots on the same
+  node since there are only 16 slots per node.
 - ``#BSUB -oo myjob.o%J``: the standard output will be dumped to a file called
   ``myjob.o`` appended by the job ID assigned by the scheduler.
 - ``#BSUB -eo myjob.e%J``: the standard error will be dumped to a file called
