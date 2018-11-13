@@ -6,6 +6,7 @@
 #BSUB -m node10
 #BSUB -N
 #BSUB -u foo42@aub.edu.lb
+#BSUB -R "span[ptile=16]"
 
 echo $(hostname) "hello world"
 
