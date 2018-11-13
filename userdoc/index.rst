@@ -7,7 +7,7 @@ AUB HPC user guide
 ========================
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :caption: Contents:
 
    getting_connected.rst

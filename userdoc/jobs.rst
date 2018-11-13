@@ -34,7 +34,7 @@ Batch jos submission and monitoring procedure
 
   .. code-block:: bash
 
-      $ bsun < mY_job_script.sh
+      $ bsun < my_job_script.sh
 
   This will submit the job to the queueing system. The job could run immediately
   or set in pending mode until the requested resources are available for the job

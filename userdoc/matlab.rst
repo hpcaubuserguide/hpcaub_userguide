@@ -210,6 +210,7 @@ running the matlab script ``my_smp_script.m``.
 
 
 .. note:: the only differences with a serial job are:
+
    - the names of the script.
    - ``-n 1`` is replaced with ``-n 16`` in the job script.
    - specify the parallel profile in the ``.m`` script e.g ``parpool('local', 16)``
@@ -221,6 +222,7 @@ running the matlab script ``my_smp_script.m``.
     #BSUB -n 16
     #BSUB -oo myjob.o%J
     #BSUB -eo myjob.e%J
+    #BSUB -R "span[ptile=16]"
 
     module load matlab/2017b
 
@@ -238,6 +240,10 @@ for example, the content of ``my_smp_script.m`` could be:
     end
     toc
 
+.. note:: The ``#BSUB -R "span[ptile=16]"`` forces the scheduler to place all
+ the 16 cores specified with the ``-n 16`` flag on the same host. This is
+ cruicial since matlab's ``parpool`` can no parallelize across multiple
+ nodes when the ``local`` configuration is specified.
 
 Cluster wide parallelism
 ^^^^^^^^^^^^^^^^^^^^^^^^

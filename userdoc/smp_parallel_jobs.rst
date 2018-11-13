@@ -20,6 +20,28 @@ To build and submit the job to the queue
    :linenos:
    :language: bash
 
+allocate a node exclusively
+===========================
+
+To allocate all the resources of a node just for yourself, a user must use the
+flag ``-R "span[ptile=16]"`` that forces the scheduler to place all the 16
+cores specified with the ``-n 16`` flag on the same host.
+
+
+.. code-block:: bash
+   :linenos:
+
+    #BSUB -J my_full_node_job
+    #BSUB -n 16
+    #BSUB -oo my_job.o%J
+    #BSUB -eo my_job.e%J
+    #BSUB -R "span[ptile=16]"
+
+    module load module1
+    module load module2
+
+    ./run_command_1
+    ./run_command_2
 
 Setting the core affinity
 =========================
@@ -32,7 +54,7 @@ could potentialy improve the performance of compute intensive jobs.
 In this sample script
 
 .. code-block:: bash
-   :lineos:
+   :linenos:
 
    #BSUB -J test1
    #BSUB -n 1
