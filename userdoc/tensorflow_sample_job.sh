@@ -12,7 +12,7 @@ module load singularity/2.4
 # do not have access to the internet through port 80, and since
 # the script would try to download the data if it is not in the /tmp
 # dir, we short circuit that step by putting the data before hand.
-cp -fvr /gpfs1/data_public/tensorflow/data /tmp
+rsync -PrlHvtpog /gpfs1/data_public/tensorflow/data .
 
 singularity exec \
     /gpfs1/apps/sw/singularity/containers/deep_learning/latest \
