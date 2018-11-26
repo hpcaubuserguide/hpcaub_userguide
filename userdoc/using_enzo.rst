@@ -34,6 +34,8 @@ external references
 ^^^^^^^^^^^^^^^^^^^
 
 http://enzo-project.org/BootCamp.html
+https://grackle.readthedocs.io/en/latest/
+https://grackle.readthedocs.io/en/latest/Installation.html#downloading
 
 
 dependencies
@@ -43,6 +45,8 @@ dependencies
 - servial version of hdf5 1.8.15-patch1
 - openmpi
 - gcc-7.2
+- libtool (for grackle)
+- Intel compiler (optional)
 
 All these dependencies/prerequisites can be loaded through
 
@@ -171,3 +175,120 @@ This will change the content of ``Make.config.override``
 .. note:: make sure to use ``./enzo.exe`` (that is the executable built for
  your problem) instead of just ``enzo.exe`` (that is the executable in the
  default enzo environment) in the script ``job.sh``.
+
+
+Build enzo with the Intel compiler
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To produce the enzo Makefile with the needed Intel compiler flags:
+
+- create copy the arza makefile
+
+  .. code-block:: bash
+
+     cp Make.mach.arza Make.mach.arza-intel-2018u2
+
+- do the following changes to ``Make.mach.arza-intel-2018u2``
+
+  .. code-block:: bash
+
+      LOCAL_GRACKLE_INSTALL = /gpfs1/apps/sw/grackle-3.2-intel-2018u2
+      MACH_CC_MPI    = mpiicc  # C compiler when using MPI
+      MACH_CXX_MPI   = mpiicpc # C++ compiler when using MPI
+      MACH_FC_MPI    = mpiifort   # Fortran 77 compiler when using MPI
+      MACH_F90_MPI   = mpiifort   # Fortran 90 compiler when using MPI
+      MACH_LD_MPI    = mpiicpc # Linker when using MPI
+      MACH_CC_NOMPI  = icc   # C compiler when not using MPI
+      MACH_CXX_NOMPI = icpc  # C++ compiler when not using MPI
+      MACH_FC_NOMPI  = ifort # Fortran 77 compiler when not using MPI
+      MACH_F90_NOMPI = ifort # Fortran 90 compiler when not using MPI
+      MACH_LD_NOMPI  = icpc  # Linker when not using MPI
+      MACH_OPT_AGGRESSIVE  = -O3 -xHost
+
+      #-----------------------------------------------------------------------
+      # Precision-related flags
+      #-----------------------------------------------------------------------
+
+      MACH_FFLAGS_INTEGER_32 = -i4
+      MACH_FFLAGS_INTEGER_64 = -i8
+      MACH_FFLAGS_REAL_32    = -r4
+      MACH_FFLAGS_REAL_64    = -r8
+
+      LOCAL_LIBS_MACH   = -limf -lifcore # Machine-dependent libraries
+
+- to compile with the new intel makefile
+
+  .. code-block:: bash
+
+     $ module load intel/2018u2
+     $ module load grackle/3.2-intel
+     $ make machine-arza-intel-2018u2
+     $ make opt-high
+
+     # (optional - use if needed)
+     # or for agressive optimization, before publishing results with such
+     # agressive optimization, check the scientific results with those
+     # run with opt-high or even opt-debug
+     $make opt-aggressive
+
+     # compile enzo
+     $ make -j16
+
+
+Compile Grackle and build it
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- download the Grackle source code and extract it (or clone it from github)
+
+create a copy of the makefile ``Make.mach.linux-gnu``
+
+.. code-block:: bash
+
+   $ cp Make.mach.linux-gnu Make.mach.arza
+
+in the ``Arza`` makefile, specify  by specifying the path to HDF5 and the
+install prefix:
+
+.. code-block:: bash
+
+   MACH_FILE  = Make.mach.arza
+   LOCAL_HDF5_INSTALL = /gpfs1/apps/sw/hdf/hdf5-1.8.15-patch1-serial-gcc-7.2
+   MACH_INSTALL_PREFIX = /gpfs1/apps/sw/grackle/grackle-3.2
+
+To build and install grackle, execute:
+
+.. code-block:: bash
+
+    $ cd grackle/src/clib
+    $ make machine-arza
+    $ make
+    $ make install
+
+Compile grackle with the Intel compiler
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Copy the makefile and create one specific to the intel compiler
+
+.. code-block:: bash
+
+   $ cp Make.mach.arza Make.mach.arza-intel-2018u2
+
+.. code-block:: bash
+
+   MACH_CC_NOMPI  = icc   # C compiler
+   MACH_CXX_NOMPI = icpc  # C++ compiler
+   MACH_FC_NOMPI  = ifort # Fortran 77
+   MACH_F90_NOMPI = ifort # Fortran 90
+   MACH_LD_NOMPI  = icc   # Linker
+   MACH_INSTALL_PREFIX = /gpfs1/apps/sw/grackle/grackle-3.2-intel-2018u2
+
+To build and install it, execute:
+
+.. code-block:: bash
+
+    $ module unload gcc
+    $ module load intel/2018u2
+    $ cd grackle/src/clib
+    $ make machine-arza-intel-2018u2
+    $ make
+    $ make install
