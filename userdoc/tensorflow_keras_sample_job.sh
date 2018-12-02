@@ -10,5 +10,5 @@ module load singularity/2.4
 echo "runing on node " $HOSTNAME
 
 singularity exec \
-   /gpfs1/apps/sw/singularity/containers/deep_learning/tensorflow-1.12-devel-gpu-py3 \
+   /gpfs1/apps/sw/singularity/containers/deep_learning/latest \
    python conv_lstm.py

@@ -26,7 +26,8 @@ The following containers have been deployed
 .. code-block:: text
 
     tensorflow-1.7.1-devel-gpu-py3-arza-release-1.0   (default)
-    tensorflow-1.12-devel-gpu-py3
+    tensorflow-1.12-devel-gpu-py3                     (latest)
+    ubuntu-16.04-pytorch-0.4.1-cuda-9.0               (default-pytorch)
 
 A typical job script look like:
 
