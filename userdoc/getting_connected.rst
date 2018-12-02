@@ -212,7 +212,26 @@ To find the port number of the session we want to connect to, execute
 In this case the ``VNCPORT`` is ``5907`` (the first line in the screenshot).
 
 .. warning:: make sure to set secure a password to the VNC session. This can
- be set to anthing irrespective of the login password.
+ be set to anything irrespective of the login password.
+
+Obtain the port number from ``~/.vnc/head:X.log`` file
+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+The port number is also logged to ``~/.vnc/head:X.log``, there might be several
+``.log`` files in ``~/.vnc``, but usually a user gets assigned always the same
+port number. Executing the following command will display one (or more) port
+numbers. Try them out until one works (agian, usually there should be one
+number). If all fails, kill the ``vncserver`` and delete the
+``~/.vnc/head:*.log`` and re-create a vncserver.
+
+.. code-block:: bash
+
+      grep "Listening for VNC connections" ~/.vnc/head2\:*.log | awk '{print $NF}' | uniq
+
+.. figure:: imgs/vnc_log_port.png
+   :scale: 50 %
+   :alt:
+
 
 Create the ssh tunnel
 ^^^^^^^^^^^^^^^^^^^^^
