@@ -107,6 +107,10 @@ identity to log in without a password.
 Connecting to a graphical user interface
 ========================================
 
+VNC session are useful only if you want to have a desktop like environment on
+the HPC cluster displayed on your computer. VNC session are not needed if you
+want to use the command line and submit batch jobs.
+
 VNC clients
 ^^^^^^^^^^^
 
