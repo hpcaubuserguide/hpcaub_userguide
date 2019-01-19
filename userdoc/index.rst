@@ -24,6 +24,7 @@ AUB HPC user guide
    genomics.rst
    matlab.rst
    fluent.rst
+   gaussian.rst
    faq.rst
 
 Indices and tables
