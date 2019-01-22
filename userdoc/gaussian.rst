@@ -37,12 +37,11 @@ Common problems
 
 Permission to use ``Gaussian``
 ++++++++++++++++++++++++++++++
-Gaussian is a licensed software. Currently there is a limited number of licenses
-available. Before using ``Gaussian``, make sure you can execute ``Gaussian``
-by checking that your user account is part of the ``g09`` group. You can check
-that by executing the command ``group`` on  the terminal. The output of ``group``
-should contain ``g09``. If you need access to the ``g09`` group, please contact
-the admins by submitting a ticket.
+Gaussian is a licensed software. Before using ``Gaussian``, make sure you can
+execute ``Gaussian`` by checking that your user account is part of the ``g09``
+group. You can check that by executing the command ``group`` on  the terminal.
+The output of ``group`` should contain ``g09``. If you need access to the
+``g09`` group, please contact the admins by submitting a ticket.
 
 ``/tmp`` directory is full
 ++++++++++++++++++++++++++
