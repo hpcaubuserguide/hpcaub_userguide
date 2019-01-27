@@ -177,7 +177,7 @@ running the matlab script ``my_serial_script.m``.
 
 .. code-block:: bash
 
-    #BSUB -J myjob
+    #BSUB -J serial_matlab
     #BSUB -n 1
     #BSUB -oo myjob.o%J
     #BSUB -eo myjob.e%J
@@ -188,15 +188,27 @@ running the matlab script ``my_serial_script.m``.
 
 for example, the content of ``my_serial_script.m`` could be:
 
-
 .. code-block:: matlab
 
     tic
     values = zeros(200);
     for i = 1:size(values, 2)
-        values(i) = min(eig(rand(800)));
+        values(i) = sum(abs(eig(rand(800))));
     end
     toc
+
+    disp(sum(sum(values)));
+
+The following should be present in the output
+
+.. code-block:: text
+
+    Elapsed time is 113.542701 seconds.
+    checksum = 9.492791e+05
+
+.. note:: the ``Elapsed time`` could vary slightly since the execution time
+ depends on the load of the compute node (if it is not the only running process)
+ and the ``checksum`` could vary slightly since it is based on randon numbers.
 
 Single node (shared memory - SMP) parallel jobs
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -239,6 +251,17 @@ for example, the content of ``my_smp_script.m`` could be:
         values(i) = min(eig(rand(800)));
     end
     toc
+
+The following should be present in the output
+
+.. code-block:: text
+
+   Elapsed time is 10.660034 seconds.
+   checksum = 9.492312e+05
+
+.. note:: the ``Elapsed time`` could vary slightly since the execution time
+ depends on the load of the compute node (if it is not the only running process)
+ and the ``checksum`` could vary slightly since it is based on randon numbers.
 
 .. note:: The ``#BSUB -R "span[ptile=16]"`` forces the scheduler to place all
  the 16 cores specified with the ``-n 16`` flag on the same host. This is
