@@ -8,7 +8,7 @@ Matlab can be used on the cluster in several configurations.
 
   - run jobs directly on the compute nodes of the cluster (recommended)
         + out of the box parallelizm up to 16 cores (a full node)
-        + full parallelizm on the cluster (requires setup)
+        + full parallelizm on the cluster (requires setup - experimental)
   - run jobs on a client and use the cluster as a backend (requires setup).
         + supports windows clients
         + supports linux and mac clients
@@ -16,32 +16,34 @@ Matlab can be used on the cluster in several configurations.
 Matlab as a client on Windows
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This configuration allows the user to use MATLAB on a local machine e.g. a
-laptop or a terminal on the AUB network and run heavy computations on the HPC
-cluster. After the execution on the HPC cluster is complete the results are
-transparently retrieved by MATLAB and shown in the matlab workspace on the
-client.
+This configuration allows the user to use ``MATLAB`` on a local machine e.g. a
+laptop or a terminal on the AUB network and run the heavy computations sections
+of a ``Matlab`` program/script on the HPC cluster. After the execution on the
+HPC cluster is complete the results are transparently retrieved by ``MATLAB``
+and shown in the matlab workspace on the client. For this use case, the user
+does not have to login (or interact) with the HPC cluster.
 
 .. note:: this section of the guide has been tested with:
 
+        - Matlab 2018b (recommended)
         - Matlab 2017b
 
    make sure you have the same version on the client machine.
 
+Setting up a Matlab 2017b client
+++++++++++++++++++++++++++++++++
+
 Pre-requisites:
 
-  - Matlab R2017b installed on your Laptop/Workstation.
-  - `LSF.zip <https://mailaub-my.sharepoint.com/:u:/g/personal/sitani_aub_edu_lb/EbYcUpFEUZ5FrMQQgVNw4JUBeDjoWqBnmwLqcCzco7Aogg?e=lZeCJH>`_ folder to be installed in integration folder
-  - :download:`Arza Matlab client settings <matlab/Arza.settings>`
+  - A supported Matlab installed on your Laptop/Workstation.
+  - `LSF-2017b.zip <https://mailaub-my.sharepoint.com/:u:/g/personal/sitani_aub_edu_lb/EfYpNqe_hylNqoDeLvvYPnwBgsG-o8VIDXPM6JuMFzwwIg?e=4xw9OP>`_ folder to be installed in the integration folder
+  - :download:`Arza Matlab 2017b client settings <matlab/2017b/Arza.settings>`
   - A working directory (folder) on your “C” or “D” drive.
   - Have your Matlab code modified to exploit parallelism.
-  - One of the Matlab versions that are available on the cluster. Preferably
-    Matlab 2017b.
+  - Matlab 2017b installed on the client.
 
-Setting up
-++++++++++
-
-- Once ``LSF.zip`` is downloaded, extract it to this path:
+- Once ``LSF-2017b.zip`` is downloaded, extract it to this path (or to the
+ corresponding directory of your non-default Matlab installation directory):
 
   .. code-block:: bash
 
@@ -54,7 +56,7 @@ Setting up
 
     C:\Program Files\MATLAB\R2017b\toolbox\distcomp\examples\integration\lsf\nonshared
 
-.. figure:: matlab/screenshots/matlab_Screenshot_1.png
+.. figure:: matlab/2017b/screenshots/matlab_Screenshot_1.png
    :scale: 100 %
    :alt:
 
@@ -63,27 +65,27 @@ Setting up
     + click on ``Parallel``
     + click on ``Manage Cluster Profiles``
 
-      .. figure:: matlab/screenshots/matlab_Screenshot_2.png
+      .. figure:: matlab/2017b/screenshots/matlab_Screenshot_2.png
          :scale: 100 %
          :alt:
 
     + Choose ``Import`` then browse to ``Arza.settings`` file
       (downloaded in step 3 in the Pre-requisites section above)
 
-      .. figure:: matlab/screenshots/matlab_Screenshot_3.png
+      .. figure:: matlab/2017b/screenshots/matlab_Screenshot_3.png
          :scale: 100 %
          :alt:
 
     + Once the ``Arza`` profile gets loaded, click on ``Edit``, and modify 3 options:
 
-      .. figure:: matlab/screenshots/matlab_Screenshot_4.png
+      .. figure:: matlab/2017b/screenshots/matlab_Screenshot_4.png
          :scale: 100 %
          :alt:
 
       + ``JobStorageLocation``: Modify the path to the folder you created for
         storing data (the workdir), see the screenshot is an example below.
 
-          .. figure:: matlab/screenshots/matlab_Screenshot_5.png
+          .. figure:: matlab/2017b/screenshots/matlab_Screenshot_5.png
              :scale: 100 %
              :alt:
 
@@ -93,13 +95,13 @@ Setting up
       + ``Submit Functions``: Change the username, in the below example my
         username is ``john``, change it to your HPC account username.
 
-          .. figure:: matlab/screenshots/matlab_Screenshot_6.png
+          .. figure:: matlab/2017b/screenshots/matlab_Screenshot_6.png
              :scale: 100 %
              :alt:
 
       +  Files and Folders: You may add files for submission to the HPC by selecting folder path:
 
-          .. figure:: matlab/screenshots/matlab_Screenshot_7.png
+          .. figure:: matlab/2017b/screenshots/matlab_Screenshot_7.png
              :scale: 100 %
              :alt:
 
@@ -111,6 +113,10 @@ Setting up
 
 .. note:: Multiple such parallel configuration can co-exist and can be selected
  at runtime.
+
+
+Client batch job example
+++++++++++++++++++++++++
 
 :download:`Below <matlab/test_batch_jobs.m>` is a sample Matlab program for
 submitting independent jobs on the cluster. In this script four functions are
