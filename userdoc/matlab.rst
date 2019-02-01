@@ -30,17 +30,91 @@ does not have to login (or interact) with the HPC cluster.
 
    make sure you have the same version on the client machine.
 
+.. note:: Multiple such parallel configuration can co-exist and can be selected
+ at runtime.
+
+Setting up a Matlab 2018b client
+++++++++++++++++++++++++++++++++
+
+Pre-requisites:
+
+  - Matlab 2018b installed on the client.
+  - `LSF-2018b.zip <https://mailaub-my.sharepoint.com/:u:/g/personal/sitani_aub_edu_lb/EYFLeZMvpL5HuM6-Hr7hXQcBbCYfiALkodKw86OJOWZt7w?e=0AoJFR>`_ folder to be installed in the integration folder
+  - :download:`Arza Matlab 2018b client settings <matlab/2018b/Arza-lsf-2018b.settings>`
+  - A working directory (folder) on your “C” or “D” drive.
+  - Have your Matlab code modified to exploit parallelism.
+
+
+- Once ``LSF-2018b.zip`` is downloaded, extract it to this path (or to the
+  corresponding directory of your non-default Matlab installation directory):
+
+  .. code-block:: bash
+
+     C:\Program Files\MATLAB\R2018b\toolbox\distcomp\examples\integration\
+
+  .. figure:: matlab/2018b/screenshots/matlab_Screenshot_dir_structure.png
+     :scale: 100 %
+     :alt:
+
+- Open Matlab R2018b on the client machine (e.g your laptop)
+- Select ``Set Path``, click on ``Add Folder`` and browse to the following folder and click save:
+
+  .. code-block:: bash
+
+      C:\Program Files\MATLAB\R2018b\toolbox\distcomp\examples\integration\lsf\nonshared
+
+  .. figure:: matlab/2018b/screenshots/matlab_Screenshot_set_path.png
+     :scale: 25 %
+     :alt:
+
+- To import the ``Arza-lsf-2018b.settings`` profile:
+
+    + click on ``Parallel``
+    + click on ``Manage Cluster Profiles``
+
+      .. figure:: matlab/2018b/screenshots/matlab_Screenshot_2.png
+         :scale: 100 %
+         :alt:
+
+    + Choose ``Import`` then browse to ``Arza-lsf-2018b.settings`` file
+      (downloaded in step 3 in the Pre-requisites section above)
+
+      .. figure:: matlab/2018b/screenshots/matlab_Screenshot_3.png
+         :scale: 100 %
+         :alt:
+
+    + Once the ``Arza-lsf-2018b`` profile gets loaded, select it click on
+      ``Edit``, and modify the ``JobStorageLocation`` and use a path on your
+      HPC account:
+
+      .. figure:: matlab/2018b/screenshots/matlab_Screenshot_remote_job_storage_location.png
+         :scale: 100 %
+         :alt:
+
+      + ``NumWokers``: Modify the number of cores to be used on HPC cluster
+        (e.g. 4,6,8,10,12)
+
+- When finished, press done and make sure to set the HPC profile as ``Default``.
+
+- Press ``validate`` to validate the parallel configuratin. It is expected for
+  the last validation step (``parallel pool test``) to fail when using a remote
+  client with a ``non-shared`` configuration.
+
+  .. figure:: matlab/2018b/screenshots/matlab_Screenshot_validation.png
+     :scale: 100 %
+     :alt:
+
+
 Setting up a Matlab 2017b client
 ++++++++++++++++++++++++++++++++
 
 Pre-requisites:
 
-  - A supported Matlab installed on your Laptop/Workstation.
-  - `LSF-2017b.zip <https://mailaub-my.sharepoint.com/:u:/g/personal/sitani_aub_edu_lb/EfYpNqe_hylNqoDeLvvYPnwBgsG-o8VIDXPM6JuMFzwwIg?e=4xw9OP>`_ folder to be installed in the integration folder
+  - Matlab 2017b installed on the client.
+  - `LSF-2017b.zip <https://mailaub-my.sharepoint.com/:u:/g/personal/sitani_aub_edu_lb/EfYpNqe_hylNqoDeLvvYPnwBgsG-o8VIDXPM6JuMFzwwIg?e=cvGBQg>`_ folder to be installed in the integration folder
   - :download:`Arza Matlab 2017b client settings <matlab/2017b/Arza.settings>`
   - A working directory (folder) on your “C” or “D” drive.
   - Have your Matlab code modified to exploit parallelism.
-  - Matlab 2017b installed on the client.
 
 - Once ``LSF-2017b.zip`` is downloaded, extract it to this path (or to the
  corresponding directory of your non-default Matlab installation directory):
@@ -110,9 +184,6 @@ Pre-requisites:
 - Press ``validate`` to validate the parallel configuratin. It is expected for
   the last validation step (``parallel pool test``) to fail when using a remote
   client with a ``non-shared`` configuration.
-
-.. note:: Multiple such parallel configuration can co-exist and can be selected
- at runtime.
 
 
 Client batch job example
