@@ -150,4 +150,15 @@ Currently all the data is stored in the shared paritions ``/gpfs1``. This is not
 backed up. ``/gpfs1`` can be thought of a large scrach drive and should not be
 treated as a long term storage solution.
 
+How do I request a new account
+==============================
 
+To request access to Arza​, please fill the following from:
+
+https://servicedesk.aub.edu.lb/TDClient/Requests/ServiceDet?ID=29749
+
+A valid AUBnet ID is required prior to requesting or renewing an account. If you
+do not have one yet, your sponsors can start submitting your sponsored account
+request using the following form:
+
+https://servicedesk.aub.edu.lb/TDClient/Requests/ServiceDet?ID=29795
