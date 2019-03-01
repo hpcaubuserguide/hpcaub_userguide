@@ -54,7 +54,6 @@ could potentialy improve the performance of compute intensive jobs.
 In this sample script
 
 .. code-block:: bash
-   :linenos:
 
    #BSUB -J test1
    #BSUB -n 1
