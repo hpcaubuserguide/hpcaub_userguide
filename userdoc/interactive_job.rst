@@ -1,6 +1,15 @@
 Interactive jobs
 ----------------
 
+Summary
+^^^^^^^
+
+To connect to a vnc session on a compute node:
+
+  - submit the job script shown below
+  - create a ssh tunnel from your machine to the head node of the cluster
+  - connect using a vnc viewer (client) to the ssh tunnel on localhost
+
 An interactive job on a compute node
 ++++++++++++++++++++++++++++++++++++
 
