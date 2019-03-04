@@ -29,7 +29,7 @@ The following containers have been deployed
     tensorflow-1.12-devel-gpu-py3                     (latest)
     ubuntu-16.04-pytorch-0.4.1-cuda-9.0               (default-pytorch)
 
-A typical job script look like:
+A typical batch job script look like:
 
 .. code-block:: bash
 
@@ -56,6 +56,52 @@ A typical job script look like:
 
    Moreover the ``-n 16`` flag must be used to allocate the full node exclusively
    for the job.
+
+Run a jupyter lab notebook server
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A jupyter lab server is run on a compute node to which a user can connect
+to using a browser on the local machine (i.e laptop/desktop/termina)
+
+The following job script can be used as a template to submit a job.
+For more details on getting connected to a jupyter notebook can be found in the
+:ref:`getting connected <Getting_started>` section of the user guide.
+
+.. code-block:: bash
+
+    #!/usr/bin/env bash
+    #BSUB -J my_gpu_job
+    #BSUB -n 16
+    #BSUB -R "span[ptile=16]"
+    #BSUB -m node02
+    #BSUB -q 6-hours
+    #BSUB -oo output.o%J
+    #BSUB -eo output.e%J
+
+    # change this to a different number to avoid clashes with other
+    # users
+    JUPYTER_PORT=58888
+
+    module load singularity/2.4
+
+    # copy the training and testing data to the /tmp dir where
+    # tensorflow expects to find it. Currently the compute nodes
+    # do not have access to the internet through port 80, and since
+    # the script would try to download the data if it is not in the /tmp
+    # dir, we short circuit that step by putting the data before hand.
+    # you need to replace the line
+    #    mnist = input_data.read_data_sets("/tmp/data/", one_hot=False)
+    # by
+    #    mnist = input_data.read_data_sets("data", one_hot=False)
+    # before you run the python script
+    rsync -PrlHvtpog /gpfs1/data_public/tensorflow/data .
+
+    singularity exec \
+        /gpfs1/apps/sw/singularity/containers/deep_learning/latest \
+        jupyter-lab  --no-browser --port=${JUPYTER_PORT} > jupyter.log 2>&1 &
+
+    ssh -R localhost:${JUPYTER_PORT}:localhost:${JUPYTER_PORT} hpc.aub.edu.lb -N
+
 
 Run a Keras example
 ^^^^^^^^^^^^^^^^^^^

@@ -1,5 +1,6 @@
 Getting connected
 -----------------
+.. _Getting_started:
 
 Connecting to a terminal
 ========================
