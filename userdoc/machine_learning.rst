@@ -61,7 +61,7 @@ Run a jupyter lab notebook server
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 A jupyter lab server is run on a compute node to which a user can connect
-to using a browser on the local machine (i.e laptop/desktop/termina)
+to using a browser on the local machine (i.e laptop/desktop/terminal)
 
 The following job script can be used as a template to submit a job.
 For more details on getting connected to a jupyter notebook can be found in the
