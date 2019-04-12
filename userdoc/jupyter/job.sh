@@ -3,6 +3,8 @@
 #BSUB -oo jupyter.o%J
 #BSUB -eo jupyter.e%J
 
+JUPYTER_PORT=38888
+
 module load python/3
-jupyter-lab  --no-browser --port=38888 > jupyter.log 2>&1 &
-ssh -R localhost:38888:localhost:38888 head2 -N
+jupyter-lab  --no-browser --port=${JUPYTER_PORT} > jupyter.log 2>&1 &
+ssh -R localhost:${JUPYTER_PORT}:localhost:${JUPYTER_PORT} hpc.aub.edu.lb -N
