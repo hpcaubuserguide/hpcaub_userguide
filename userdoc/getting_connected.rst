@@ -28,6 +28,7 @@ Tools for connecting
 ====================
 
 - mobaxterm (most user freindly): https://mobaxterm.mobatek.net/
+    .. note:: install the portable version, it does not require admin access
 - winscp: https://winscp.net/eng/index.php
 - putty: https://putty.org/
 
