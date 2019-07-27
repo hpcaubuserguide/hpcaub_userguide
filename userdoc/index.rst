@@ -26,6 +26,7 @@ AUB HPC user guide
    matlab.rst
    fluent.rst
    gaussian.rst
+   openfoam.rst
    faq.rst
 
 Indices and tables
