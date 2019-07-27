@@ -34,8 +34,14 @@ run should complete within ~ 10 seconds.
     cd $FOAM_RUN
     cp -r $FOAM_TUTORIALS/incompressible/simpleFoam/pitzDaily .
     cd pitzDaily
+
+    # generate the mesh and run the simulation
     blockMesh
     simpleFoam
 
+.. note:: paraview has not been compiled and is not available. For post-processing
+ and visualizing the simulation outpus the data can be transfer to a local machine.
 
+
+**sample parallel run**
 
