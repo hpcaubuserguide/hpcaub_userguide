@@ -45,3 +45,32 @@ run should complete within ~ 10 seconds.
 
 **sample parallel run**
 
+In this example a parallel example for the OpenFoam tutorial suite will be run.
+The job script below can be used as a template to run such parallel simulations.
+
+.. code-block:: bash
+
+    #BSUB -J openfoam-parallel
+    #BSUB -n 16
+    #BSUB -R "span[ptile=16]"
+    #BSUB -q 6-hours
+    #BSUB -oo ofoam.o%J
+    #BSUB -eo ofoam.e%J
+
+    module load openfoam/6.0-gcc-9.1
+    source $FOAMBASHRC
+
+    # remove the example directory to have clean test run (if it exists)
+    rm -fvr $FOAM_RUN/depthCharge3D
+
+    # create the dir where the fresh example will be copied
+    mkdir -p $FOAM_RUN
+    cd $FOAM_RUN
+    cp -r $FOAM_TUTORIALS/multiphase/compressibleInterFoam/laminar/depthCharge3D .
+    cd depthCharge3D
+
+    # generate the mesh, partition the domains, and run the simulation
+    blockMesh
+    setFields
+    decomposePar
+    mpirun -np 16  compressibleInterFoam
