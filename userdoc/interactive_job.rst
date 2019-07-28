@@ -1,6 +1,8 @@
 Interactive jobs
 ----------------
 
+.. _interactive_job_anchor:
+
 Summary
 ^^^^^^^
 
