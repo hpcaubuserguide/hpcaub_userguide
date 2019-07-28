@@ -292,3 +292,21 @@ To build and install it, execute:
     $ make machine-arza-intel-2018u2
     $ make
     $ make install
+
+Using Yt to postprocess Enzo snapshots
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``Yt`` can be used either in interactive mode by submitting an interactive
+job :ref:`interactive job <interactive_job_anchor>`, through :ref:`jupyter notebooks <jupyter_notebook_job_anchor>`,
+or by using python script via regular batch jobs. A simple visualization can be
+produced by executing the following (after a job is allocated):
+
+.. code-block:: python
+
+     import yt
+     ds = yt.load("/gpfs1/john/my_enzo_simulation/DD0000/DD0000")
+     print ("Redshift =", ds.current_redshift)
+     p.save()
+
+A ``.png`` file will be saved to disk in this case. In an interactive job
+the images can be viewed live.

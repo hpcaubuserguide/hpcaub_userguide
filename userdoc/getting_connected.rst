@@ -288,6 +288,8 @@ that allow for customized in the graphical session.
 Connecting to a Jupyter-Lab notebook with the HPC backend
 =========================================================
 
+.. _jupyter_notebook_job_anchor:
+
 Jupyter notebooks (http://jupyter.org/) are very handy for prototyping, testing
 and running interactive computations in Python, R, C#, C++ and many other
 languages https://github.com/jupyter/jupyter/wiki/Jupyter-kernels from the web
