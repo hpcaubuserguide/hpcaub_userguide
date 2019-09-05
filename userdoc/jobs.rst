@@ -26,9 +26,9 @@ for a serial or parallel programs.
   ``myjob.o`` appended by the job ID assigned by the scheduler.
 - ``#BSUB -eo myjob.e%J``: the standard error will be dumped to a file called
   ``myjob.o`` appended by the job ID assigned by the scheduler.
-- ``#BSUB -m node10``: Specify the main node for the submitted job. If omitted
-  the scheduler will pick any available node depending on the requested
-  resources.
+- ``#BSUB -m "node10 node12``: Specify the list of the hosts where the job will
+  run. If omitted (which is the recommended default) the scheduler will pick any
+  available node depending on the requested resources.
 - ``#BSUB -u foo42@aub.edu.lb``: Specify the email address to be used.
 - ``#BSUB -N``: Enable email notification when the job starts and exits.
 - ``#BSUB -B``: send an email when  the job status changes from pending to running
