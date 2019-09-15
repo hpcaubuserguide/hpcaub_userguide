@@ -1,5 +1,5 @@
 Machine Learning - Deep Learning - Artificial Intelligence jobs
-===============================================================
+---------------------------------------------------------------
 
 Currently the following machine learning libraries are installed:
 

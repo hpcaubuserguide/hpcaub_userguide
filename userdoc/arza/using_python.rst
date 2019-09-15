@@ -1,5 +1,5 @@
-Scientific computing in Python
-------------------------------
+Python
+------
 
 The python environment can be activated using the command:
 

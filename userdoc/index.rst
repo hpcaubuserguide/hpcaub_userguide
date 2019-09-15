@@ -6,28 +6,11 @@
 AUB HPC user guide
 ========================
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+There are 3 clusters available for users at AUB:
 
-   getting_connected.rst
-   lsf_cheatsheet.rst
-   jobs.rst
-   modules_cheatsheet.rst
-   smp_parallel_jobs.rst
-   mpi_parallel_jobs.rst
-   gpu_jobs.rst
-   hybrid_jobs.rst
-   interactive_job.rst
-   using_python.rst
-   using_enzo.rst
-   machine_learning.rst
-   genomics.rst
-   matlab.rst
-   fluent.rst
-   gaussian.rst
-   openfoam.rst
-   faq.rst
+ - :ref:`Arza <arza_guide_anchor>` (IBM HPC cluster)
+ - :ref:`Octopus <octopus_guide_anchor>` (Mixed architecture Beowulf cluster)
+ - :ref:`Matlab <matlab_distcomp_anchor>` distributed computing cluster
 
 Indices and tables
 ==================

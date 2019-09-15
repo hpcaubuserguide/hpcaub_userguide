@@ -1,7 +1,9 @@
-Using Enzo
-----------
+Enzo
+----
 
 The enzo enviroment can be activated by executing:
+
+.. code-block:: bash
 
    $ module load enzo
 
@@ -18,6 +20,8 @@ node:
    :language: bash
 
 After creating the job file ``job.sh``, submit the job to the scheduler
+
+.. code-block:: bash
 
    $ bsub < job.sh
 
@@ -49,6 +53,8 @@ dependencies
 - Intel compiler (optional)
 
 All these dependencies/prerequisites can be loaded through
+
+.. code-block:: bash
 
    $ module load enzo/prerequisites
 
@@ -99,6 +105,8 @@ to
 
 - after preparing the build make files, execute
 
+  .. code-block:: bash
+
     $ make -j8
 
   to compile and produce the ``enzo`` executable
@@ -118,6 +126,8 @@ Build enzo for a custom problem
 To build enzo for the sample simulation e.g. ``run/CosmologySimulation/AMRCosmology``
 after loading the enzo environment:
 
+.. code-block:: bash
+
    $ module load enzo
 
 .. note:: this loaded version of enzo might not be compatible with your custom
@@ -128,7 +138,9 @@ after loading the enzo environment:
 
 - execute
 
-   $ enzo AMRCosmology.enzo
+  .. code-block:: bash
+
+    $ enzo AMRCosmology.enzo
 
   in the directory ``run/CosmologySimulation/AMRCosmology``
 
@@ -136,7 +148,9 @@ after loading the enzo environment:
 
 - copy ``Enzo_Build`` to the enzo source code dir
 
-   $ cp run/CosmologySimulation/AMRCosmology/Enzo_Build src/enzo/Make.settings.AMRCosmology
+  .. code-block:: bash
+
+    $ cp run/CosmologySimulation/AMRCosmology/Enzo_Build src/enzo/Make.settings.AMRCosmology
 
 - configure the make files with the new settings
 
@@ -151,7 +165,9 @@ This will change the content of ``Make.config.override``
 
 - build enzo
 
-   $ make -j8
+  .. code-block:: bash
+
+     $ make -j8
 
 - copy the produced ``enzo.exe`` to the problem directory
 

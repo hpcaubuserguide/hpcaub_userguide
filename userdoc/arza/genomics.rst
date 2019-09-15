@@ -23,7 +23,9 @@ The genomics environment can be loaded via:
    :scale: 50 %
    :alt: genomics environment packages
 
-   genomics environment packages
+genomics environment packages
+
+.. todo:: add list of packages
 
 Submitting jobs
 ^^^^^^^^^^^^^^^
