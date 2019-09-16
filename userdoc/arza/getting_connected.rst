@@ -1,25 +1,27 @@
 Getting connected
 -----------------
-.. _Getting_started:
+.. _Getting_started_arza:
 
 Connecting to a terminal
 ========================
 
 When on the AUB network (also valid when connected through the VPN service
-https://website.aub.edu.lb/it/services/staff/configs/sslvpn/Pages/index.aspx),
+https://servicedesk.aub.edu.lb/TDClient/Requests/ServiceDet?ID=29740 ),
 any of the following mehtod can be used to login to the head node of the cluster.
 
 .. code-block:: bash
 
-    ssh my_user_name@hpc.aub.edu.lb       # preffered (inside AUB network only)
+    ssh my_user_name@hpc.aub.edu.lb       # preffered
     ssh my_user_name@head2.aub.edu.lb     # optional  (when on AUB VPN network)
     ssh my_user_name@head1.aub.edu.lb     # optional  (when on AUB VPN network)
     ssh my_user_name@192.168.19.49        # last resort (if all of the above do not work)
 
-TIP: Passwordless login can be set up to avoid typing the password everytime.
+TIP: Passwordless login can be set up to avoid typing the password everytime and
+     is safer than saving the password in the ssh client or re-tying it.
 
 .. warning:: SECURITY: make sure to change your account password after the
- administrators have created your account.
+ administrators have created your account. To change the account password
+ after logging in, use the command ``passwd``
 
 .. note:: if ``hpc.aub.edu.lb`` does not work (due to, e.g. name resolution)
  use ``head2.aub.edu.lb``. This applies to the rest of the user guide as well.
@@ -27,6 +29,8 @@ TIP: Passwordless login can be set up to avoid typing the password everytime.
 Tools for connecting
 ====================
 
+- native ssh on linux or mac (recommended)
+- msys2: https://www.msys2.org/ (recommended on windows)
 - mobaxterm (most user freindly): https://mobaxterm.mobatek.net/
     .. note:: install the portable version, it does not require admin access
 - winscp: https://winscp.net/eng/index.php

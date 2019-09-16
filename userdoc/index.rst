@@ -9,7 +9,7 @@ AUB HPC user guide
 There are 3 clusters available for users at AUB:
 
  - :ref:`Arza <arza_guide_anchor>` (IBM HPC cluster)
- - :ref:`Octopus <octopus_guide_anchor>` (Mixed architecture Beowulf cluster)
+ - :ref:`Octopus <octopus_guide_anchor>` (Mixed architecture virtualized Beowulf cluster)
  - :ref:`Matlab <matlab_distcomp_anchor>` distributed computing cluster
 
 Indices and tables
