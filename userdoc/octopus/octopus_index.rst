@@ -14,7 +14,7 @@ Octopus user guide
    getting_connected.rst
    slurm_cheatsheet.rst
    jobs.rst
-..   modules_cheatsheet.rst
+   modules_cheatsheet.rst
 ..   smp_parallel_jobs.rst
 ..   mpi_parallel_jobs.rst
 ..   gpu_jobs.rst
