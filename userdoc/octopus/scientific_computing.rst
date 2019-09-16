@@ -7,4 +7,4 @@ Scientific Computing and Environments
 
    using_python.rst
    machine_learning.rst
-..   matlab.rst
+   matlab.rst
