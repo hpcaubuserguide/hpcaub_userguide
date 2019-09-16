@@ -6,5 +6,5 @@ Scientific Computing and Environments
    :caption: Contents:
 
    using_python.rst
-..   machine_learning.rst
+   machine_learning.rst
 ..   matlab.rst
