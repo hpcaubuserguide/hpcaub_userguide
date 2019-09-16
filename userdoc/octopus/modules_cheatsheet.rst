@@ -9,7 +9,7 @@ the appropriate module should be loaded.
 
 .. code-block:: bash
 
-    $ module load python/3.6.3
+    $ module load python/3
 
 Modules are "configuration" set/change/remove environment variables from
 the current environment.

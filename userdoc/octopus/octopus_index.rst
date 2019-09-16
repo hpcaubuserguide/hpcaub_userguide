@@ -15,12 +15,13 @@ Octopus user guide
    slurm_cheatsheet.rst
    jobs.rst
    modules_cheatsheet.rst
+   scientific_computing.rst
 ..   smp_parallel_jobs.rst
 ..   mpi_parallel_jobs.rst
 ..   gpu_jobs.rst
 ..   hybrid_jobs.rst
 ..   interactive_job.rst
-..   scientific_computing.rst
+
 ..   faq.rst
 
 Indices and tables
