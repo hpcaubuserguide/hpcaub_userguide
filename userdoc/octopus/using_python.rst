@@ -35,7 +35,7 @@ Users who wish to extend/create custom python these environment can:
 
       .. code-block:: bash
 
-          conda create --prefix /gpfs1/john/test-env python=3.8
+          conda create --prefix /home/john/test-env python=3.8
 
   - ``virtualenvs`` are by default created in the home directory ``~/.virtualenvs``.
     It might be also useful to use the package ``Virtualenvwrapper``.
