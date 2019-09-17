@@ -72,9 +72,11 @@ The job script below can be used as a template to run such parallel simulations.
 
     # generate the mesh, partition the domains, and run the simulation
     blockMesh
-    setFields
     decomposePar
-    mpirun -np 16  compressibleInterFoam
+    mpirun refineMesh -overwrite -case /path/to/your/case/dir -parallel
+    mpirun refineMesh -overwrite -case /path/to/your/case/dir -parallel
+    setFields
+    mpirun compressibleInterFoam -case /path/to/your/case/dir -parallel
 
 OpenFoam 2.4
 ^^^^^^^^^^^^
