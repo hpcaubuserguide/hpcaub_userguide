@@ -21,7 +21,7 @@ import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
-import sphinx_bootstrap_theme
+
 
 # -- General configuration ------------------------------------------------
 
@@ -93,6 +93,7 @@ html_theme = os.getenv('USERGUIDETHEME')
 if html_theme is None:
     html_theme = 'alabaster'
 elif html_theme == 'bootstrap':
+    import sphinx_bootstrap_theme
     html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
 else:
     # no theme specified
