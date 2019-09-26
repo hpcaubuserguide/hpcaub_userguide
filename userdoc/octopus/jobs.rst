@@ -2,7 +2,7 @@ Example job script
 ------------------
 
 The following script can be used as a template to exectute some bash commands
-for a serial or parallel programs.
+for a serial or parallel program.
 
 .. literalinclude:: sample_job.sh
    :linenos:
@@ -10,17 +10,17 @@ for a serial or parallel programs.
 
 **Flags Description**
 
-- ``#SBATCH --job-name=my_job_name``: set the name of the job. This will appear
+- ``#SBATCH --job-name=my_job_name``: Set the name of the job. This will appear
   e.g. when the command ``squeue`` is executed to query the queued or running jobs.
 - ``#SBATCH -A 7561539``: Specify the ID of the project. This number should
   correspond to the project ID of the service request. Jobs without this flag
   will be rejected.
-- ``#SBATCH --partition normal: The name of the partition a.k.a queue to which
-  the job with be submitted.
-- ``#SBATCH --nodes=2``: the number of nodes that will be reserved for the job.
-- ``#SBATCH --ntasks-per-node=8``: the number of cores (e.g mpi tasks) that will be
+- ``#SBATCH --partition normal``: The name of the partition, a.k.a queue to which
+  the job will be submitted.
+- ``#SBATCH --nodes=2``: The number of nodes that will be reserved for the job.
+- ``#SBATCH --ntasks-per-node=8``: The number of cores (e.g mpi tasks) that will be
   reserved per node.
-- ``#SBATCH --cpus-per-task=2``: the number of core per task to be reserved for
+- ``#SBATCH --cpus-per-task=2``: The number of cores per task to be reserved for
   the job (e.g number of openmp threads per mpi task). The total number of cores
   reserved for the job is the product of the values of the flags ``--nodes``,
   ``--ntasks-per-node`` and ``--cpus-per-task``.
@@ -30,7 +30,7 @@ for a serial or parallel programs.
   reached, the job is killed by the scheduler. Jobs that do not specify this
   flag will be rejected.
 
-Batch jos submission and monitoring procedure
+Batch job submission and monitoring procedure
 =============================================
 
 - submit the job script using SLURM
