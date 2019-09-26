@@ -7,7 +7,7 @@ Currently the following machine learning libraries are installed:
   - pytorch
   - sklearn
 
-.. note:: Inorder to use a GPU for the deep learning job, the following flag
+.. note:: In order to use a GPU for the deep learning job, the following flag
  must be specified in the job script ``#SBATCH --gres=gpu:v100d32q:1``
 
 Using tensorflow, keras or pytorch
@@ -18,7 +18,7 @@ The default environment for:
       tensorflow and keras is ``python/tensorflow``
       pytorch is ``python/pytorch``
 
-A typical batch job script look like:
+A typical batch job script looks like:
 
 .. code-block:: bash
 
