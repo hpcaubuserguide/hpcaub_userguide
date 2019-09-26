@@ -7,8 +7,8 @@ Overview
 Matlab can be used on the cluster in several configurations.
 
   - run jobs directly on the compute nodes of the cluster (recommended)
-        + out of the box parallelizm up to 64 cores (a full max size node)
-        + full parallelizm on the cluster (guide not available yet)
+        + out of the box parallelism up to 64 cores (a full max size node)
+        + full parallelism on the cluster (guide not available yet)
   - run jobs on a client and use the cluster as a backend (requires setup).
         + supports windows clients (guide not available yet)
         + supports linux and mac clients (guide not available yet)
@@ -88,7 +88,7 @@ running the matlab script ``my_smp_script.m``.
    - ``--nodes=1`` must be specified otherwise the resources would be allocated
      on other nodes and would not be accessible by matlab.
    - specify the parallel profile in the ``.m`` script e.g ``parpool('local', 64)``
-   - ``for`` is replced with ``parfor`` in the ``.m`` matlab script.
+   - ``for`` is replaced with ``parfor`` in the ``.m`` matlab script.
 
 .. code-block:: bash
 
