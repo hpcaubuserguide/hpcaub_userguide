@@ -3,7 +3,7 @@ Modules cheatsheet
 
 Several programs with different versions are available on HPC systems. Having
 all the versions at the disposal of the user simultaneously leads to library
-conflicts and clashes.  In any production environment only the needed pacakges
+conflicts and clashes.  In any production environment only the needed packages
 should be included in the environment of the user.  In-order to use ``python3``
 the appropriate module should be loaded.
 
