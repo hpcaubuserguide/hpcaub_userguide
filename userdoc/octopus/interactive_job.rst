@@ -26,10 +26,10 @@ To connect to the vnc session using a vnc viewer (client) a tunnel to the
    :scale: 100 %
    :alt:
 
-caveates
+caveats
 ^^^^^^^^
 
-  - ``VNC_HEAD_PORT`` is not used by any user on the head node an is available
+  - ``VNC_HEAD_PORT`` is not used by any user on the head node and is available
 
 The following job script can be used as a template and the resources options
 can be changed to meet the demands of a particular simulation
