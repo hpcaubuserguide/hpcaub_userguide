@@ -7,17 +7,17 @@ Connecting to a terminal
 
 When on the AUB network (also valid when connected through the VPN service
 https://servicedesk.aub.edu.lb/TDClient/Requests/ServiceDet?ID=29740 ),
-any of the following mehtod can be used to login to the head node of the cluster.
+any of the following methods can be used to login to the head node of the cluster.
 
 .. code-block:: bash
 
-    ssh my_user_name@octopus.aub.edu.lb   # preffered
+    ssh my_user_name@octopus.aub.edu.lb   # preferred
     ssh my_user_name@ohead1.aub.edu.lb    # optional  (not recommended)
     ssh my_user_name@ohead2.aub.edu.lb    # optional  (not recommended)
     ssh my_user_name@192.168.137.23       # last resort (if all of the above do not work)
 
 TIP: Passwordless login can be set up to avoid typing the password everytime and
-     is safer than saving the password in the ssh client or re-tying it.
+     is safer than saving the password in the ssh client or re-typing it.
 
 .. warning:: SECURITY: make sure to change your account password after the
  administrators have created your account. To change the account password
@@ -58,7 +58,7 @@ To generate the key files:
    - public key : ``~/.ssh/id_rsa.pub``
    - private key: ``~/.ssh/id_rsa``
 
-execute the following command in a termanl on you machine:
+execute the following command in a terminal on you machine:
 
 .. code-block:: bash
 
@@ -88,7 +88,7 @@ At this point, it is assumed that you already have a ssh identity
 on linux/mac
 ^^^^^^^^^^^^
 
-to push you public key to the cluster, the command ``ssh-copy-id`` can be
+to push your public key to the cluster, the command ``ssh-copy-id`` can be
 used.
 
 .. code-block:: bash
@@ -112,8 +112,8 @@ identity to log in without a password.
 Connecting to a graphical user interface
 ========================================
 
-VNC session are useful only if you want to have a desktop like environment on
-the HPC cluster displayed on your computer. VNC session are not needed if you
+VNC sessions are useful only if you want to have a desktop like environment on
+the HPC cluster displayed on your computer. VNC sessions are not needed if you
 want to use the command line and submit batch jobs.
 
 VNC clients
@@ -132,7 +132,7 @@ Creating SSH tunnels
 ====================
 
 SSH tunnels are handy for redirecting traffic from one host/port to another.
-Here are some links on how to create tunnels on various platfroms, since we
+Here are some links on how to create tunnels on various platforms, since we
 will be using them in what follows:
 
   - native linux tunnel https://www.revsys.com/writings/quicktips/ssh-tunnel.html
