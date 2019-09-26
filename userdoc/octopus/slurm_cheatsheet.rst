@@ -18,7 +18,7 @@ should be passed to ``sbatch``
 
     $ sbatch my_job_script.sh
 
-To submitting an interactive for testing and/or debugging/development the
+To submit an interactive for testing and/or debugging/development the
 ``srun`` command can be used
 
 .. code-block:: bash
@@ -54,7 +54,7 @@ of the job to be killed is know, execute:
 
 .. code-block:: bash
 
-    $ squeue job_to_be_killed_id
+    $ scancel job_to_be_killed_id
 
 List of hosts and queues/partitions on the cluster
 ==================================================
