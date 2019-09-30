@@ -29,7 +29,7 @@ Users who wish to extend/create custom python these environment can:
         print(IPython)
         >>> <module 'IPython' from '/home/john/.local/lib/python3.7/site-packages/IPython/__init__.py'>
 
-  - a similar approach can be done for ``anaconda`` environemnts.
+  - a similar approach can be done for ``anaconda`` environments.
 
     * new conda environment in a custom location
 
@@ -41,15 +41,15 @@ Users who wish to extend/create custom python these environment can:
     It might be also useful to use the package ``Virtualenvwrapper``.
 
   - use ``pipenv`` that is a new and powerful way to creating and managing python
-    environments. The following an excellent guide on getting started with
+    environments. The following is an excellent guide on getting started with
     ``pipenv`` https://robots.thoughtbot.com/how-to-manage-your-python-projects-with-pipenv
 
   - install anaconda locally in their home directories
 
   - compile and install ``python`` from source. This is non-trivial and requires
     good knowledge of what the user is doing, but gives full control on the build
-    process and customization of python. For optimial performance, this is the
-    recomended approach.
+    process and customization of python. For optimal performance, this is the
+    recommended approach.
 
 Connecting to a jupyter notebook server on a compute node or nodes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -63,7 +63,7 @@ The following job script can be used as a template to submit a job.
 
     #!/bin/bash
 
-    #SBATCH --job-name=jupyter-servre
+    #SBATCH --job-name=jupyter-server
     #SBATCH --partition normal
 
     #SBATCH --nodes=1
