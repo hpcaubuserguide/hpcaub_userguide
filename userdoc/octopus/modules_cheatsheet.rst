@@ -20,7 +20,7 @@ Useful ``module`` commands
   - ``module avail``: display the available packages that can be loaded
   - ``module list``: lists the loaded packages
   - ``module load foo``: to load the package ``foo``
-  - ``module rm foo``: to unload the pacakge ``foo`` 
+  - ``module rm foo``: to unload the package ``foo`` 
   - ``module purge``: to unload all the loaded packages
 
 For detailed information on the usage of ``module`` check the man pages
