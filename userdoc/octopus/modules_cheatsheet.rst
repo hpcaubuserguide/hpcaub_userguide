@@ -17,11 +17,11 @@ the current environment.
 Useful ``module`` commands
 ==========================
 
-  - ``module avail``
-  - ``module list``
-  - ``module load module_to_be_loaded``
-  - ``module rm module_to_be_removed``
-  - ``module purge``
+  - ``module avail``: display the available packages that can be loaded
+  - ``module list``: lists the loaded packages
+  - ``module load foo``: to load the package ``foo``
+  - ``module rm foo``: to unload the pacakge ``foo`` 
+  - ``module purge``: to unload all the loaded packages
 
 For detailed information on the usage of ``module`` check the man pages
 
