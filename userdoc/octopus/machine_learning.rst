@@ -40,3 +40,6 @@ A typical batch job script looks like:
 
     python3 keras_classification.py
 
+To connect to a ``jupyter`` notebook with the deep learning environment copy the jupyter notebook server
+job script from the :ref:`python jupyter server guide <jupyter_notebook_job_octopus>` and load the ``cuda``
+module and shown above in addition to the needed machine learning framework module.

@@ -54,6 +54,8 @@ Users who wish to extend/create custom python these environment can:
 Connecting to a jupyter notebook server on a compute node or nodes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. _jupyter_notebook_job_octopus:
+
 A jupyter lab server is run on a compute node to which a user can connect
 to using a browser on the local machine (i.e laptop/desktop/terminal)
 
@@ -72,6 +74,8 @@ The following job script can be used as a template to submit a job.
     #SBATCH --mem=8000
     #SBATCH --time=0-01:00:00
     #SBATCH -A foo_project
+
+    # .. todo:: add the snippet for selecting a random unused port
 
     # change this to a different number to avoid clashes with other users
     JUPYTER_PORT=38888

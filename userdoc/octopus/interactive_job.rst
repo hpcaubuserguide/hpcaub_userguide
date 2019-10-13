@@ -51,6 +51,8 @@ can be changed to meet the demands of a particular simulation
     #SBATCH --mem=4000
     #SBATCH --time=0-01:00:00
 
+    # .. todo:: add the snippet for selecting a random unused port
+
     # change this port number to something that is available on the head node
     VNC_HEAD_PORT=59000
 
