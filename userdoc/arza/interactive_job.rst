@@ -52,6 +52,9 @@ can be changed to meet the demands of a particular simulation
     # change this port number to something that is available on the head node
     VNC_HEAD_PORT=59008
 
+    # .. todo:: remove the copying of the data since internet is enabled from compute nodes
+    # .. todo:: add the snippet for selecting a random unused port
+
     ### DO NOT EDIT BEYOND HERE UNLESS YOU KNOW WHAT YOU ARE DOING
     JOB_INFO_FPATH=~/.vnc/lsf_${LSB_JOBID}.vnc.out
     rm -f ${JOB_INFO_FPATH}
