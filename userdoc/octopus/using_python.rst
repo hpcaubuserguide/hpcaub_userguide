@@ -75,12 +75,18 @@ The following job script can be used as a template to submit a job.
     #SBATCH --time=0-01:00:00
     #SBATCH -A foo_project
 
-    # .. todo:: add the snippet for selecting a random unused port
-
-    # change this to a different number to avoid clashes with other users
-    JUPYTER_PORT=38888
-
+    module purge
     module load python/3
+
+    function random_unused_port {
+       (netstat --listening --all --tcp --numeric |
+        sed '1,2d; s/[^[:space:]]*[[:space:]]*[^[:space:]]*[[:space:]]*[^[:space:]]*[[:space:]]*[^[:space:]]*:\([0-9]*\)[[:space:]]*.*/\1/g' |
+        sort -n | uniq; seq 1 1000; seq 1 65535
+        ) | sort -n | uniq -u | shuf -n 1
+    }
+
+    JUPYTER_PORT=$(random_unused_port)
+
     jupyter-lab  --no-browser --port=${JUPYTER_PORT} > jupyter.log 2>&1 &
     ssh -R localhost:${JUPYTER_PORT}:localhost:${JUPYTER_PORT} ohead1 -N
 
