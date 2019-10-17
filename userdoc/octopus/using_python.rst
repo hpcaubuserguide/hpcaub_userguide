@@ -87,7 +87,7 @@ The following job script can be used as a template to submit a job.
 
     JUPYTER_PORT=$(random_unused_port)
 
-    jupyter-lab  --no-browser --port=${JUPYTER_PORT} > jupyter.log 2>&1 &
+    jupyter-lab  --no-browser --port=${JUPYTER_PORT} > jupyter-${SLURM_JOB_ID}.log 2>&1 &
     ssh -R localhost:${JUPYTER_PORT}:localhost:${JUPYTER_PORT} ohead1 -N
 
 Connect to the jupyter server from a client
