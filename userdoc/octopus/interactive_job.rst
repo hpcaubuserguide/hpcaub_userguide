@@ -33,22 +33,40 @@ caveats
 - ``VNC_HEAD_PORT`` is not used by any user on the head node and is available
 
   
-details:
+details
 ^^^^^^^^   
 1) create/edit folder and files
 ++++++++++++++++++++++++++++++++
 
 - first check if the folder ``.vnc`` and files ``xstartup`` and ``config`` already exist.
-  
-  If not, create them:
+  go to the folder:
+
+         .. code-block:: bash
+                cd ~/.vnc
+  check the files:
+
+        .. code-block:: bash
+
+                ls
+
+        If they don't exist, create them:
 
 	.. code-block:: bash 
 		
+                cd ~/.
 		mkdir .vnc
+                cd ~/.vnc
 		touch xstartup
 		touch config
 
-- now make sure ``xstartup`` contains:
+- now open ``xstartup``:
+
+        .. code-block:: bash
+
+                cd ~/.vnc
+                vi xstartup
+
+- and check if it contains:
 
 	.. code-block:: bash
 		
@@ -62,9 +80,29 @@ details:
 		x-terminal-emulator -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &
 		mate-session &
 
-- And ``config`` contains:
+        .. note::
+                * to exit: 
+                        press Esc then ":" then "q" then Enter
 
-	.. code-block:: bash
+                * to exit without saving:
+                        press Esc then ":" then "q" then "!" then Enter
+
+                * to edit: 
+                        press "i"
+
+                * to save and exit:            
+                        press Esc then ":" then "x" then Enter
+
+- then go to ``config``:
+
+         .. code-block:: bash
+
+                cd ~/.vnc
+                vi config
+
+- And check if it contains:
+       
+        .. code-block:: bash
 		
 		## Supported server options to pass to vncserver upon invocation can be listed
 		## in this file. See the following manpages for more: vncserver(1) Xvnc(1).
