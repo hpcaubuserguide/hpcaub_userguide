@@ -20,7 +20,7 @@ Sample job script
 
      #!/bin/bash
 
-     #SBATCH --job-name=matlab-smp
+     #SBATCH --job-name=pari-serial
      #SBATCH --partition normal
 
      #SBATCH --nodes=1
