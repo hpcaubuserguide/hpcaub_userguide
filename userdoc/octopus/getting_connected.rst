@@ -112,9 +112,21 @@ identity to log in without a password.
 Connecting to a graphical user interface
 ========================================
 
-VNC sessions are useful only if you want to have a desktop like environment on
-the HPC cluster displayed on your computer. VNC sessions are not needed if you
-want to use the command line and submit batch jobs.
+VNC session are useful only if you want to have a desktop like environment that runs
+on the HPC cluster but is displayed on your computer with which the user can interact
+(e.g with a mouse). Such desktop environments are useful for example for lightweight
+visualizations of data that are rendered on the HPC cluster or for testing and prototyping.
+In this section the procedure for creating a VNC session on the head node is described.
+
+.. note::
+
+   VNC session on the head node should be restricted for non-compute or memory or input/output
+   intensive tasks. For demanding interative work with a desktop environment use the job script
+   for running a VNC server on a :ref:`compute node <interactive_job_octopus_anchor>` that has
+   signifincantly more resources than the head node and significantly more rendering power on
+   the GPU nodes.
+
+VNC session are not needed for command line work or for running batch batch.
 
 VNC clients
 ^^^^^^^^^^^
@@ -126,7 +138,7 @@ are several flavours and clients of VNC. We recommend the following:
    - TigerVNC: https://wiki.archlinux.org/index.php/TigerVNC             (easy-advanced)
 
 TigerVNC can be easily installed on most linux operating systems. RealVNC
-is more user freindly and is available on most common operating systems.
+is more user freindly and is available for most common operating systems.
 
 Creating SSH tunnels
 ====================

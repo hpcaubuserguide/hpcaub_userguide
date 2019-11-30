@@ -113,11 +113,11 @@ identity to log in without a password.
 Connecting to a graphical user interface
 ========================================
 
-VNC session are useful only if you want to have a desktop like environment on
-the HPC cluster displayed on your computer. Such desktop environments are useful
-for example for lightweight visualizations of data that are on the HPC cluster or
-for testing and prototyping. In this section the procedure for creating a VNC
-session on the head node is described.
+VNC session are useful only if you want to have a desktop like environment that runs
+on the HPC cluster but is displayed on your computer with which the user can interact
+(e.g with a mouse). Such desktop environments are useful for example for lightweight
+visualizations of data that are rendered on the HPC cluster or for testing and prototyping.
+In this section the procedure for creating a VNC session on the head node is described.
 
 .. note::
 
@@ -139,7 +139,7 @@ are several flavours and clients of VNC. We recommend the following:
    - TigerVNC: https://wiki.archlinux.org/index.php/TigerVNC             (easy-advanced)
 
 TigerVNC can be easily installed on most linux operating systems. RealVNC
-is more user freindly and is available on most common operating systems.
+is more user freindly and is available for most common operating systems.
 
 Creating SSH tunnels
 ====================
