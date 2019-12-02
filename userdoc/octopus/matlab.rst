@@ -36,7 +36,7 @@ running the matlab script ``my_serial_script.m``.
      #!/bin/bash
 
      #SBATCH --job-name=matlab-smp
-     #SBATCH --partition normal
+     #SBATCH --partition=normal
 
      #SBATCH --nodes=1
      #SBATCH --ntasks-per-node=1
@@ -46,7 +46,7 @@ running the matlab script ``my_serial_script.m``.
 
      module load matlab/2018b
 
-     matlab -nodisplay -r "run('my_smp_script.m')"
+     matlab -nodisplay -r "run('my_smp_script.m'); exit" > matlab_${SLURM_JOBID}.out
 
 
 .. code-block:: matlab
@@ -95,7 +95,7 @@ running the matlab script ``my_smp_script.m``.
      #!/bin/bash
 
      #SBATCH --job-name=matlab-smp
-     #SBATCH --partition normal
+     #SBATCH --partition=normal
 
      #SBATCH --nodes=1
      #SBATCH --ntasks-per-node=1
@@ -105,7 +105,7 @@ running the matlab script ``my_smp_script.m``.
 
      module load matlab/2018b
 
-     matlab -nodisplay -r "run('my_smp_script.m')"
+     matlab -nodisplay -r "run('my_smp_script.m'); exit" > matlab_${SLURM_JOBID}.out
 
 for example, the content of ``my_smp_script.m`` could be:
 
