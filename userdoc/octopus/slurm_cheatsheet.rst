@@ -82,8 +82,8 @@ To see the details of the compute nodes with their respective specs
     onode08    idle     up     16    2:8:1   0.01     21531      amd                  none
     onode09    idle     up     16    2:8:1   0.01     18060      amd                  none
     onode10    idle     up     8     1:8:1   0.07     14140      amd                  none
-    onode11    drain    up     8     1:8:1   0.01     32087      amd                  forced admin maintenance
-    onode12    alloc    up     8     1:8:1   0.15     31365      amd                  none
+    onode11    idle     up     8     1:8:1   0.01     32087      amd                  none
+    onode12    idle     up     8     1:8:1   0.15     31365      amd                  none
     onode13    idle     up     64    8:8:1   0.01     63232      amd                  none
     onode14    idle     up     64    8:8:1   0.01     56430      amd                  none
     onode15    idle     up     64    8:8:1   0.01     63092      amd                  none
