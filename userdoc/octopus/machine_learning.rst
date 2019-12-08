@@ -91,7 +91,8 @@ It is recommended to:
      resources are scarce.
 
 Tensorflow has built in checkpointing features for training models. Details on
-possible workflows for jobs with checkpoints can be found in
+possible workflows for jobs with checkpoints can be found in the
+:ref:`slurm jobs guide <octopus_jobs_checkpoints_resume>`
 
 
 Troubleshooting
@@ -143,14 +144,15 @@ This snippet can be included in the job script
 
 **check the deep learning framework backend**
 
-For tensorflow, when the following snippet is executed, the GPU(s) should be
-displayed in the output (search for ``StreamExecutor device (0): GRID V100D-16Q, Compute Capability 7.0``)
+For tensorflow, when the following snippet is executed:6Q, Compute Capability 7.0``)
 
 .. code-block:: python
 
      import tensorflow as tf
      with tf.Session() as sess:
         devices = sess.list_devices()
+
+the GPU(s) should be displayed in the output (search for ``StreamExecutor device (0): GRID V100D-16Q
 
 .. code-block:: bash
 
