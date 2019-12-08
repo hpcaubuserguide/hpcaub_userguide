@@ -109,6 +109,9 @@ For more details on getting connected to a jupyter notebook can be found in the
 
     module load singularity/2.4
 
+    # .. todo:: remove the copying of the data since internet is enabled from compute nodes
+    # .. todo:: add the snippet for selecting a random unused port
+
     # copy the training and testing data to the /tmp dir where
     # tensorflow expects to find it. Currently the compute nodes
     # do not have access to the internet through port 80, and since

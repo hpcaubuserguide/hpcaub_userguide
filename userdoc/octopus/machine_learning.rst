@@ -78,6 +78,10 @@ A typical batch job script looks like:
     ## execute the python job
     python3 keras_classification.py
 
+To connect to a ``jupyter`` notebook with the deep learning environment copy the
+jupyter notebook server job script from the :ref:`python jupyter server guide
+<jupyter_notebook_job_octopus>` and load the ``cuda`` module and shown above in
+addition to the needed machine learning framework module.
 
 Deep learning jobs tips and best practices
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -201,4 +205,5 @@ the GPU(s) should be displayed in the output (search for ``StreamExecutor device
     2019-12-08 01:01:44.734353: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): GRID V100D-16Q, Compute Capability 7.0
 
 This snippet can be included at the top of the notebook or python script.
+
 Similar checks can be done for ``pytorch``.
