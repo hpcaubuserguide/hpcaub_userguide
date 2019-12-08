@@ -113,9 +113,21 @@ identity to log in without a password.
 Connecting to a graphical user interface
 ========================================
 
-VNC session are useful only if you want to have a desktop like environment on
-the HPC cluster displayed on your computer. VNC session are not needed if you
-want to use the command line and submit batch jobs.
+VNC session are useful only if you want to have a desktop like environment that runs
+on the HPC cluster but is displayed on your computer with which the user can interact
+(e.g with a mouse). Such desktop environments are useful for example for lightweight
+visualizations of data that are rendered on the HPC cluster or for testing and prototyping.
+In this section the procedure for creating a VNC session on the head node is described.
+
+.. note::
+
+   VNC session on the head node should be restricted for non-compute or memory or input/output
+   intensive tasks. For demanding interative work with a desktop environment use the job script
+   for running a VNC server on a :ref:`compute node <interactive_job_arza_anchor>` that has
+   signifincantly more resources than the head node and significantly more rendering power on
+   the GPU nodes.
+
+VNC session are not needed for command line work or for running batch batch.
 
 VNC clients
 ^^^^^^^^^^^
@@ -127,7 +139,7 @@ are several flavours and clients of VNC. We recommend the following:
    - TigerVNC: https://wiki.archlinux.org/index.php/TigerVNC             (easy-advanced)
 
 TigerVNC can be easily installed on most linux operating systems. RealVNC
-is more user freindly and is available on most common operating systems.
+is more user freindly and is available for most common operating systems.
 
 Creating SSH tunnels
 ====================
@@ -287,92 +299,3 @@ on the shortcut icon.
 
 There are several options that can be set in the file ``~/.vnc/xstartup``
 that allow for customized in the graphical session.
-
-
-Connecting to a Jupyter-Lab notebook with the HPC backend
-=========================================================
-
-.. _jupyter_notebook_job_anchor:
-
-Jupyter notebooks (http://jupyter.org/) are very handy for prototyping, testing
-and running interactive computations in Python, R, C#, C++ and many other
-languages https://github.com/jupyter/jupyter/wiki/Jupyter-kernels from the web
-browser on your local terminal/workstation (local client). Also a notebook
-can be fully exectued on the compute nodes.
-
-To submit a job that runs a notebook server on one of the compute nodes,
-the following job script can be used:
-
-
-Assuming that there is already a vnc session running
-
-.. literalinclude:: jupyter/job.sh
-   :linenos:
-   :language: bash
-
-From lines 1 to 4 the job resource options are set (for more info on
-using the scheduler click :ref:`here <_lsf_cheatsheet>`)
-
-On the last two lines, the jupter notebook server is launched using port
-38888 and in the last line, traffic to the port 38888 from the head node (head2)
-is forwarded to the same port on the compute node.
-
-.. note::
-
-   The port number 38888 is arbitrary, it is recommended to use any other
-   **available** port other than 38888, since probably many other users will
-   use 38888 by mistake. Basically, if you run into problem and things don't work
-   chose a port number > 1000.
-
-In the following screencast the whole processes is demonstrated both for linux
-and windows clients <`linux <http://website.aub.edu.lb/it/hpc/SiteAssets/Pages/faq/jupyter_with_hpc_backend_linux.mp4>`_> <`windwos <http://website.aub.edu.lb/it/hpc/SiteAssets/Pages/faq/jupyter_with_hpc_backend_windows.mp4>`_>
-
-Access token of the jupyer server
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The access token can be found in the file ``jupyter.log`` in the job directory
-along with a url through which you can connect to the server.
-
-It is possible to set a fixed password or disable a password prompt.
-Both are explained in http://jupyter-notebook.readthedocs.io/en/stable/public_server.html
-
-Connect to the jupyter server from a client (recommended)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-After the job is submitted it is possible to connect to the jupyter server (that
-is running on the compute node) using ssh tunnels from your local client machine's
-web browser. To create the tunnel, execute (on your local terminal)
-
-.. code-block:: bash
-
-      $ ssh -L localhost:38888:localhost:38888 hpc.aub.edu.lb -N
-
-The diagram for the steps involved is:
-
-After creating the tunnel, you can access the server from your browser by
-typing in the url (with the token) found in ``jupyter.log`` (see previous
-section)
-
-.. figure:: jupyter/jupyter_hpc_usage_model.png
-   :scale: 100 %
-   :alt:
-
-Connect to the jupyter server on the head node (not recommended)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. warning:: Users must be aware that the head nodes are intended for light
- computations only. Thus, users must be self conscious about the cpu and memory
- consumption of the notebook running on the head node, although the heavy work
- is being done on the compute nodes. This mode of using the notebook is not
- recommended since it is easy for a user to overlook resource usage and clog
- the head node and possible bring down the whole cluster.
-
-After submitting the script, open a browser (e.g. firefox) on the head node
-in your desktop of the vnc session and open the page
-
-.. code-block:: bash
-
-      /gpfs1/apps/sw/firefox/firefox-45.0/firefox http://localhost:38888/?token=a3b51a9ee42324d6a371002e433f5ca863ea60c4733b087a
-
-
-
