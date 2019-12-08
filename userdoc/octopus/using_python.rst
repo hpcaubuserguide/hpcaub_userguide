@@ -135,6 +135,10 @@ are saved and no resources or gpu would be needed to view the results.
     #SBATCH --time=0-01:00:00
     #SBATCH --account=foo_project
 
+    ## load modules here
+    module load python/3
+
+    ## execute the notebook
     jupyter nbconvert --to notebook \
       --ExecutePreprocessor.enabled=True \
       --ExecutePreprocessor.timeout=9999999 \
