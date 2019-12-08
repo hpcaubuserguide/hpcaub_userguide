@@ -12,10 +12,10 @@ for a serial or parallel program.
 
 - ``#SBATCH --job-name=my_job_name``: Set the name of the job. This will appear
   e.g. when the command ``squeue`` is executed to query the queued or running jobs.
-- ``#SBATCH -A 7561539``: Specify the ID of the project. This number should
+- ``#SBATCH --account=7561539``: Specify the ID of the project. This number should
   correspond to the project ID of the service request. Jobs without this flag
   will be rejected.
-- ``#SBATCH --partition normal``: The name of the partition, a.k.a queue to which
+- ``#SBATCH --partition=normal``: The name of the partition, a.k.a queue to which
   the job will be submitted.
 - ``#SBATCH --nodes=2``: The number of nodes that will be reserved for the job.
 - ``#SBATCH --ntasks-per-node=8``: The number of cores (e.g mpi tasks) that will be
