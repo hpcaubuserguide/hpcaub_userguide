@@ -73,7 +73,7 @@ The following job script can be used as a template to submit a job.
     #SBATCH --cpus-per-task=1
     #SBATCH --mem=8000
     #SBATCH --time=0-01:00:00
-    #SBATCH -A foo_project
+    #SBATCH --account=foo_project
 
     module purge
     module load python/3
@@ -110,3 +110,46 @@ The diagram for the steps involved is:
 .. figure:: jupyter/jupyter_hpc_usage_model.png
    :scale: 100 %
    :alt:
+
+Running production jobs with Jupyter notebooks
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Using Jupyter notebooks through the browser as described above requires
+a contineous and stable connection to the HPC cluster (to keep the ssh tunnel alive).
+When connected from inside the campus network, such issues are minimal. However
+the connection might experience instability and could get disconected especially
+when there are no user interactions with the notebook, e.g when running a
+production job when the user is away from the terminal.
+
+After developing a Jupyter notebook (through the browser), production jobs
+can be runs in batch mode by executing the notebook. Such execution does
+not require interactions with the notebook through the browser. The following
+template job script can be used to execute the ``input`` notebook and
+the executed notebook is saved into a separate one where it can be retrieved
+from the cluster and examined elsewhere, i.e the notebook with the results
+are saved and no resources or gpu would be needed to view the results.
+
+.. note:: no ssh tunnel is required for executing the notebook
+
+.. code-block:: bash
+
+    #!/bin/bash
+
+    #SBATCH --job-name=jupyter-server
+    #SBATCH --partition normal
+
+    #SBATCH --nodes=1
+    #SBATCH --ntasks-per-node=1
+    #SBATCH --cpus-per-task=1
+    #SBATCH --mem=8000
+    #SBATCH --time=0-01:00:00
+    #SBATCH --account=foo_project
+
+    ## load modules here
+    module load python/3
+
+    ## execute the notebook
+    jupyter nbconvert --to notebook \
+      --ExecutePreprocessor.enabled=True \
+      --ExecutePreprocessor.timeout=9999999 \
+      --execute my_production_notebook.ipynb --output my_results.ipynb
