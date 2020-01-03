@@ -88,7 +88,7 @@ script is also included in ~/.vnc folder. After submitting the job, the
         #SBATCH -A foo_project
 
         ## specify the required resources
-        #SBATCH --partition normal
+        #SBATCH --partition=normal
         #SBATCH --nodes=1
         #SBATCH --ntasks-per-node=1
         #SBATCH --cpus-per-task=8
