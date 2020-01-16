@@ -51,7 +51,7 @@ Pre-requisites:
  .. note:: You may need to create the necessary folders of the path.
 
  
-   .. figure:: matlab/2019b/screenshots/matlab_Screenshot_dir_structure.png
+   .. figure:: matlab/2019b/screenshots/matlab_screenshot_dir_structure.png
      :scale: 100 %
      :alt:
 
@@ -62,7 +62,7 @@ Pre-requisites:
 
       C:\ProgramData\MATLAB\SupportPackages\R2019b\parallel\slurm\nonshared
 
-  .. figure:: matlab/2019b/screenshots/matlab_Screenshot_set_path.png
+  .. figure:: matlab/2019b/screenshots/matlab_screenshot_set_path.png
      :scale: 25 %
      :alt:
 
@@ -71,14 +71,14 @@ Pre-requisites:
     + click on ``Parallel``
     + click on ``Manage Cluster Profiles``
 
-      .. figure:: matlab/2019b/screenshots/matlab_Screenshot_2.png
+      .. figure:: matlab/2019b/screenshots/matlab_screenshot_2.png
          :scale: 100 %
          :alt:
 
     + Choose ``Import`` then browse to ``octopus.mlsettings`` file
       (downloaded in step 3 in the Pre-requisites section above)
 
-      .. figure:: matlab/2019b/screenshots/matlab_Screenshot_3.png
+      .. figure:: matlab/2019b/screenshots/matlab_screenshot_3.png
          :scale: 100 %
          :alt:
 
@@ -86,7 +86,7 @@ Pre-requisites:
       ``Edit``, and modify the ``RemoteJobStorageLocation`` and use a path on your
       HPC account. You can also choose which queue to work on through modifying ``AdditionalSubmitArgs``:
 
-      .. figure:: matlab/2019b/screenshots/matlab_Screenshot_remote_job_storage_location.png
+      .. figure:: matlab/2019b/screenshots/matlab_screenshot_remote_job_storage_location.png
          :scale: 100 %
          :alt:
 
@@ -97,7 +97,7 @@ Pre-requisites:
 
 - Press ``validate`` to validate the parallel configuratin.
 
-  .. figure:: matlab/2019b/screenshots/matlab_Screenshot_validation.png
+  .. figure:: matlab/2019b/screenshots/matlab_screenshot_validation.png
      :scale: 100 %
      :alt:
 
