@@ -24,10 +24,10 @@ To submit an interactive for testing and/or debugging/development the
 .. code-block:: bash
 
     # allocate a cpu only job
-    $ srun --partition normal --nodes=1 --ntasks-per-node=4 --cpus-per-task=1 --mem=8000 -A my_project --time=0-01:00:00 --pty /bin/bash
+    $ srun --partition=normal --nodes=1 --ntasks-per-node=4 --cpus-per-task=1 --mem=8000 --account=my_project --time=0-01:00:00 --pty /bin/bash
 
     # allocate a cpu/gpu job
-    $ srun --partition normal --nodes=1 --ntasks-per-node=4 --cpus-per-task=1 --mem=8000 --gres=gpu:v100d32q:1 -A my_project --time=0-01:00:00 --pty /bin/bash
+    $ srun --partition=normal --nodes=1 --ntasks-per-node=4 --cpus-per-task=1 --mem=8000 --gres=gpu:v100d32q:1 -A my_project --time=0-01:00:00 --pty /bin/bash
 
 List of running jobs
 ====================
@@ -45,8 +45,8 @@ The list of jobs running or queueud on the cluster
 
     $ squeue -a
 
-Remove a job from the queues
-============================
+Remove a job from the queue
+===========================
 
 Use ``squeue`` to query the running jobs and get the ``JOBID``. Once the
 job id (that is an integer in the first column of the output of ``squeue``)
@@ -58,6 +58,8 @@ of the job to be killed is know, execute:
 
 List of hosts and queues/partitions on the cluster
 ==================================================
+
+.. _hosts_and_partitions:
 
 .. code-block:: bash
 
@@ -97,11 +99,12 @@ To see the details of the available partition with their respective specs
 
 .. code-block:: bash
 
-    PARTITION           NODELIST            MAX_CPUS_PER_NODE   NODES               JOB_SIZE            CPUS                MEMORY              GRES                NODES(A/I/O/T)
-    normal              onode[01-09,13-16]  UNLIMITED           13                  1-infinite          16+                 60000+              (null)              0/13/0/13
-    normal              onode10             UNLIMITED           1                   1-infinite          8                   15000               gpu:v100d16q:1      0/1/0/1
-    normal              onode[11-12]        UNLIMITED           2                   1-infinite          8                   32000               gpu:v100d32q:1      0/2/0/2
-    msfea-ai            onode10             UNLIMITED           1                   1-infinite          8                   15000               gpu:v100d16q:1      0/1/0/1
-    msfea-ai            onode12             UNLIMITED           1                   1-infinite          8                   32000               gpu:v100d32q:1      0/1/0/1
-    cmps-ai             onode11             UNLIMITED           1                   1-infinite          8                   32000               gpu:v100d32q:1      0/1/0/1
-    physics             onode[13-16]        UNLIMITED           4                   1-infinite          64                  64000               (null)              0/4/0/4
+    PARTITION           TIMELIMIT           NODELIST            MAX_CPUS_PER_NODE   NODES               JOB_SIZE            CPUS                MEMORY              GRES                NODES(A/I/O/T)
+    normal              1-00:00:00          onode[01-09]        UNLIMITED           9                   1-infinite          16                  60000+              (null)              0/9/0/9
+    large               1-00:00:00          onode[13-16]        UNLIMITED           4                   1-infinite          64                  256000              (null)              1/3/0/4
+    gpu                 6:00:00             onode10             UNLIMITED           1                   1-infinite          8                   15000               gpu:v100d16q:1      1/0/0/1
+    gpu                 6:00:00             onode[11-12]        UNLIMITED           2                   1-infinite          8                   32000               gpu:v100d32q:1      1/1/0/2
+    msfea-ai            3-00:00:00          onode12             UNLIMITED           1                   1-infinite          8                   32000               gpu:v100d32q:1      1/0/0/1
+    msfea-ai            3-00:00:00          onode10             UNLIMITED           1                   1-infinite          8                   15000               gpu:v100d16q:1      1/0/0/1
+    cmps-ai             3-00:00:00          onode11             UNLIMITED           1                   1-infinite          8                   32000               gpu:v100d32q:1      0/1/0/1
+    physics             1-00:00:00          onode[13-16]        UNLIMITED           4                   1-infinite          64                  256000              (null)              1/3/0/4
