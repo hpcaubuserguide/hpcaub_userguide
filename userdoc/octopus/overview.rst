@@ -24,7 +24,7 @@ The following types of jobs can be run on the cluster:
 
    - batch jobs (no user interaction)
    - GPU jobs (e.g scientific computing using GPGPUs or deep learning)
-   - memory intensive jobs (up to 256GB ram on a single machine available as a SMP host)
+   - memory intensive jobs (up to 256GB RAM on a single machine available as a SMP host)
    - IO intensive jobs using the scratch partition (e.g several TB processing per job)
    - Interactive Jupyer jobs running on the compute hosts
    - Fully interactive desktop environment running on a compute node
