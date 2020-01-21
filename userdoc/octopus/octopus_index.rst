@@ -11,6 +11,7 @@ Octopus user guide
 .. toctree::
    :maxdepth: 2
 
+   overview.rst
    getting_connected.rst
    slurm_cheatsheet.rst
    jobs.rst
