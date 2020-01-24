@@ -2,7 +2,7 @@
 
 ## specify the job and project name
 #SBATCH --job-name=my_job_name
-#SBATCH --account=oo_project
+#SBATCH --account=foo_project
 
 ## specify the required resources
 #SBATCH --partition=normal
