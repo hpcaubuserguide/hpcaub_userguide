@@ -54,6 +54,8 @@ Users who wish to extend/create custom python these environment can:
 Connecting to a jupyter notebook server on a compute node or nodes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. _jupyter_notebook_job_octopus:
+
 A jupyter lab server is run on a compute node to which a user can connect
 to using a browser on the local machine (i.e laptop/desktop/terminal)
 
@@ -71,13 +73,21 @@ The following job script can be used as a template to submit a job.
     #SBATCH --cpus-per-task=1
     #SBATCH --mem=8000
     #SBATCH --time=0-01:00:00
-    #SBATCH -A foo_project
+    #SBATCH --account=foo_project
 
-    # change this to a different number to avoid clashes with other users
-    JUPYTER_PORT=38888
-
+    module purge
     module load python/3
-    jupyter-lab  --no-browser --port=${JUPYTER_PORT} > jupyter.log 2>&1 &
+
+    function random_unused_port {
+       (netstat --listening --all --tcp --numeric |
+        sed '1,2d; s/[^[:space:]]*[[:space:]]*[^[:space:]]*[[:space:]]*[^[:space:]]*[[:space:]]*[^[:space:]]*:\([0-9]*\)[[:space:]]*.*/\1/g' |
+        sort -n | uniq; seq 1 1000; seq 1 65535
+        ) | sort -n | uniq -u | shuf -n 1
+    }
+
+    JUPYTER_PORT=$(random_unused_port)
+
+    jupyter-lab  --no-browser --port=${JUPYTER_PORT} > jupyter-${SLURM_JOB_ID}.log 2>&1 &
     ssh -R localhost:${JUPYTER_PORT}:localhost:${JUPYTER_PORT} ohead1 -N
 
 Connect to the jupyter server from a client
@@ -100,3 +110,46 @@ The diagram for the steps involved is:
 .. figure:: jupyter/jupyter_hpc_usage_model.png
    :scale: 100 %
    :alt:
+
+Running production jobs with Jupyter notebooks
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Using Jupyter notebooks through the browser as described above requires
+a contineous and stable connection to the HPC cluster (to keep the ssh tunnel alive).
+When connected from inside the campus network, such issues are minimal. However
+the connection might experience instability and could get disconected especially
+when there are no user interactions with the notebook, e.g when running a
+production job when the user is away from the terminal.
+
+After developing a Jupyter notebook (through the browser), production jobs
+can be runs in batch mode by executing the notebook. Such execution does
+not require interactions with the notebook through the browser. The following
+template job script can be used to execute the ``input`` notebook and
+the executed notebook is saved into a separate one where it can be retrieved
+from the cluster and examined elsewhere, i.e the notebook with the results
+are saved and no resources or gpu would be needed to view the results.
+
+.. note:: no ssh tunnel is required for executing the notebook
+
+.. code-block:: bash
+
+    #!/bin/bash
+
+    #SBATCH --job-name=jupyter-server
+    #SBATCH --partition normal
+
+    #SBATCH --nodes=1
+    #SBATCH --ntasks-per-node=1
+    #SBATCH --cpus-per-task=1
+    #SBATCH --mem=8000
+    #SBATCH --time=0-01:00:00
+    #SBATCH --account=foo_project
+
+    ## load modules here
+    module load python/3
+
+    ## execute the notebook
+    jupyter nbconvert --to notebook \
+      --ExecutePreprocessor.enabled=True \
+      --ExecutePreprocessor.timeout=9999999 \
+      --execute my_production_notebook.ipynb --output my_results.ipynb

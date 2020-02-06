@@ -5,6 +5,8 @@
 
 JUPYTER_PORT=38888
 
+# .. todo:: add the snippet for selecting a random unused port
+
 module load python/3
 jupyter-lab  --no-browser --port=${JUPYTER_PORT} > jupyter.log 2>&1 &
 ssh -R localhost:${JUPYTER_PORT}:localhost:${JUPYTER_PORT} hpc.aub.edu.lb -N

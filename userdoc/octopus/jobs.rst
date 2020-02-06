@@ -12,10 +12,10 @@ for a serial or parallel program.
 
 - ``#SBATCH --job-name=my_job_name``: Set the name of the job. This will appear
   e.g. when the command ``squeue`` is executed to query the queued or running jobs.
-- ``#SBATCH -A 7561539``: Specify the ID of the project. This number should
+- ``#SBATCH --account=7561539``: Specify the ID of the project. This number should
   correspond to the project ID of the service request. Jobs without this flag
   will be rejected.
-- ``#SBATCH --partition normal``: The name of the partition, a.k.a queue to which
+- ``#SBATCH --partition=normal``: The name of the partition, a.k.a queue to which
   the job will be submitted.
 - ``#SBATCH --nodes=2``: The number of nodes that will be reserved for the job.
 - ``#SBATCH --ntasks-per-node=8``: The number of cores (e.g mpi tasks) that will be
@@ -57,3 +57,110 @@ For more information on using SLURM, please consult the ``man`` pages:
 .. code-block:: bash
 
    $ man sbatch
+
+Jobs time limits and checkpoints
+================================
+
+.. _octopus_jobs_checkpoints_resume:
+
+In-order to have fair usage of the resources and the partitions (queues), different
+partitions have different time limits. The maximum time limit for jobs is 3 days.
+Also paritions have different priorities that are necessary for fair usage, for
+example, short jobs have higher priorities than long jobs. When a job reaches
+the time limit that is specified in the job script or the time limit of the
+partition, it is automatically killed and removed the the queue. It is the
+responsibility of the user to set the job parameters based on the requirements
+of the job and the available resources.
+
+in all the examples below it is the responsibily of the user to manage writing
+the checkpoint file and loading it.
+
+Resubmit a job automatically using job arrays
+=============================================
+
+
+In the following example, a job array (``#SBATCH --array=1-30%1``) is used to
+indicate that the job should be run as a chain of 30 jobs back to back. Using
+this flow a job can be run for arbitarily long periods, in this case and for
+the sake of demonstration, this job runs for 30 days using individual jobs
+that run for 1 day each. When the first job finishes, a checkpoint file
+``foo.chkp`` is written to the disk and the execution of the next job starts where
+`foo.chkp`` is read and the program state is restored and the execution resumes.
+
+
+.. code-block:: bash
+
+     #!/bin/bash
+
+     #SBATCH --job-name=my_job_name
+     #SBATCH --account=foo_project
+
+     ## specify the required resources
+     #SBATCH --partition=normal
+     #SBATCH --nodes=1
+     #SBATCH --ntasks-per-node=8
+     #SBATCH --cpus-per-task=2
+     #SBATCH --mem=12000
+     #SBATCH --time=0-01:00:00
+     #SBATCH --array=1-30%1
+
+     ## load some modules
+     module load python
+
+     # start executing the program,
+     MY_CHECKPOINT_FILE=foo.chkp
+     if [ -z "${MY_CHECKPOINT_FILE}" ]; then
+         # checkpoint file is not found, execute this command
+         python train_model_from_scratch.py
+     else
+         # checkpoint file is found, read it and continue training
+         python train_model_from_scratch.py --use-checkpoint=${MY_CHECKPOINT_FILE}
+     fi
+
+Each job in the job array will have its own ``.out`` file suffixed with the job
+array index, e.g ``my_slurm_30.out``.
+
+resubmit a job automatically using job dependencies
+===================================================
+
+The main difference between using job dependencies and job array is that
+using dependencies the job will be resubmitted infinit times until the user
+decides to cancel the automatic re-submission.
+
+.. warning:: It is important to include a wait time of a few minuites (e.g 5 min)
+ so that the scheduler will not be overloaded by the recursive resubmission of
+ jobs in case something goes wrong.
+
+In the template job script below, when the job is submitted, a ``sbatch`` command
+submits the dependency from within the job. The simulation/program resume procedure
+is the same as that of using job arrays, i.e if a checkpoint exists, run the
+program from the checkpoint, otherwise run the program and create the checkpoint.
+
+.. code-block:: bash
+
+     #!/bin/bash
+
+     #SBATCH --job-name=my_job_name
+     #SBATCH --account=foo_project
+
+     ## specify the required resources
+     #SBATCH --partition=normal
+     #SBATCH --nodes=1
+     #SBATCH --ntasks-per-node=8
+     #SBATCH --cpus-per-task=2
+     #SBATCH --mem=12000
+     #SBATCH --time=0-01:00:00
+
+     ## submit the dependency that will start after the current job finishes
+     sbatch --dependency=afterok:${SLURM_JOBID} job.sh
+     sleep 300
+
+     # start executing the program,
+     MY_CHECKPOINT_FILE=foo.chkp
+     if [ -z "${MY_CHECKPOINT_FILE}" ]; then
+         # checkpoint file is not found, execute this command
+         python train_model_from_scratch.py
+     else
+         # checkpoint file is found, read it and continue training
+         python train_model_from_scratch.py --use-checkpoint=${MY_CHECKPOINT_FILE}
+     fi
