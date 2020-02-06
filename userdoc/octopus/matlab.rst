@@ -24,7 +24,7 @@ and shown in the matlab workspace on the client. For this use case, the user
 does not have to login (or interact) with the HPC cluster.
 
 .. note:: this section of the guide has been tested with Matlab 2019b
-		  make sure you have the same version on the client machine.
+ make sure you have the same version on the client machine.
 
 .. note:: Multiple such parallel configuration can co-exist and can be selected
  at runtime.
@@ -41,63 +41,56 @@ Pre-requisites:
   - Have your Matlab code modified to exploit parallelism.
 
 
-- Once ``slurm.zip`` is downloaded, extract it to this path (or to the
-  corresponding directory of your non-default Matlab installation directory):
-
-  .. code-block:: bash
-
-     C:\ProgramData\MathWorks\R2019b
-
- .. note:: You may need to create the necessary folders of the path.
-
+- Once ``slurm.zip`` is downloaded, extract it to ``Documents\MATLAB`` (shown in screenshot below) or to the
+  corresponding directory of your non-default Matlab installation directory:
  
-   .. figure:: matlab/2019b/screenshots/matlab_screenshot_dir_structure.png
+   .. figure:: matlab/2019b/screenshots/matlab_Screenshot_set_path.png
      :scale: 100 %
      :alt:
 
 - Open Matlab R2019b on the client machine (e.g your laptop)
-- Select ``Set Path``, click on ``Add Folder`` and browse to the following folder and click save:
 
-  .. code-block:: bash
-
-      C:\ProgramData\MATLAB\SupportPackages\R2019b\parallel\slurm\nonshared
-
-  .. figure:: matlab/2019b/screenshots/matlab_screenshot_set_path.png
-     :scale: 25 %
-     :alt:
+    + Select ``Set Path`` (under HOME -> ENVIRONMENT)
+    + Click on ``Add Folder``
+    + Browse to ``Documents\MATLAB\slurm\nonshared`` 
+    + Click save
 
 - To import the ``octopus.mlsettings`` profile:
 
     + click on ``Parallel``
     + click on ``Manage Cluster Profiles``
 
-      .. figure:: matlab/2019b/screenshots/matlab_screenshot_2.png
+      .. figure:: imgs/matlab/2019b/screenshots/matlab_screenshot_2.png
          :scale: 100 %
          :alt:
 
     + Choose ``Import`` then browse to ``octopus.mlsettings`` file
       (downloaded in step 3 in the Pre-requisites section above)
 
-      .. figure:: matlab/2019b/screenshots/matlab_screenshot_3.png
+      .. figure:: imgs/matlab/2019b/screenshots/matlab_screenshot_3.png
          :scale: 100 %
          :alt:
 
-    + Once the ``octopus.mlsettings`` profile gets loaded, select it click on
-      ``Edit``, and modify the ``RemoteJobStorageLocation`` and use a path on your
-      HPC account. You can also choose which queue to work on through modifying ``AdditionalSubmitArgs``:
+    + Once the ``octopus.mlsettings`` profile gets loaded, select it, click on
+      ``Edit``, and modify the ``RemoteJobStorageLocation`` by using a path on your
+      HPC account (make sure to change the ``<user>`` to your username).
 
-      .. figure:: matlab/2019b/screenshots/matlab_screenshot_remote_job_storage_location.png
+      .. figure:: imgs/matlab/2019b/screenshots/matlab_screenshot_remote_job_storage_location.png
          :scale: 100 %
          :alt:
 
-      + ``NumWokers``: Modify the number of cores to be used on HPC cluster
-        (e.g. 4,6,8,10,12)
+      + You can choose which queue to work on through modifying ``AdditionalSubmitArgs``:
+
+      + You can modify the number of cores to be used on HPC cluster (e.g. 4,6,8,10,12)
+        through ``NumWorkers``
 
 - When finished, press done and make sure to set the HPC profile as ``Default``.
 
 - Press ``validate`` to validate the parallel configuratin.
 
-  .. figure:: matlab/2019b/screenshots/matlab_screenshot_validation.png
+  .. figure:: imgs/matlab/2019b/screenshots/matlab_screenshot_validation.png
+     :width: 1204px
+     :height: 360px 
      :scale: 100 %
      :alt:
 
@@ -176,7 +169,7 @@ running the matlab script ``my_serial_script.m``.
      #!/bin/bash
 
      #SBATCH --job-name=matlab-smp
-     #SBATCH --partition normal
+     #SBATCH --partition=normal
 
      #SBATCH --nodes=1
      #SBATCH --ntasks-per-node=1
@@ -186,7 +179,7 @@ running the matlab script ``my_serial_script.m``.
 
      module load matlab/2018b
 
-     matlab -nodisplay -r "run('my_smp_script.m')"
+     matlab -nodisplay -r "run('my_smp_script.m'); exit" > matlab_${SLURM_JOBID}.out
 
 
 .. code-block:: matlab
@@ -235,7 +228,7 @@ running the matlab script ``my_smp_script.m``.
      #!/bin/bash
 
      #SBATCH --job-name=matlab-smp
-     #SBATCH --partition normal
+     #SBATCH --partition=normal
 
      #SBATCH --nodes=1
      #SBATCH --ntasks-per-node=1
@@ -245,7 +238,7 @@ running the matlab script ``my_smp_script.m``.
 
      module load matlab/2018b
 
-     matlab -nodisplay -r "run('my_smp_script.m')"
+     matlab -nodisplay -r "run('my_smp_script.m'); exit" > matlab_${SLURM_JOBID}.out
 
 for example, the content of ``my_smp_script.m`` could be:
 
