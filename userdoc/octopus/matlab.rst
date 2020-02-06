@@ -44,7 +44,7 @@ Pre-requisites:
 - Once ``slurm.zip`` is downloaded, extract it to ``Documents\MATLAB`` (shown in screenshot below) or to the
   corresponding directory of your non-default Matlab installation directory:
  
-   .. figure:: matlab/2019b/screenshots/matlab_Screenshot_set_path.png
+   .. figure:: imgs/matlab/2019b/screenshots/matlab_screenshot_set_path.png
      :scale: 100 %
      :alt:
 
