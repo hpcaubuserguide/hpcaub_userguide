@@ -134,9 +134,9 @@ of this guide).
     end
 
 .. note:: Fetching outputs will fail if more than one instance of Matlab is 
- connecting to the cluster for that user. So two Matlab on the same client 
- or two Matlab on two different clients will cause the synchronization of 
- job results with SLURM to fail.
+ connecting to the cluster for that user. So two Matlab instances on the same
+ client or two Matlab instances on two different clients (one on each client)
+ will cause the synchronization of job results with SLURM to fail.
  to correct this, you must change the JobStorageLocation in the cluster profile 
  (the local folder to which jobs are synched)
    
