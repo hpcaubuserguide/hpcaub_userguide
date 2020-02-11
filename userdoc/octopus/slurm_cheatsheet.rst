@@ -27,7 +27,7 @@ To submit an interactive for testing and/or debugging/development the
     $ srun --partition=normal --nodes=1 --ntasks-per-node=4 --cpus-per-task=1 --mem=8000 --account=my_project --time=0-01:00:00 --pty /bin/bash
 
     # allocate a cpu/gpu job
-    $ srun --partition=normal --nodes=1 --ntasks-per-node=4 --cpus-per-task=1 --mem=8000 --gres=gpu --acount=my_project --time=0-01:00:00 --pty /bin/bash
+    $ srun --partition=normal --nodes=1 --ntasks-per-node=4 --cpus-per-task=1 --mem=8000 --gres=gpu --account=my_project --time=0-01:00:00 --pty /bin/bash
 
 List of running jobs
 ====================
