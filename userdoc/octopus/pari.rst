@@ -21,7 +21,7 @@ Sample job script
      #!/bin/bash
 
      #SBATCH --job-name=pari-serial
-     #SBATCH --partition normal
+     #SBATCH --partition=normal
 
      #SBATCH --nodes=1
      #SBATCH --ntasks-per-node=1

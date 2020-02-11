@@ -64,7 +64,7 @@ A typical batch job script look like:
   #!/bin/bash
 
   #SBATCH --job-name=keras-classify
-  #SBATCH --partition normal
+  #SBATCH --partition=normal
 
   #SBATCH --nodes=1
   #SBATCH --ntasks-per-node=8
