@@ -57,30 +57,6 @@ A typical batch job script look like:
    Moreover the ``-n 16`` flag must be used to allocate the full node exclusively
    for the job.
 
-**SLURM job script sample**
-
-.. code-block:: bash
-
-  #!/bin/bash
-
-  #SBATCH --job-name=keras-classify
-  #SBATCH --partition=normal
-
-  #SBATCH --nodes=1
-  #SBATCH --ntasks-per-node=8
-  #SBATCH --cpus-per-task=1
-  #SBATCH --gres=gpu:v100d32q:1
-  #SBATCH --mem=32000
-  #SBATCH --time=0-01:00:00
-  #SBATCH -A my_ai_project
-
-  module purge
-  module load cuda
-  module load python/ai
-
-  which python3
-
-  python3 keras_classification.py
 
 Run a jupyter lab notebook server
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
