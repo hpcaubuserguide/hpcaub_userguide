@@ -35,7 +35,7 @@ Setting up a Matlab 2019b client
 Pre-requisites:
 
   - Matlab 2019b installed on the client.
-  - :download:`Slurm file <matlab/2019b/slurm.zip>`
+  - `slurm.zip <https://mailaub.sharepoint.com/:f:/r/sites/vLab/Shared%20Documents/Shares/Matlab%20Slurm?csf=1&e=OLWlut>`_ folder to be extracted in the integration folder
   - :download:`Octopus Matlab 2019b client settings <matlab/2019b/octopus.mlsettings>`
   - A working directory (folder) on your “C” or “D” drive.
   - Have your Matlab code modified to exploit parallelism.
