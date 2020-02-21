@@ -35,7 +35,7 @@ Setting up a Matlab 2019b client
 Pre-requisites:
 
   - Matlab 2019b installed on the client.
-  - `slurm.zip <https://mailaub.sharepoint.com/sites/vLab/Shared%20Documents/Forms/AllItems.aspx?originalPath=aHR0cHM6Ly9tYWlsYXViLnNoYXJlcG9pbnQuY29tLzpmOi9zL3ZMYWIvRXY4dm9XOEtyNXhIdW9ZeGNxVDE0SGdCWjNvb1B4d0txaVpuTk00SWdrZjN5dz9ydGltZT12WW5DcElDSTEwZw&viewid=a1808845%2D9f75%2D46cf%2D96dd%2De7999f36fca0&id=%2Fsites%2FvLab%2FShared%20Documents%2FShares%2FMatlab%20Slurm%2Fslurm>`_ folder to be installed in the integration folder
+  - `slurm.zip <https://mailaub.sharepoint.com/:f:/r/sites/vLab/Shared%20Documents/Shares/Matlab%20Slurm?csf=1&e=OLWlut>`_ folder to be extracted in the integration folder
   - :download:`Octopus Matlab 2019b client settings <matlab/2019b/octopus.mlsettings>`
   - A working directory (folder) on your “C” or “D” drive.
   - Have your Matlab code modified to exploit parallelism.
