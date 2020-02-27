@@ -103,12 +103,14 @@ todo_include_todos = True
 # a list of builtin themes.
 #
 html_theme = os.getenv('USERGUIDETHEME')
-if html_theme is None:
-    html_theme = 'alabaster'
+if html_theme == 'sphinx_rtd_theme':
+    import sphinx_rtd_theme
+    html_theme_path = sphinx_rtd_theme.get_html_theme_path()
 elif html_theme == 'bootstrap':
     import sphinx_bootstrap_theme
     html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
-elif html_theme == 'sphinx_rtd_theme':
+elif html_theme is None:
+    html_theme = 'sphinx_rtd_theme'
     import sphinx_rtd_theme
     html_theme_path = sphinx_rtd_theme.get_html_theme_path()
 else:
