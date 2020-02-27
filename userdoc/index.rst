@@ -3,17 +3,15 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+##################
 AUB HPC user guide
-========================
+##################
 
-There are 3 clusters available for users at AUB:
+There are 2 clusters available for users at AUB:
 
- - :ref:`Arza <arza_guide_anchor>` (IBM HPC cluster)
- - :ref:`Octopus <octopus_guide_anchor>` (Mixed architecture virtualized Beowulf cluster)
+.. toctree::
+   :maxdepth: 1
 
-Indices and tables
-==================
+   arza/arza_index
+   octopus/octopus_index
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
