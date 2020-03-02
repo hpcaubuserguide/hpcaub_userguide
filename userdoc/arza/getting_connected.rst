@@ -1,9 +1,10 @@
 Getting connected
------------------
+=================
+
 .. _Getting_started_arza:
 
 Connecting to a terminal
-========================
+------------------------
 
 When on the AUB network (also valid when connected through the VPN service
 https://servicedesk.aub.edu.lb/TDClient/Requests/ServiceDet?ID=29740 ),
@@ -27,7 +28,7 @@ TIP: Passwordless login can be set up to avoid typing the password everytime and
  use ``head2.aub.edu.lb``. This applies to the rest of the user guide as well.
 
 Tools for connecting
-====================
+--------------------
 
 - native ssh on linux or mac (recommended)
 - msys2: https://www.msys2.org/ (recommended on windows)
@@ -38,7 +39,7 @@ Tools for connecting
 
 
 Generating a ssh private-public key pair
-========================================
+----------------------------------------
 
 SSH keys can be used to authenticate yourself to login to the cluster. This is
 the recommended method and is more secure than typing in password or saving
@@ -81,7 +82,7 @@ on windwows using mobaxterm
 <`screencast <http://website.aub.edu.lb/it/hpc/SiteAssets/Pages/faq/generate_ssh_public_private_key_pair_mobaxterm_windows_and_enable_passwordless_login.mp4>`_>
 
 Login to the HPC cluster using a ssh public key
-===============================================
+-----------------------------------------------
 
 At this point, it is assumed that you already have a ssh identity
 (public-private key pair). If not, see the section above.
@@ -111,7 +112,7 @@ The second part of the following `screencast <http://website.aub.edu.lb/it/hpc/S
 identity to log in without a password.
 
 Connecting to a graphical user interface
-========================================
+----------------------------------------
 
 VNC session are useful only if you want to have a desktop like environment that runs
 on the HPC cluster but is displayed on your computer with which the user can interact
@@ -142,7 +143,7 @@ TigerVNC can be easily installed on most linux operating systems. RealVNC
 is more user freindly and is available for most common operating systems.
 
 Creating SSH tunnels
-====================
+--------------------
 
 SSH tunnels are handy for redirecting traffic from one host/port to another.
 Here are some links on how to create tunnels on various platfroms, since we
