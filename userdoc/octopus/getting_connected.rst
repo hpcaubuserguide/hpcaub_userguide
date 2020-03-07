@@ -31,7 +31,9 @@ Tools for connecting
 - native ssh on linux or mac (recommended)
 - msys2: https://www.msys2.org/ (recommended on windows)
 - mobaxterm (most user freindly): https://mobaxterm.mobatek.net/
+
     .. note:: install the portable version, it does not require admin access
+
 - winscp: https://winscp.net/eng/index.php
 - putty: https://putty.org/
 
@@ -55,6 +57,9 @@ on linux and mac
 
 To generate the key files:
 
+.. code-block:: bash
+
+
    - public key : ``~/.ssh/id_rsa.pub``
    - private key: ``~/.ssh/id_rsa``
 
@@ -62,8 +67,12 @@ execute the following command in a terminal on you machine:
 
 .. code-block:: bash
 
+   # create the ssh directory and set the correct permission flag
+   my machine> mkdir -p ~/.ssh
+   my machine> chmod 700 ~/.ssh
+
     # first generate an ssh key on A
-    my machine> ssh-keygen -t rsa -b 4096
+    my machine> ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa
 
 .. warning:: this will overwrite any keys that already exist. You can specify
  a new identity name using the ``-f my_ouptut_keyfie``
