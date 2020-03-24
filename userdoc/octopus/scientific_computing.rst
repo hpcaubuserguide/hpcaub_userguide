@@ -9,3 +9,5 @@ Scientific Computing and Environments
    machine_learning.rst
    matlab.rst
    pari.rst
+   using_enzo.rst
+   fluent.rst
