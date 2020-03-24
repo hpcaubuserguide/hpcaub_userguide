@@ -33,8 +33,6 @@ The following job script template can be used (for a ``VNC`` session):
 
     #!/bin/bash
 
-    source ~/.bashrc
-
     ## specify the job and project name
     #SBATCH --job-name=my_fluent_job
     #SBATCH --account=6544724
@@ -48,6 +46,8 @@ The following job script template can be used (for a ``VNC`` session):
     #SBATCH --time=0-06:00:00
 
     ### DO NOT EDIT BEYOND HERE UNLESS YOU KNOW WHAT YOU ARE DOING
+    source /etc/bashrc
+
     VNC_HEAD_PORT=$(random_unused_port)
     echo "VNC_HEAD_PORT = ${VNC_HEAD_PORT}"
 
@@ -60,6 +60,8 @@ The following job script template can be used (for a ``VNC`` session):
     ssh -R localhost:${VNC_HEAD_PORT}:localhost:$((5900 + ${VNC_SESSION_ID})) ohead1 -N &
     SSH_TUNNEL_PID=$!
     echo ${SSH_TUNNEL_PID} >> ${JOB_INFO_FPATH}
+
+    slurm_hosts_to_fluent_hosts
 
     sleep infinity
 
