@@ -12,6 +12,8 @@
 #SBATCH --gres=gpu:v100d32q:1
 #SBATCH --mem=12000
 #SBATCH --time=0-01:00:00
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=abc123@mail.aub.edu
 
 #
 # add your command here, e.g
