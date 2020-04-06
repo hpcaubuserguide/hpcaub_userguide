@@ -66,7 +66,7 @@ The following job script can be used as a template to submit a job.
     #!/bin/bash
 
     #SBATCH --job-name=jupyter-server
-    #SBATCH --partition normal
+    #SBATCH --partition=normal
 
     #SBATCH --nodes=1
     #SBATCH --ntasks-per-node=1
@@ -136,7 +136,7 @@ are saved and no resources or gpu would be needed to view the results.
     #!/bin/bash
 
     #SBATCH --job-name=jupyter-server
-    #SBATCH --partition normal
+    #SBATCH --partition=normal
 
     #SBATCH --nodes=1
     #SBATCH --ntasks-per-node=1
