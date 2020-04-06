@@ -96,12 +96,7 @@ script is also included in ~/.vnc folder. After submitting the job, the
         #SBATCH --time=0-01:00:00
 
         ### DO NOT EDIT BEYOND HERE UNLESS YOU KNOW WHAT YOU ARE DOING
-        function random_unused_port {
-            (netstat --listening --all --tcp --numeric |
-                sed '1,2d; s/[^[:space:]]*[[:space:]]*[^[:space:]]*[[:space:]]*[^[:space:]]*[[:space:]]*[^[:space:]]*:\([0-9]*\)[[:space:]]*.*/\1/g' |
-                sort -n | uniq; seq 1 1000; seq 1 65535
-                ) | sort -n | uniq -u | shuf -n 1
-        }
+        source ~/.bashrc
 
         VNC_HEAD_PORT=$(random_unused_port)
         echo "VNC_HEAD_PORT = ${VNC_HEAD_PORT}"
