@@ -29,6 +29,10 @@ for a serial or parallel program.
 - ``#SBATCH --time=1-00:00:00``: The time limit of the job. When the limit is
   reached, the job is killed by the scheduler. Jobs that do not specify this
   flag will be rejected.
+- ``#SBATCH --mail-type=ALL``: recieve email notification for all stages of a job,
+  e.g when the job starts and terminates.
+- ``#SBATCH --mail-user=abc123@aub.edu.lb``: The email address to which the job
+  notification emails are sent.
 
 Batch job submission and monitoring procedure
 =============================================
