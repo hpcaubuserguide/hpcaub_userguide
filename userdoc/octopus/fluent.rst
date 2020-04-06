@@ -1,14 +1,11 @@
-The Ansys Flutent environment
-=============================
+The Ansys Fluent environment
+============================
 
 Overview
 ^^^^^^^^
 
 In-order to use ``Ansys Flutent`` a ``VNC`` session is need. Execution can be
 done in batch mode, but that is beyond the scope of this guide.
-
-To obtain a desktop environment through ``VNC`` on the compute nodes
-have a look the :ref:`interactive jobs <interactive_job_octopus_anchor>` section.
 
 There are three versions of fluent installed on ``octopus``:
 
