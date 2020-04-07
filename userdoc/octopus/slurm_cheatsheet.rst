@@ -23,7 +23,10 @@ To submit an interactive for testing and/or debugging/development the
 
 .. code-block:: bash
 
-    # allocate a cpu only job
+    # single core interactive bash terminal on a compute node (e.g for development)
+    $ srun --pty /bin/bash
+
+    # allocate a cpu only job (specify resources details)
     $ srun --partition=normal --nodes=1 --ntasks-per-node=4 --cpus-per-task=1 --mem=8000 --account=my_project --time=0-01:00:00 --pty /bin/bash
 
     # allocate a gpu job
