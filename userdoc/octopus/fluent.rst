@@ -43,7 +43,7 @@ The following job script template can be used (for a ``VNC`` session):
     #SBATCH --time=0-06:00:00
 
     ### DO NOT EDIT BEYOND HERE UNLESS YOU KNOW WHAT YOU ARE DOING
-    source /etc/bashrc
+    source ~/.bashrc
 
     VNC_HEAD_PORT=$(random_unused_port)
     echo "VNC_HEAD_PORT = ${VNC_HEAD_PORT}"
