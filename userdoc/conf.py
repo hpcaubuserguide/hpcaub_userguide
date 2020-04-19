@@ -66,7 +66,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'hpc user guide'
-copyright = '2019, HPC admin team, IT helpdesk'
+copyright = '2020, HPC admin team, IT helpdesk'
 author = 'HPC admin team'
 
 # The version info for the project you're documenting, acts as replacement for
