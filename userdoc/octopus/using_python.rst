@@ -75,6 +75,8 @@ The following job script can be used as a template to submit a job.
     #SBATCH --time=0-01:00:00
     #SBATCH --account=foo_project
 
+    source /etc/bashrc
+
     module purge
     module load python/3
 
