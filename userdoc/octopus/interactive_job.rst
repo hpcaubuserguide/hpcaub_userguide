@@ -1,5 +1,5 @@
-Interactive jobs
-----------------
+Interactive jobs - Desktop environment on a compute nodes
+---------------------------------------------------------
 
 .. _interactive_job_octopus_anchor:
 
