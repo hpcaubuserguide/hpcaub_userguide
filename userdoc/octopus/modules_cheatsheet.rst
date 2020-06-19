@@ -1,5 +1,5 @@
-Modules cheatsheet
-------------------
+Application
+-----------
 
 Several programs with different versions are available on HPC systems. Having
 all the versions at the disposal of the user simultaneously leads to library
@@ -28,3 +28,5 @@ For detailed information on the usage of ``module`` check the man pages
 .. code-block:: bash
 
     $ man module
+
+.. include:: app_list.rst
