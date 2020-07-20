@@ -11,3 +11,4 @@ Scientific Computing and Environments
    pari.rst
    using_enzo.rst
    fluent.rst
+   molecular_dynamics.rst
