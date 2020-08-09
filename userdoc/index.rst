@@ -7,11 +7,8 @@
 AUB HPC user guide
 ##################
 
-There are 2 clusters available for users at AUB:
-
 .. toctree::
    :maxdepth: 1
 
-   arza/arza_index
    octopus/octopus_index
 

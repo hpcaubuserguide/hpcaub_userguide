@@ -1,5 +1,5 @@
-Application
------------
+Applications
+------------
 
 Several programs with different versions are available on HPC systems. Having
 all the versions at the disposal of the user simultaneously leads to library

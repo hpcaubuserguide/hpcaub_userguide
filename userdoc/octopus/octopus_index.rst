@@ -1,5 +1,5 @@
-Octopus user guide (Mixed architecture virtualized Beowulf cluster)
-===================================================================
+Octopus
+=======
 
 .. _octopus_guide_anchor:
 
