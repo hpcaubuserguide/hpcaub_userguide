@@ -20,6 +20,14 @@ To connect to a vnc session on a compute node:
   3) create a ssh tunnel from **your** machine to the head node of the cluster
   4) connect using a vnc viewer (client) to the ssh tunnel on **localhost**
 
+Recommended workflow
+++++++++++++++++++++
+
+   1) submit the vnc job ( e.g ``sbatch job_vnc.sh``)
+   2) get the port number ( from e.g slurm-166866.out, e.g ``VNC_HEAD_PORT = 5201`` )
+   3) create the tunnel ( e.g ``ssh -L 5201:localhos:5201 john@octopus.aub.edu.lb -N`` on your machine )
+   4) connect using a vnc viewer to the vnc session running on the compute using e.g ``localhost:5201``
+
 An interactive job on a compute node
 ++++++++++++++++++++++++++++++++++++
 
@@ -85,7 +93,7 @@ script is also included in ~/.vnc folder. After submitting the job, the
 
         ## specify the job and project name
         #SBATCH --job-name=my_job_name
-        #SBATCH -A foo_project
+        #SBATCH --account=7672200
 
         ## specify the required resources
         #SBATCH --partition=normal
