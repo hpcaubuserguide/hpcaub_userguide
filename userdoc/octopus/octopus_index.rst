@@ -8,6 +8,7 @@ Octopus
 
    overview.rst
    getting_connected.rst
+   data_transfer.rst
    slurm_cheatsheet.rst
    jobs.rst
    modules_cheatsheet.rst
