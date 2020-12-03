@@ -5,6 +5,8 @@ Scientific Computing and Environments
    :maxdepth: 2
    :caption: Contents:
 
+   parallel_computing.rst
+   gpu_computing.rst
    using_python.rst
    machine_learning.rst
    matlab.rst
@@ -12,3 +14,4 @@ Scientific Computing and Environments
    using_enzo.rst
    fluent.rst
    molecular_dynamics.rst
+   abaqus.rst

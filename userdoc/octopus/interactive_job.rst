@@ -3,30 +3,23 @@ Interactive jobs - Desktop environment on a compute nodes
 
 .. _interactive_job_octopus_anchor:
 
-Summary
-^^^^^^^
-
 Interactive jobs give the user a desktop like environment on a compute node.
 Such jobs are useful for tasks where user interactions / input are needed.
 For example, although ``matlab`` or ``Ansys Fluent`` jobs can be run as
 batch jobs through the command line or scripts, sometimes interacting with their
 GUIs is necessary.
 
-To connect to a vnc session on a compute node:
-
-  1) copy the predefine vnc configuration to your home directory. This step may
-     already be done automatically, but please check the content (shown below)
-  2) submit the job script (shown below)
-  3) create a ssh tunnel from **your** machine to the head node of the cluster
-  4) connect using a vnc viewer (client) to the ssh tunnel on **localhost**
-
 Recommended workflow
 ++++++++++++++++++++
 
-   1) submit the vnc job ( e.g ``sbatch job_vnc.sh``)
-   2) get the port number ( from e.g slurm-166866.out, e.g ``VNC_HEAD_PORT = 5201`` )
-   3) create the tunnel ( e.g ``ssh -L 5201:localhos:5201 john@octopus.aub.edu.lb -N`` on your machine )
-   4) connect using a vnc viewer to the vnc session running on the compute using e.g ``localhost:5201``
+   1) :ref:`Create the VNC configuration <create_vnc_configuration>`. This step is
+      done when the account is created and hence can be skipped. Execute the procedure
+      described there if your VNC configuration does not exist or is corrupted.
+   2) :ref:`submit the job script <submit_vnc_job>` ( e.g ``sbatch job.sh``)
+   3) Get the port number after the job starts running from e.g slurm-166866.out get the VNC port number ``VNC_HEAD_PORT = 5201``.
+   4) :ref:`create the tunnel <create_vnc_tunnel>`.
+   5) connect using a vnc viewer to the vnc session running on the compute using e.g ``localhost:5201``
+
 
 An interactive job on a compute node
 ++++++++++++++++++++++++++++++++++++
@@ -45,8 +38,9 @@ To connect to the vnc session using a vnc viewer (client) a tunnel to the
 details
 ^^^^^^^^
 
-1) create/edit folder and files
-++++++++++++++++++++++++++++++++
+Create/edit folder and files
+++++++++++++++++++++++++++++
+.. _create_vnc_configuration:
 
 - first check if the folder ``.vnc`` exists and has the following two files:
   ``xstartup`` and ``config`` by executing:
@@ -79,8 +73,9 @@ details
         vncpasswd
         # optionally set a view only password
 
-2) submit the job
-++++++++++++++++++
+submit the job
+++++++++++++++
+.. _submit_vnc_job:
 
 The following job script can be used as a template and the resources options
 can be changed to meet the demands of a particular simulation. This job
@@ -121,19 +116,29 @@ script is also included in ~/.vnc folder. After submitting the job, the
 
         sleep infinity
 
+A copy of this file can be obtained from ``/home/shared/sample_scripts/slurm_vnc_job/job.sh``.
+Altenatively create the file in your ``~/`` directory. The script can be submitted
+the usual way using ``sbatch``.
 
-3) create a ssh tunnel from **your** machine to the head node of the cluster
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+.. code-block::bash
 
-On a **local** terminal, use the ``VNC_HEAD_PORT`` written to the
-``slurm-JOBID.out`` file to create the tunnel
+    $ sbatch job.sh
+
+Create a ssh tunnel
++++++++++++++++++++
+
+.. _create_vnc_tunnel:
+
+On a **local** terminal, use the ``VNC_HEAD_PORT`` written to the ``slurm-JOBID.out``
+file to create the tunnel. The tunnel can be created using other application such
+as ``mobaxterm`` using its `graphical user interface <https://blog.mobatek.net/post/ssh-tunnels-and-port-forwarding/>`_.
 
 .. code-block:: bash
 		
    ssh -L localhost:<VNC_HEAD_PORT>:localhost:<VNC_HEAD_PORT> <user>@octopus.aub.edu.lb -N
 
-4) connect using a vnc viewer (client) to the ssh tunnel on localhost
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Connect using a vnc viewer (client) to the ssh tunnel on localhost
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 If you're using RealVNC type in ``localhost:<VNC_HEAD_PORT>``
 	

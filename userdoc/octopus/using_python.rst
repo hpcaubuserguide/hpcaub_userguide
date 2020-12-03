@@ -51,13 +51,22 @@ Users who wish to extend/create custom python these environment can:
     process and customization of python. For optimal performance, this is the
     recommended approach.
 
-Connecting to a jupyter notebook server on a compute node or nodes
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Jupyter notebooks
+^^^^^^^^^^^^^^^^^
 
 .. _jupyter_notebook_job_octopus:
 
 A jupyter lab server is run on a compute node to which a user can connect
-to using a browser on the local machine (i.e laptop/desktop/terminal)
+to using a browser on the local machine (i.e laptop/desktop/terminal).
+
+- submit the jupyter server script using ``sbatch`` (see below)
+- get the port number from jupyter-${MY_NEW_JOB_ID}.log after the job stars running
+- create the tunnel to Octopus
+- get the URL with the autnetication token from jupyter-${MY_NEW_JOB_ID}.log and
+  use that link (with the token) in your browser
+
+Jupyter notebook job on a compute node
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The following job script can be used as a template to submit a job.
 
@@ -67,6 +76,7 @@ The following job script can be used as a template to submit a job.
 
     #SBATCH --job-name=jupyter-server
     #SBATCH --partition=normal
+    #SBATCH --account=my_account
 
     #SBATCH --nodes=1
     #SBATCH --ntasks-per-node=1
