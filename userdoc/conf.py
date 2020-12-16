@@ -226,3 +226,12 @@ linkcheck_anchors = False
 
 # Increase the linkcheck timeout to 5 seconds
 linkcheck_timeout = 5
+
+#html_js_files = [
+#        'js/custom.js'
+#]
+#
+#html_theme_options = {
+#        "collapse_navigation": False,
+#}
+

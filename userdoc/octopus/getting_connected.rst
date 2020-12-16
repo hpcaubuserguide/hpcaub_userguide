@@ -28,14 +28,13 @@ TIP: Passwordless login can be set up to avoid typing the password everytime and
 Tools for connecting
 ====================
 
-- native ssh on linux or mac (recommended)
-- msys2: https://www.msys2.org/ (recommended on windows)
-- mobaxterm (most user freindly): https://mobaxterm.mobatek.net/
+Any of the following can be used to connect to Octopus:
 
-    .. note:: install the portable version, it does not require admin access
-
-- winscp: https://winscp.net/eng/index.php
-- putty: https://putty.org/
+   - native ssh on linux or mac (recommended)
+   - `msys2 <https://www.msys2.org>`_ (recommended on windows) [execute ``pacman -S openssh rsync``]
+   - `mobaxterm <https://mobaxterm.mobatek.net>`_ (most user freindly) [install the portable version]
+   - winscp: https://winscp.net/eng/index.php
+   - putty: https://putty.org/
 
 
 Generating a ssh private-public key pair
