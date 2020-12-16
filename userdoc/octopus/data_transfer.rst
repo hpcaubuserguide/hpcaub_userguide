@@ -10,3 +10,17 @@ is a subset and an incomplete list of methods and tools:
    - winscp
    - sftp
 
+rsync
++++++
+
+transfer/copy files from the local machine to ``~/`` on ``octopus``:
+
+.. code-block:: bash
+
+    rsync -PrlHvtpog my_local_file <user>@octopus.aub.edu.lb:~/
+
+To transfer files from ``octopus`` to the local machine:
+
+.. code-block:: bash
+
+    rsync -PrlHvtpog <user>@octopus.aub.edu.lb:~/my_file .
