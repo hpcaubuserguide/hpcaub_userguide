@@ -15,3 +15,5 @@ Scientific Computing and Environments
    fluent.rst
    molecular_dynamics.rst
    abaqus.rst
+   cst.rst
+
