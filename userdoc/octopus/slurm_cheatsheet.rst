@@ -48,6 +48,12 @@ The list of jobs running or queueud on the cluster
 
     $ squeue -a
 
+To show the estimated starting time of a pending job
+
+.. code-block:: bash
+
+    $ squeue --start -j <job_id>
+
 Remove a job from the queue
 ===========================
 
