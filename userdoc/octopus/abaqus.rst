@@ -54,17 +54,30 @@ one compute node.
    module load abaqus/2020
    abaqus job=my_abaqus_sim_name input=my_sim.inp cpus=`nproc` mp_mode=threads interactive
 
-Multi-node parallel Abaqus CAE jobs
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Multi-node parallel Abaqus jobs
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The following job script :ref:`below <abaqus_multinode_mpi>` can be used to run a
-parallel Abaqus CAE job using multiple compute nodes. The script below can be 
+parallel Abaqus job using multiple compute nodes in batch mode. The script below can be 
 downloaded by clicking :download:`here <abaqus/slurm_abaqus_mpi_job.sh>`
+
+If a graphica user interface job is used then the following :download:`script <abaqus/slurm_abaqus_mpi_env_gen.sh>`
+should be executed in the same folder where the command ``abaqus cae -mesa`` is executed:
+
+.. code-block:: bash
+
+     module load abaqus
+     chmod +x slurm_abaqus_mpi_env_gen.sh
+     ./slurm_abaqus_mpi_env_gen.sh
+     abaqus cae -mesa
 
 After the job is executed ``MPI`` must be selected in the the ``ABAQUS`` job in the GUI.
 
+
 .. image:: abaqus/abaqus_mpi_job.png
    :width: 3000px
+
+**script for running a multi-node parallel job in batch mode**
 
 .. _abaqus_multinode_mpi:
 
@@ -122,5 +135,6 @@ After the job is executed ``MPI`` must be selected in the the ``ABAQUS`` job in 
        del os.environ['SLURM_PROCID']
    EOF
 
-   abaqus cae -mesa
+   abaqus job=my_input_file.inp cpus=$SLURM_NPROCS` -verbose 3 standard_parallel=all mp_mode=mpi interactive
+
 
