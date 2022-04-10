@@ -16,19 +16,19 @@ Hardware optimized for deep learning
 
 There are three hosts that are available for running deep learning jobs
 
-+-------+--------------+-----------------+---------------+---------------------+
-| GPUs  | host(s)      | GPU / host      | GPU ram (GB)  |  GPU resource flag  |
-+=======+==============+=================+===============+=====================+
-|       | onode10      | 1 x Nvidia V100 | 16            |   v100d16q:1        |
-|       +--------------+-----------------+---------------+---------------------+
-|   4   | onode11      | 1 x Nvidia V100 | 32            |   v100d32q:1        |
-|       +--------------+-----------------+---------------+---------------------+
-|       | onode12      | 1 x Nvidia V100 | 32            |   v100d32q:1        |
-|       +--------------+-----------------+---------------+---------------------+
-|       | onode17      | 1 x Nvidia V100 | 32            |   v100d32q:1        |
-+-------+--------------+-----------------+---------------+---------------------+
-|   8   | anode[01-08] | 1 x Nvidia K20x | 4.5           |   k20:1             |
-+-------+--------------+-----------------+---------------+---------------------+
++------+--------------+-----------------+--------------+--------------------+
+| GPUs | host(s)      | GPU / host      | GPU ram (GB) |  GPU resource flag |
++======+==============+=================+==============+====================+
+|      | onode10      | 1 x Nvidia V100 | 32           |   v100d32q:1       |
++------+--------------+-----------------+--------------+--------------------+
+|   4  | onode11      | 1 x Nvidia V100 | 32           |   v100d32q:1       |
++------+--------------+-----------------+--------------+--------------------+
+|      | onode12      | 1 x Nvidia V100 | 32           |   v100d32q:1       |
++------+--------------+-----------------+--------------+--------------------+
+|      | onode17      | 1 x Nvidia V100 | 32           |   v100d32q:1       |
++------+--------------+-----------------+--------------+--------------------+
+|   8  | anode[01-08] | 1 x Nvidia K20x | 4.5          |   k20:1            |
++------+--------------+-----------------+--------------+--------------------+
 
 Allocating GPU resources
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -42,10 +42,10 @@ Not all the GPUs have the same amout of memory. Using ``--gres=gpu`` will
 allocate any available GPU. Advanced selections of the GPUs types can be
 specifyied by passing extra flags to ``--gres``. The detailed flags for the
 different GPU types are mentioned in the columns ``GPU resources flag`` in
-the table above. For example, to allocate a Nvidia V100 GPU with 16GB GPU ram
+the table above. For example, to allocate a Nvidia V100 GPU with 32GB GPU ram
 use the flag:
 
-   ``#SBATCH --gres=gpu:v100d16q:1``
+   ``#SBATCH --gres=gpu:v100d32q:1``
 
 
 Using tensorflow, Keras or pytorch
@@ -160,14 +160,14 @@ For tensorflow, when the following snippet is executed:6Q, Compute Capability 7.
      with tf.Session() as sess:
         devices = sess.list_devices()
 
-the GPU(s) should be displayed in the output (search for ``StreamExecutor device (0): GRID V100D-16Q
+the GPU(s) should be displayed in the output (search for ``StreamExecutor device (0): GRID V100D-32Q
 
 .. code-block:: bash
 
     2019-12-08 01:01:44.211101: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcuda.so.1
     2019-12-08 01:01:44.246405: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1005] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
     2019-12-08 01:01:44.247114: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties:
-    name: GRID V100D-16Q major: 7 minor: 0 memoryClockRate(GHz): 1.38
+    name: GRID V100D-32Q major: 7 minor: 0 memoryClockRate(GHz): 1.38
     pciBusID: 0000:02:02.0
     2019-12-08 01:01:44.254377: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.1
     2019-12-08 01:01:44.288733: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10
@@ -185,7 +185,7 @@ the GPU(s) should be displayed in the output (search for ``StreamExecutor device
     2019-12-08 01:01:44.462644: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): <undefined>, <undefined>
     2019-12-08 01:01:44.463168: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1005] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
     2019-12-08 01:01:44.463942: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties:
-    name: GRID V100D-16Q major: 7 minor: 0 memoryClockRate(GHz): 1.38
+    name: GRID V100D-32Q major: 7 minor: 0 memoryClockRate(GHz): 1.38
     pciBusID: 0000:02:02.0
     2019-12-08 01:01:44.464020: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.1
     2019-12-08 01:01:44.464037: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10
@@ -204,9 +204,9 @@ the GPU(s) should be displayed in the output (search for ``StreamExecutor device
     2019-12-08 01:01:44.729779: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1005] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
     2019-12-08 01:01:44.730551: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1005] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
     2019-12-08 01:01:44.731236: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1005] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
-    2019-12-08 01:01:44.731866: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 14226 MB memory) -> physical GPU (device: 0, name: GRID V100D-16Q, pci bus id: 0000:02:02.0, compute capability: 7.0)
+    2019-12-08 01:01:44.731866: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 14226 MB memory) -> physical GPU (device: 0, name: GRID V100D-32Q, pci bus id: 0000:02:02.0, compute capability: 7.0)
     2019-12-08 01:01:44.734308: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x5650b1acf9a0 executing computations on platform CUDA. Devices:
-    2019-12-08 01:01:44.734353: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): GRID V100D-16Q, Compute Capability 7.0
+    2019-12-08 01:01:44.734353: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): GRID V100D-32Q, Compute Capability 7.0
 
 This snippet can be included at the top of the notebook or python script.
 
