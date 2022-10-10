@@ -34,7 +34,7 @@ To connect to the vnc session using a vnc viewer (client) a tunnel to the
 .. figure:: imgs/interactive_work_on_compute_nodes.png
    :scale: 100 %
    :alt:
-  
+
 details
 ^^^^^^^^
 
@@ -88,7 +88,7 @@ script is also included in ~/.vnc folder. After submitting the job, the
 
         ## specify the job and project name
         #SBATCH --job-name=my_job_name
-        #SBATCH --account=7672200
+        #SBATCH --account=abc123
 
         ## specify the required resources
         #SBATCH --partition=normal
@@ -134,14 +134,14 @@ file to create the tunnel. The tunnel can be created using other application suc
 as ``mobaxterm`` using its `graphical user interface <https://blog.mobatek.net/post/ssh-tunnels-and-port-forwarding/>`_.
 
 .. code-block:: bash
-		
+
    ssh -L localhost:<VNC_HEAD_PORT>:localhost:<VNC_HEAD_PORT> <user>@octopus.aub.edu.lb -N
 
 Connect using a vnc viewer (client) to the ssh tunnel on localhost
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 If you're using RealVNC type in ``localhost:<VNC_HEAD_PORT>``
-	
+
 or on MobaXterm, ``session -> VNC``:
 
    - Remote hostname or IP address: ``localhost``

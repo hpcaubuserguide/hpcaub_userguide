@@ -32,7 +32,7 @@ The following job script template can be used (for a ``VNC`` session):
 
     ## specify the job and project name
     #SBATCH --job-name=my_fluent_job
-    #SBATCH --account=6544724
+    #SBATCH --account=abc123
 
     ## specify the required resources
     #SBATCH --partition=normal
