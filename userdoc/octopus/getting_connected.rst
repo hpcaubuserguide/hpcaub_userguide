@@ -79,7 +79,7 @@ execute the following command in a terminal on you machine:
 .. note:: this same process can be done on windows also from the command line
  assuming that you already have openssh installed. (e.g using ``msys2``)
 
-<`screencast <http://website.aub.edu.lb/it/hpc/SiteAssets/Pages/faq/generate_ssh_key_linux.mp4>`_>
+<`screencast <https://mailaub-my.sharepoint.com/:v:/g/personal/mk250_aub_edu_lb/EWg5ybylXRpHhMCuMk6w8i4BaqSskOoZPl_CvQ4xbFs5yA?e=KaKaX8>`_>
 
 on windwows using mobaxterm
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
