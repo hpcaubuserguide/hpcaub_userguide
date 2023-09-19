@@ -15,8 +15,7 @@ Scientific Computing Environments
    general_machine_learning.rst
    large_language_models.rst
    matlab.rst
-   pari.rst
-   using_enzo.rst
    fluent.rst
    abaqus.rst
    cst.rst
+   pari.rst
