@@ -7,12 +7,13 @@ Hardware Resources
 ``Octopus`` is a mixed architecture Intel/AMD Beowulf cluster with the
 following specifications:
 
-   - 776 cores
+   - 880 cores
         + 376 `AMD EPYC 7551p <https://www.amd.com/en/products/cpu/amd-epyc-7551p>`_ vCPUs
         + 96  `Intel Xeon E5-2695 v4 <https://ark.intel.com/content/www/us/en/ark/products/91316/intel-xeon-processor-e5-2695-v4-45m-cache-2-10-ghz.html>`_ vCPUs
-        + 256 `Intel Xeon E5-2665 <https://ark.intel.com/products/64597/Intel-Xeon-Processor-E5-2665-20M-Cache-2_40-GHz-8_00-GTs-Intel-QPI?q=E5-2665>`_ physical cores
+        + 288 `Intel Xeon E5-2665 <https://ark.intel.com/products/64597/Intel-Xeon-Processor-E5-2665-20M-Cache-2_40-GHz-8_00-GTs-Intel-QPI?q=E5-2665>`_ physical cores
         + 48  `Intel Xeon E5-2643 v2 <https://ark.intel.com/content/www/us/en/ark/products/75268/intel-xeon-processor-e5-2643-v2-25m-cache-3-50-ghz.html>`_ vCPUs
-   - 2.6 TB main memory
+        + 72   misellaneous CPUs and vCPUs for management / storage and other tasks
+   - 3.0 TB main memory
    - 4 x `Nvidia V100 PCI-E <https://www.nvidia.com/en-us/data-center/v100/>`_ GPUs
    - 8 x `Nvidia GK110GL Tesla K20m <http://www.nvidia.com/content/PDF/kepler/Tesla-K20X-BD-06397-001-v05.pdf>`_ GPUs
    - 10 Gbit/s CISCO interconnect used for storage and computing
