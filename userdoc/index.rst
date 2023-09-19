@@ -8,7 +8,6 @@ AUB HPC user guide
 ##################
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    octopus/octopus_index
-
