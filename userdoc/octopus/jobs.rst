@@ -3,7 +3,7 @@ Job scripts
 
 The following script can be used as a template to exectute some bash commands
 for a serial or parallel program. This is just a template that has the most
-commontly used flags. For working example see here: :ref:`octopus_jobs_examples`.
+commontly used flags. For working example see the :ref:`job scripts examples <octopus_jobs_examples>`.
 
 **template job script**
 
@@ -48,9 +48,45 @@ Job scripts examples
 Below is a list of job script that can be used to run serial or parallel jobs.
 For more details please refer to the :ref:`scientific computing section <octopus_scientific_computing>`.
 
-aaaaaa
-aaaaaa
-aaaaaa
+.. note:: all the jobs below are just basic working examples and can be copied
+   and modified to suit the user needs. Make sure to change the account though
+   to the one that you are using.
+
+.. note:: Every application is different and might need special flags to run
+   correctly. Please consult the documentation of the application that you are
+   using to make sure that you are using the correct flags. You may also
+   email it.helpdesk@aub.edu.lb for advise.
+
+**serial - single core job**
+
+.. literalinclude:: serial_single_core_job.sh
+   :linenos:
+   :language: bash
+
+
+**single node smp job**
+
+.. literalinclude:: smp_single_node_job.sh
+   :linenos:
+   :language: bash
+
+**parallel multi-host job**
+
+.. literalinclude:: parallel_multi_host_job.sh
+   :linenos:
+   :language: bash
+
+**single host GPU job**
+
+.. literalinclude:: single_host_gpu_job.sh
+   :linenos:
+   :language: bash
+
+**multi-host GPU job**
+
+.. literalinclude:: multi_host_gpu_job.sh
+   :linenos:
+   :language: bash
 
 Batch job submission and monitoring procedure
 =============================================

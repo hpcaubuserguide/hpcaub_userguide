@@ -11,3 +11,5 @@ AUB HPC user guide
    :maxdepth: 2
 
    octopus/octopus_index
+
+   publications
