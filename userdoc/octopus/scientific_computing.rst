@@ -1,5 +1,7 @@
-Scientific Computing and Environments
-=====================================
+Scientific Computing Environments
+=================================
+
+.. _octopus_scientific_computing:
 
 .. toctree::
    :maxdepth: 2
@@ -8,12 +10,13 @@ Scientific Computing and Environments
    parallel_computing.rst
    gpu_computing.rst
    using_python.rst
-   machine_learning.rst
+   astrophysics.rst
+   molecular_dynamics.rst
+   general_machine_learning.rst
+   large_language_models.rst
    matlab.rst
    pari.rst
    using_enzo.rst
    fluent.rst
-   molecular_dynamics.rst
    abaqus.rst
    cst.rst
-

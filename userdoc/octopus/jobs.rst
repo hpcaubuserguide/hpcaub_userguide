@@ -1,8 +1,11 @@
-Example job script
-------------------
+Job scripts
+-----------
 
 The following script can be used as a template to exectute some bash commands
-for a serial or parallel program.
+for a serial or parallel program. This is just a template that has the most
+commontly used flags. For working example see here: :ref:`octopus_jobs_examples`.
+
+**template job script**
 
 .. literalinclude:: sample_job.sh
    :linenos:
@@ -33,6 +36,21 @@ for a serial or parallel program.
   e.g when the job starts and terminates.
 - ``#SBATCH --mail-user=abc123@aub.edu.lb``: The email address to which the job
   notification emails are sent.
+
+Job scripts examples
+^^^^^^^^^^^^^^^^^^^^
+
+.. reference the scientific applications section of this guide
+
+
+.. _octopus_jobs_examples:
+
+Below is a list of job script that can be used to run serial or parallel jobs.
+For more details please refer to the :ref:`scientific computing section <octopus_scientific_computing>`.
+
+aaaaaa
+aaaaaa
+aaaaaa
 
 Batch job submission and monitoring procedure
 =============================================
