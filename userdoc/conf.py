@@ -68,7 +68,7 @@ source_suffix = ['.rst', '.md']
 master_doc = 'index'
 
 # General information about the project.
-project = 'hpc user guide'
+project = 'AUB HPC user guide'
 copyright = '2023, HPC admin team, IT helpdesk'
 author = 'HPC admin team'
 
@@ -231,10 +231,27 @@ linkcheck_anchors = False
 # Increase the linkcheck timeout to 5 seconds
 linkcheck_timeout = 5
 
+html_sidebars = {
+    '**': [
+        'globaltoc.html',
+        'relations.html',
+        'searchbox.html',
+        'localtoc.html'
+    ]
+}
+
 #html_js_files = [
-#        'js/custom.js'
+#    'js/custom.js'
 #]
-#
+
 #html_theme_options = {
-#        "collapse_navigation": False,
+#    "collapse_navigation": False,
+#}
+
+#html_sidebars = { '**': ['custom_templates.html'] }
+
+
+#html_sidebars = {
+#   '**': ['globaltoc.html', 'sourcelink.html'],
+#   'using/windows': ['windowssidebar.html'],
 #}

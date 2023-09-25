@@ -57,39 +57,44 @@ For more details please refer to the :ref:`scientific computing section <octopus
    using to make sure that you are using the correct flags. You may also
    email it.helpdesk@aub.edu.lb for advise.
 
-**serial - single core job**
+serial - single core job
+""""""""""""""""""""""""
 
 .. literalinclude:: serial_single_core_job.sh
    :linenos:
    :language: bash
 
 
-**single node smp job**
+single node smp job
+"""""""""""""""""""
 
 .. literalinclude:: smp_single_node_job.sh
    :linenos:
    :language: bash
 
-**parallel multi-host job**
+parallel multi-host job
+"""""""""""""""""""""""
 
 .. literalinclude:: parallel_multi_host_job.sh
    :linenos:
    :language: bash
 
-**single host GPU job**
+single host GPU job
+"""""""""""""""""""
 
 .. literalinclude:: single_host_gpu_job.sh
    :linenos:
    :language: bash
 
-**multi-host GPU job**
+multi-host GPU job
+""""""""""""""""""
 
 .. literalinclude:: multi_host_gpu_job.sh
    :linenos:
    :language: bash
 
 Batch job submission and monitoring procedure
-=============================================
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 - submit the job script using SLURM
 
@@ -117,7 +122,7 @@ For more information on using SLURM, please consult the ``man`` pages:
    $ man sbatch
 
 Jobs time limits and checkpoints
-================================
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. _octopus_jobs_checkpoints_resume:
 
@@ -135,7 +140,6 @@ the checkpoint file and loading it.
 
 Resubmit a job automatically using job arrays
 =============================================
-
 
 In the following example, a job array (``#SBATCH --array=1-30%1``) is used to
 indicate that the job should be run as a chain of 30 jobs back to back. Using

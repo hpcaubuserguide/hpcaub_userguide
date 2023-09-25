@@ -1,0 +1,4 @@
+/* The code below is based on the bootstrap website sidebar */
+.bs-sidenav.affix {
+  position: static;
+}

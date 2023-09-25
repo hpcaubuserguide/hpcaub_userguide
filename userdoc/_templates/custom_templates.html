@@ -1,0 +1,15 @@
+{% extends "!layout.html" %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            {{ toctree(maxdepth=2, collapsed=True, titles_only=True) }}
+        </div>
+        <div class="col-md-9">
+            {{ super() }}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
