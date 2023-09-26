@@ -25,7 +25,7 @@ sys.path.insert(0, os.path.abspath('.'))
 cmd = 'pip install -r requirements.txt'
 
 placeholder_replacements = {
-    "{BRANCH}": "master"
+    "{BRANCH}": "main"
 }
 
 # -- General configuration ------------------------------------------------
