@@ -103,6 +103,40 @@ possible workflows for jobs with checkpoints can be found in the
 :ref:`slurm jobs guide <octopus_jobs_checkpoints_resume>`
 
 
+Distribued training and inference with torch
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Please follow the official documentation for distributed training and inference
+with torch:
+
+   - `torch run <https://pytorch.org/docs/stable/elastic/run.html>`_
+   - `torch.nn.DistributedDataParalle <https://pytorch.org/docs/stable/generated/torch.nn.parallel.DistributedDataParallel.html>`_
+   - `torch rpc parallel <https://pytorch.org/docs/stable/rpc.html>`_
+
+Job sript for octopus using GPUs
+""""""""""""""""""""""""""""""""
+
+master:
+
+.. code-block:: bash
+
+    torchrun --nproc-per-node=1 --nnodes=4 --node-rank=0 --master-addr=<SLURM_SUBMIT_HOST> --master-port=4444 \
+       $PWD/my_torch_script.py baz --arg1=foo --arg2=bar
+
+salve(s)
+
+.. code-block:: bash
+
+    torchrun --nproc-per-node=1 --nnodes=4 --node-rank=1 --master-addr=<COMPUTE_HOST> --master-port=4444 \
+       $PWD/my_torch_script.py baz --arg1=foo --arg2=bar
+
+    torchrun --nproc-per-node=1 --nnodes=4 --node-rank=2 --master-addr=<COMPUTE_HOST> --master-port=4444 \
+       $PWD/my_torch_script.py baz --arg1=foo --arg2=bar
+
+    torchrun --nproc-per-node=1 --nnodes=4 --node-rank=3 --master-addr=<COMPUTE_HOST> --master-port=4444 \
+       $PWD/my_torch_script.py baz --arg1=foo --arg2=bar
+
+
 Troubleshooting
 ^^^^^^^^^^^^^^^
 
