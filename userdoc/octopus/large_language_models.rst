@@ -1,5 +1,5 @@
-Large language modules
-----------------------
+Large language models
+---------------------
 
 Resources requirements estimation tips and tricks
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
