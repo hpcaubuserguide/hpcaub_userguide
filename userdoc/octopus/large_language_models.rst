@@ -3,6 +3,8 @@ Large language models
 
 **Author: Mher Kazandjian**
 
+.. info:: This document is a work in progress and is subject to change.
+
 Environments
 ^^^^^^^^^^^^
 
