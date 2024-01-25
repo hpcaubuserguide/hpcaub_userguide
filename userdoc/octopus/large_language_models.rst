@@ -8,10 +8,11 @@ Large language models
 Environments
 ^^^^^^^^^^^^
 
-In addition to the ``python/ai-4`` environment the ``python/ai/transformers-r1``
-environment can be used to run the models that are already available on
-``octopus``.
+The following environments are available on ``octopus`` for running large
+language models and developing new models:
 
+  - python/ai-4
+  - python/ai/transformers-r1
 
 Resources requirements estimation tips and tricks
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -195,26 +196,19 @@ Evaluate the quantized model on a CPU - non optimized
 
 .. code-block:: bash
 
-    cd /home/mher/scratch/llms/mistral
-    rsyncf mistral-7b-v0.1.Q4_K_M /dev/shm/
-    cd home/mher/scratch/llms/llama/llama.cpp/models
-    ln -s /dev/shm/mistral-7b-v0.1.Q4_K_M 7B
-    cd ..
-    ./main -t 8 -ngl 32 -m models/7B/mistral-7b-v0.1.Q4_K_M.gguf --color -c 4096 --temp 0.7 --repeat_penalty 1.1 -n -1 -p "give me a hello world script in python."
-    ./main -t 8 -ngl 24  --color --temp 0.7 -n -1 -m models/mistral-7b-v0.1.Q4_K_M.gguf -p "Building a website can be done in 10 simple steps:\nStep 1:" -n 400 -e
+    module load gcc/12
+    rsync -PrlHvtpog /scratch/shared/ai/models/llms/mistralai/Mistral-7B-v0.1/mistral-7b-v0.1.Q4_K_M /dev/shm/
+    /apps/sw/llama.cpp/amd-avx2/bin/main -t 16 -ngl 24 --color --temp 0.7 -n 1 -m /dev/shm/mistral-7b-v0.1.Q4_K_M/mistral-7b-v0.1.Q4_K_M.gguf -p "Building a website can be done in 10 simple steps:\nStep 1:" -n 400 -e
 
 Evaluate the quantized model on a CPU (optimized)
 #################################################
 
 .. code-block:: bash
 
-    cd /home/mher/scratch/llms/mistral
-    rsyncf mistral-7b-v0.1.Q4_K_M /dev/shm/
-    cd home/mher/scratch/llms/llama/llama.cpp/models
-    ln -s /dev/shm/mistral-7b-v0.1.Q4_K_M 7B
-    cd ..
-    ./main -t 8 -ngl 32 -m models/7B/mistral-7b-v0.1.Q4_K_M.gguf --color -c 4096 --temp 0.7 --repeat_penalty 1.1 -n -1 -p "give me a hello world script in python."
-    ./main -t 8 -ngl 24  --color --temp 0.7 -n -1 -m models/mistral-7b-v0.1.Q4_K_M.gguf -p "Building a website can be done in 10 simple steps:\nStep 1:" -n 400 -e
+    module load gcc/12
+    module load cuda/12
+    rsync -PrlHvtpog /scratch/shared/ai/models/llms/mistralai/Mistral-7B-v0.1/mistral-7b-v0.1.Q4_K_M /dev/shm/
+    /apps/sw/llama.cpp/amd-v100-cublas-12/bin/main -t 8 -ngl 24 --color --temp 0.7 -n 1 -m /dev/shm/mistral-7b-v0.1.Q4_K_M/mistral-7b-v0.1.Q4_K_M.gguf -p "Building a website can be done in 10 simple steps:\nStep 1:" -n 400 -e
 
 Evaluate the quantized model on a CPU across multiple hosts
 ###########################################################
@@ -245,6 +239,21 @@ Evaluate the quantized model across multiple GPUs
 
     module load llama.cpp/gpu-k20-mpi
     ...
+
+Benchmark the quantized model
+#############################
+
+.. code-block:: bash
+
+    [test01@onode12 work]$ /apps/sw/llama.cpp/amd-v100-cublas-12/bin/llama-bench -m /dev/shm/mistral-7b-v0.1.Q4_K_M/mistral-7b-v0.1.Q4_K_M.gguf
+    ggml_init_cublas: GGML_CUDA_FORCE_MMQ:   no
+    ggml_init_cublas: CUDA_USE_TENSOR_CORES: yes
+    ggml_init_cublas: found 1 CUDA devices:
+      Device 0: Tesla V100-PCIE-32GB, compute capability 7.0, VMM: yes
+    | model                          |       size |     params | backend    | ngl | test       |              t/s |
+    | ------------------------------ | ---------: | ---------: | ---------- | --: | ---------- | ---------------: |
+    | llama 7B Q4_K - Medium         |   4.07 GiB |     7.24 B | CUDA       |  99 | pp 512     |  2233.80 ± 65.69 |
+    | llama 7B Q4_K - Medium         |   4.07 GiB |     7.24 B | CUDA       |  99 | tg 128     |     82.05 ± 0.15 |
 
 Farm the evaluation of quantized models
 #######################################
