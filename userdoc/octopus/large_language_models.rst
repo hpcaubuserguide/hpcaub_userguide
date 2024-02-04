@@ -72,7 +72,7 @@ The following models are available on ``octopus``:
   - falcon 7B
   - falcon 17B
 
-The model directory is in ``/scratch/ai/llms``.
+The model directory is in ``/scratch/shared/ai/models/llms``.
 
 It is a good practice to cache the model (if it fits) to ``/dev/shm/`` to speed
 up loading the models for repeated use. The read and write speed to ``/dev/shm``
