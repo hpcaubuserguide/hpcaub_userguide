@@ -332,45 +332,48 @@ Serving models using ollama
 
 There are a bunch of models that are available on ``octopus``. The models are
 
-```
-NAME                                    ID              SIZE    MODIFIED
-codellama:34b                           685be00e1532    19 GB   9 days ago
-codellama:70b                           e59b580dfce7    38 GB   2 days ago
-codellama:70b-code                      f51f75d243f2    38 GB   2 days ago
-codellama:70b-instruct                  e59b580dfce7    38 GB   2 days ago
-deepseek-coder:1.3b                     3ddd2d3fc8d2    776 MB  8 days ago
-deepseek-coder:1.3b-base-q8_0           71f702eff852    1.4 GB  7 days ago
-deepseek-coder:1.3b-instruct            3ddd2d3fc8d2    776 MB  8 days ago
-deepseek-coder:33b                      acec7c0b0fd9    18 GB   7 days ago
-deepseek-coder:33b-base-q4_0            ca50732c8ee1    18 GB   7 days ago
-deepseek-coder:33b-instruct             acec7c0b0fd9    18 GB   8 days ago
-deepseek-coder:33b-instruct-fp16        b54904179335    66 GB   7 days ago
-deepseek-coder:6.7b                     ce298d984115    3.8 GB  7 days ago
-deepseek-coder:latest                   3ddd2d3fc8d2    776 MB  8 days ago
-dolphin-mixtral:8x7b                    cfada4ba31c7    26 GB   8 days ago
-falcon:180b-chat                        e2bc879d7cee    101 GB  8 days ago
-falcon:7b                               4280f7257e73    4.2 GB  9 days ago
-llava:latest                            cd3274b81a85    4.5 GB  9 days ago
-medllama2:latest                        a53737ec0c72    3.8 GB  9 days ago
-megadolphin:latest                      8fa55398527b    67 GB   8 days ago
-mistral:instruct                        61e88e884507    4.1 GB  9 days ago
-mistral:latest                          61e88e884507    4.1 GB  7 days ago
-mixtral:8x7b-instruct-v0.1-q8_0         a6689be5de7d    49 GB   9 days ago
-mixtral:latest                          7708c059a8bb    26 GB   9 days ago
-phi:latest                              e2fd6321a5fe    1.6 GB  9 days ago
-stablelm-zephyr:latest                  0a108dbd846e    1.6 GB  8 days ago
-starcoder:15b                           fc59c84e00c5    9.0 GB  9 days ago
-starcoder:1b                            77e6c46054d9    726 MB  9 days ago
-starcoder:3b                            847e5a7aa26f    1.8 GB  9 days ago
-starcoder:7b                            53fdbc3a2006    4.3 GB  9 days ago
-tinyllama:latest                        2644915ede35    637 MB  9 days ago
-wizardlm:70b-llama2-q4_0                2d269a65a092    38 GB   8 days ago
-wizardlm-uncensored:13b                 886a369d74fc    7.4 GB  8 days ago
-yarn-mistral:7b-128k                    6511b83c33d5    4.1 GB  8 days ago
-zephyr:latest                           bbe38b81adec    4.1 GB  8 days ago
-```
+.. code-block:: bash
 
-Email ``it.helpdesk@aub.edu.lb`` for models that you would like to be deployed.
+    $ ollama list
+    NAME                                    ID              SIZE    MODIFIED
+    codellama:34b                           685be00e1532    19 GB   9 days ago
+    codellama:70b                           e59b580dfce7    38 GB   2 days ago
+    codellama:70b-code                      f51f75d243f2    38 GB   2 days ago
+    codellama:70b-instruct                  e59b580dfce7    38 GB   2 days ago
+    deepseek-coder:1.3b                     3ddd2d3fc8d2    776 MB  8 days ago
+    deepseek-coder:1.3b-base-q8_0           71f702eff852    1.4 GB  7 days ago
+    deepseek-coder:1.3b-instruct            3ddd2d3fc8d2    776 MB  8 days ago
+    deepseek-coder:33b                      acec7c0b0fd9    18 GB   7 days ago
+    deepseek-coder:33b-base-q4_0            ca50732c8ee1    18 GB   7 days ago
+    deepseek-coder:33b-instruct             acec7c0b0fd9    18 GB   8 days ago
+    deepseek-coder:33b-instruct-fp16        b54904179335    66 GB   7 days ago
+    deepseek-coder:6.7b                     ce298d984115    3.8 GB  7 days ago
+    deepseek-coder:latest                   3ddd2d3fc8d2    776 MB  8 days ago
+    dolphin-mixtral:8x7b                    cfada4ba31c7    26 GB   8 days ago
+    falcon:180b-chat                        e2bc879d7cee    101 GB  8 days ago
+    falcon:7b                               4280f7257e73    4.2 GB  9 days ago
+    llava:latest                            cd3274b81a85    4.5 GB  9 days ago
+    medllama2:latest                        a53737ec0c72    3.8 GB  9 days ago
+    megadolphin:latest                      8fa55398527b    67 GB   8 days ago
+    mistral:instruct                        61e88e884507    4.1 GB  9 days ago
+    mistral:latest                          61e88e884507    4.1 GB  7 days ago
+    mixtral:8x7b-instruct-v0.1-q8_0         a6689be5de7d    49 GB   9 days ago
+    mixtral:latest                          7708c059a8bb    26 GB   9 days ago
+    phi:latest                              e2fd6321a5fe    1.6 GB  9 days ago
+    stablelm-zephyr:latest                  0a108dbd846e    1.6 GB  8 days ago
+    starcoder:15b                           fc59c84e00c5    9.0 GB  9 days ago
+    starcoder:1b                            77e6c46054d9    726 MB  9 days ago
+    starcoder:3b                            847e5a7aa26f    1.8 GB  9 days ago
+    starcoder:7b                            53fdbc3a2006    4.3 GB  9 days ago
+    tinyllama:latest                        2644915ede35    637 MB  9 days ago
+    wizardlm:70b-llama2-q4_0                2d269a65a092    38 GB   8 days ago
+    wizardlm-uncensored:13b                 886a369d74fc    7.4 GB  8 days ago
+    yarn-mistral:7b-128k                    6511b83c33d5    4.1 GB  8 days ago
+    zephyr:latest                           bbe38b81adec    4.1 GB  8 days ago
+
+Since downloading large models it time consuming please email
+``it.helpdesk@aub.edu.lb`` for additional models that you would like to be
+deployed that are not in the list above.
 
 
 .. note:: The environment variable ``OLLAMA_MODELS`` is set to
