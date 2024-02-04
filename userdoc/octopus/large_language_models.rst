@@ -384,6 +384,8 @@ Email ``it.helpdesk@aub.edu.lb`` for models that you would like to be deployed.
     ``OLLAMA_MODELS`` to ``/dev/shm/ollama/models`` and put your models in
     there by copying them from the default location.
 
+.. todo:: add a bash function that caches a certain named model to ``/dev/shm``
+
 Load and list the models
 ++++++++++++++++++++++++
 
