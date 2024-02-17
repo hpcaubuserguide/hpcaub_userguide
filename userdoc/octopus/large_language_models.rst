@@ -3,7 +3,7 @@ Large language models
 
 **Author: Mher Kazandjian**
 
-.. info:: This document is a work in progress and is subject to change.
+.. warning:: This document is a work in progress and is subject to change.
 
 Environments
 ^^^^^^^^^^^^
@@ -34,6 +34,7 @@ Resources requirements estimation tips and tricks
      enterprise grade high end GPUs. If the performace you are getting is
      slower than what you expect, most probably there is a bottelneck in your
      script. The bottelneck could be in:
+
       - make sure that the compute node you are running on has a GPU by executing
         ``nvidia-smi``. If you are not getting any output, then the compute node
         does not have a GPU.
@@ -64,20 +65,49 @@ Available models
 
 The following models are available on ``octopus``:
 
-  - mistral 7B V0.1
-  - mistral 7B Instruct 7B
-  - llama2 7B
-  - llama2 13B
-  - falcon 1B
-  - falcon 7B
-  - falcon 17B
+- llama-2-13b
+- llama-2-13b-chat
+- llama-2-13b-hf
+- llama-2-7b
+- llama-2-7b-chat
+- llama-2-7b-hf
+- falcon 1B
+- falcon 7B
+- falcon:180b-chat
+- jais-13b-chat
+- codellama:34b
+- codellama:70b
+- deepseek-coder:33b
+- dolphin-mixtral:8x7b
+- llava
+- medllama2
+- megadolphin
+- mixtral:8x7b-instruct-v0.1-q8_0
+- mixtral:latest
+- phi
+- stablelm-zephyr
+- starcoder:7b
+- starcoder:15b
+- tinyllama
+- wizardlm-uncensored:13b
+- wizardlm:70b-llama2-q4_0
+- yarn-mistral:7b-128k
+- zephyr
 
 The model directory is in ``/scratch/shared/ai/models/llms``.
+and alot of ``ollama`` models (see :ref:`here <ollama>`)
 
 It is a good practice to cache the model (if it fits) to ``/dev/shm/`` to speed
 up loading the models for repeated use. The read and write speed to ``/dev/shm``
 is around 4 GB/s. Loading the hugging face mistral 7B model can be done in about
 5 seconds.
+
+
+.. note:: In order to access the LLaMA models please email it.helpdesk@aub.edu.lb
+   and provide a copy of your signed agreement https://llama.meta.com/llama-downloads/
+   or place your own copy that you have obtained e.g from hugging face or if
+   you have already obtained the model on ``octopus``.
+
 
 Running inference and evaluating models
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -258,7 +288,7 @@ Benchmark the quantized model
 Farm the evaluation of quantized models
 #######################################
 
-.. todo:: add notes here
+.. todo:: under development
 
 # .. todo:: cache the model to some ram disks and then rsync it to other ram
     disks. decide depending on the read time from /scratch what is the best
@@ -276,30 +306,153 @@ Farm the evaluation of quantized models
 Fine tuning large language models
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Fine tuning llama2 7B
-^^^^^^^^^^^^^^^^^^^^^
+Fine tuning llama2 7B using the official facebook llama repo
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-source ~/progs/sw/miniconda/etc/profile.d/conda.sh
-conda activate llama-orig-bench-1
-cd /home/mher/projects/llms/
-git clone https://github.com/facebookresearch/llama-recipes.git
-cd llama-recipes
-pip install -r requirements.txt
-pip install .
-mkdir models
+**TL;DR** Procedure to fune-tune llama2 7B on one V100 GPU on ``octopus``.
 
-# training
-    mkdir -p /dev/shm/PEFT/model
-    # one GPU
-        read this section well
-            https://github.com/facebookresearch/llama-recipes#single-gpu
+The following pre-requisites are required to fine tune the llama2 7B model:
 
+- The facebook llama-recipes repo (already installed on ``octopus``)
+- The LLaMA 7B HF model (email it.helpdesk@aub.edu.lb to request access by
+  presenting a copy of your signed agreement https://llama.meta.com/llama-downloads/
+  or place your own copy in the right location - see below).
+- A python environment with the right requirements (already installed on
+  ``octopus``)
+- The job script with the ``octopus`` specific hardware / software configuration
+  that runs the fine tuning.
 
-        7B
-          python -m llama_recipes.finetuning  --use_peft --peft_method lora --quantization --model_name models/7B --output_dir /dev/shm/PEFT/model
-          ~35 sec / it
-          388 iteraction x 3 epochs to finish
+To run the fine tuning as described in the llama-recipes repo, the following
+steps are done:
 
+1. Load the llama-recipes environment
+2. Clone and install the llama-recipes repo
+3. Cache the model to ``/dev/shm`` to speed up the loading of the model
+4. Run the fine tuning script
+
+.. code-block:: bash
+
+    module load llama
+    cp -fvr /apps/sw/llama-recipes . && cd llama-recipes
+    git checkout 2e768b1
+    pip install .
+    rsync -PrlHvtpog  /scratch/shared/ai/models/llms/llama/llama-2-7b-hf /dev/shm/
+    mkdir models
+    ln -s /dev/shm/llama-2-7b-hf models/7B
+    time python -m llama_recipes.finetuning  \
+      --use_peft --peft_method lora --quantization \
+      --model_name models/7B --output_dir /dev/shm/PEFT/model/
+
+The following output is expected:
+
+.. code-block:: bash
+
+    [test04@onode11 llama-recipes]$ time python -m llama_recipes.finetuning --use_peft --peft_method lora --quantization       --model_name models/7B --output_dir /dev/shm/PEFT/model/
+    Loading checkpoint shards: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:09<00:00,  4.51s/it]
+    You are using the default legacy behaviour of the <class 'transformers.models.llama.tokenization_llama.LlamaTokenizer'>. This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thoroug
+    hly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565
+    --> Model models/7B
+    --> models/7B has 262.41024 Million params
+    trainable params: 4,194,304 || all params: 6,742,609,920 || trainable%: 0.06220594176090199
+    Map: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 14732/14732 [00:01<00:00, 10651.47 examples/s]
+    Map: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 14732/14732 [00:24<00:00, 598.36 examples/s]
+    --> Training Set Length = 14732
+    Map: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 818/818 [00:00<00:00, 8043.54 examples/s]
+    Map: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 818/818 [00:01<00:00, 582.25 examples/s]
+    --> Validation Set Length = 818
+    Preprocessing dataset: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 14732/14732 [00:07<00:00, 1920.48it/s]
+    Preprocessing dataset: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 818/818 [00:00<00:00, 1971.12it/s]
+    Training Epoch: 1:   0%|                                                                                | 0/388 [00:00<?, ?it/s]/home/mher/progs/sw/miniconda/envs/llama-orig-bench-1/lib/python3.10/site-packages/bitsandbytes/autograd/_functions.py:322: UserWarning: MatMul8bitLt: inputs will be cast from torch.float32 to float16 during quantization
+    Training Epoch: 1/3, step 387/388 completed (loss: 1.7123626470565796): 100%|███████████████| 388/388 [3:34:24<00:00, 33.16s/it]
+    Max CUDA memory allocated was 21 GB
+    Max CUDA memory reserved was 24 GB
+    Peak active CUDA memory was 21 GB
+    Cuda Malloc retires : 0
+    CPU Total Peak Memory consumed during the train (max): 2 GB
+    evaluating Epoch: 100%|█████████████████████████████████████████████████████████████████████████| 84/84 [04:29<00:00,  3.21s/it]
+     eval_ppl=tensor(5.2620, device='cuda:0') eval_epoch_loss=tensor(1.6605, device='cuda:0')
+    we are about to save the PEFT modules
+    PEFT modules are saved in /dev/shm/PEFT/model/ directory
+    best eval loss on epoch 1 is 1.660506010055542
+    Epoch 1: train_perplexity=5.3824, train_epoch_loss=1.6831, epoch time 12864.613309495151s
+    Training Epoch: 2/3, step 387/388 completed (loss: 1.6909533739089966): 100%|███████████████| 388/388 [3:33:44<00:00, 33.05s/it]
+    Max CUDA memory allocated was 21 GB
+    Max CUDA memory reserved was 24 GB
+    Peak active CUDA memory was 21 GB
+    Cuda Malloc retires : 0
+    CPU Total Peak Memory consumed during the train (max): 2 GB
+    evaluating Epoch: 100%|█████████████████████████████████████████████████████████████████████████| 84/84 [04:29<00:00,  3.20s/it]
+     eval_ppl=tensor(5.2127, device='cuda:0') eval_epoch_loss=tensor(1.6511, device='cuda:0')
+    we are about to save the PEFT modules
+    PEFT modules are saved in /dev/shm/PEFT/model/ directory
+    best eval loss on epoch 2 is 1.6511057615280151
+    Epoch 2: train_perplexity=5.1402, train_epoch_loss=1.6371, epoch time 12824.521782848984s
+    Training Epoch: 3/3, step 11/388 completed (loss: 1.5718340873718262):   3%|▌                | 12/388 [06:36<3:26:57, 33.03s/it]
+    Training Epoch: 3/3, step 387/388 completed (loss: 1.6727845668792725): 100%|███████████████| 388/388 [3:33:37<00:00, 33.03s/it]
+    Max CUDA memory allocated was 21 GB
+    Max CUDA memory reserved was 24 GB
+    Peak active CUDA memory was 21 GB
+    Cuda Malloc retires : 0
+    CPU Total Peak Memory consumed during the train (max): 2 GB
+    evaluating Epoch: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 84/84 [04:28<00:00,  3.20s/it]
+     eval_ppl=tensor(5.1962, device='cuda:0') eval_epoch_loss=tensor(1.6479, device='cuda:0')
+    we are about to save the PEFT modules
+    PEFT modules are saved in /dev/shm/PEFT/model/ directory
+    best eval loss on epoch 3 is 1.647936224937439
+    Epoch 3: train_perplexity=5.0411, train_epoch_loss=1.6176, epoch time 12817.443107374012s
+    Key: avg_train_prep, Value: 5.1879143714904785
+    Key: avg_train_loss, Value: 1.6459529399871826
+    Key: avg_eval_prep, Value: 5.223653316497803
+    Key: avg_eval_loss, Value: 1.6531827449798584
+    Key: avg_epoch_time, Value: 12835.526066572716
+    Key: avg_checkpoint_time, Value: 0.040507279336452484
+
+    real    659m9.844s
+    user    349m26.981s
+    sys     351m6.738s
+
+The following table summarizes the performance of the fine tuning of the llama2
+
+    =========== ============ ======  =========
+      Model       GPU        Epochs  Wall Time
+    =========== ============ ======  =========
+     llama2 7B   Nvidia V100   3     10h 50m
+    =========== ============ ======  =========
+
+The full job script (below) that reproduces the results can be found
+at ``/home/shared/fine_tune_llama_7b/job.sh``. It can be copied to your
+home directory and executed as follows (change test04 with your username):
+
+.. code-block::bash
+
+    #!/bin/bash
+
+    #SBATCH --job-name=llama7b-finetune
+    #SBATCH --account=test04
+
+    #SBATCH --partition=msfea-ai
+    #SBATCH --nodes=1
+    #SBATCH --ntasks-per-node=8
+    #SBATCH --cpus-per-task=1
+    #SBATCH --gres=gpu:v100d32q:1
+    #SBATCH --mem=32000
+    #SBATCH --time=0-12:00:00
+    #SBATCH --mail-type=ALL
+    #SBATCH --mail-user=test04@mail.aub.edu
+
+    module load llama
+    cp -fvr /apps/sw/llama-recipes . && cd llama-recipes
+    git checkout 2e768b1
+    pip install .
+    rsync -PrlHvtpog  /scratch/shared/ai/models/llms/llama/llama-2-7b-hf /dev/shm/
+    mkdir models
+    ln -s /dev/shm/llama-2-7b-hf models/7B
+    time python -m llama_recipes.finetuning  \
+      --use_peft --peft_method lora --quantization \
+      --model_name models/7B --output_dir /dev/shm/PEFT/model/
+
+.. todo:: Add instructions for resuming from an epoch
+.. todo:: Add instructions for providing a custom fine-tuning dataset
 
 Fine tuning llama2 13B
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -329,6 +482,8 @@ Fine tuning
 
 Serving models using ollama
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. _ollama:
 
 There are a bunch of models that are available on ``octopus``. The models are
 
