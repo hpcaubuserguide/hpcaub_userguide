@@ -423,7 +423,8 @@ The full job script (below) that reproduces the results can be found
 at ``/home/shared/fine_tune_llama_7b/job.sh``. It can be copied to your
 home directory and executed as follows (change test04 with your username):
 
-.. code-block::bash
+
+.. code-block:: bash
 
     #!/bin/bash
 
@@ -450,6 +451,7 @@ home directory and executed as follows (change test04 with your username):
     time python -m llama_recipes.finetuning  \
       --use_peft --peft_method lora --quantization \
       --model_name models/7B --output_dir /dev/shm/PEFT/model/
+
 
 .. todo:: Add instructions for resuming from an epoch
 .. todo:: Add instructions for providing a custom fine-tuning dataset
