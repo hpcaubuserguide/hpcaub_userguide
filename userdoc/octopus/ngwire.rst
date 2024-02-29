@@ -7,9 +7,11 @@ The ``ngwire`` enviroment can be activated by running the following command:
 
     $ module load ngwire
 
-You now have access to all the dependencies required to run the ``ngwire`` code. 
+You now have access to all the dependencies required to run the ``ngwire`` code.
 
-The next step is to clone the ``ngwire`` repository and build the code. Alternatively, you can send a copy of the ngwire code using any data transfer method you prefer (see data_transfer_). 
+The next step is to clone the ``ngwire`` repository and build the code.
+Alternatively, you can send a copy of the ngwire code using any data transfer
+method you prefer (see :ref:`data trasfers <transferring_data>`).
 
 Building ngwire
 ===============
@@ -23,7 +25,7 @@ The first step is to go to the directory where ``ngwire`` is located.
     $ make all
 
 
-Now we can import the ``ngwire`` module in python. 
+Now we can import the ``ngwire`` module in python.
 
 .. code-block:: python
 
