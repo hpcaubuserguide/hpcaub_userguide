@@ -24,9 +24,22 @@ The first step is to go to the directory where ``ngwire`` is located.
     $ python setup.py configure
     $ make all
 
+Next, start an interactive ``python`` session with the following command:
+
+.. code-block:: bash
+
+    $ make ipython
 
 Now we can import the ``ngwire`` module in python.
 
 .. code-block:: python
 
     import ngwire
+
+To run python scripts that use the ``ngwire`` module, first start an interactive
+python session like shown above, and then run the script using the ``%run`` command.
+
+.. code-block:: python
+
+    cd /path/to/script
+    %run script.py
