@@ -136,6 +136,50 @@ salve(s)
     torchrun --nproc-per-node=1 --nnodes=4 --node-rank=3 --master-addr=<COMPUTE_HOST> --master-port=4444 \
        $PWD/my_torch_script.py baz --arg1=foo --arg2=bar
 
+Distribued training with tensorflow and keras
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Please follow the official documentation for distributed tensorflow training:
+
+   - `tensorflow distributed <https://colab.research.google.com/github/tensorflow/docs/blob/master/site/en/tutorials/distribute/multi_worker_with_keras.ipynb>`_
+
+Job sript for octopus using GPUs
+""""""""""""""""""""""""""""""""
+
+Multi-worker training with MirroredStrategy:
+
+.. code-block:: bash
+
+   #!/bin/bash
+
+   #SBATCH --job-name=tf_dist
+   #SBATCH --partition=gpu
+
+   #SBATCH --nodes=4
+   #SBATCH --ntasks-per-node=1
+   #SBATCH --cpus-per-task=8
+   #SBATCH --gres=gpu
+   #SBATCH --mem=32000
+   #SBATCH --time=0-01:00:00
+
+   ## set the environment modules
+   module purge
+   module load cuda
+
+   # on both machines
+   module load python/ai-4
+
+   # define the port number
+   export TF_PORT=19090
+
+   # srun dump the compute node hostname
+   srun hostname -s > hosts.out
+
+   # ensure that the tf config env var is unset
+   unset TF_CONFIG
+
+   srun python /home/shared/tensorflow_distributed/tensorflow_distributes_multi_worker_mirrored_strategy.py
+
 
 Troubleshooting
 ^^^^^^^^^^^^^^^

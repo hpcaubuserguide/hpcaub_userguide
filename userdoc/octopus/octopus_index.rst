@@ -14,3 +14,4 @@ Octopus
    modules_cheatsheet.rst
    interactive_job.rst
    scientific_computing.rst
+   acknowledgements.rst
