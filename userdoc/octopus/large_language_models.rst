@@ -12,7 +12,7 @@ The following environments are available on ``octopus`` for running large
 language models and developing new models:
 
   - python/ai-4
-  - python/ai/transformers-r1
+  - python/transformers/r1
 
 Resources requirements estimation tips and tricks
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -116,7 +116,7 @@ Hugging face models using the transformers package
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In the following example the mistral 7B model will be evaluated using the
-transformers-r1 pre-deployed environment. The job script and the python script
+transformers/r1 pre-deployed environment. The job script and the python script
 that runs the model are available on ``octopus`` at:
 
 .. code-block:: bash
@@ -156,7 +156,7 @@ The job script is the following:
     cp /apps/shared/ai/.../eval_mistral_userguide.py /dev/shm/
 
     # load the transformers environment and evaluate the model
-    module load python/ai/transformers-r1
+    module load python/transformers/r1
     cd /dev/shm
     python eval_mistral_userguide.py
     ########################## end eval_mistral.sh #############################
