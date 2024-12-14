@@ -60,51 +60,137 @@ Resources requirements estimation tips and tricks
       - if all the above attempts fail then please contact HPC support for
         further assistance.
 
-Available models
-^^^^^^^^^^^^^^^^
+Available models in the model library
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The following models are available on ``octopus``:
+Currently the HPC service provides two main repositories for large language models:
 
-- llama-2-13b
-- llama-2-13b-chat
-- llama-2-13b-hf
-- llama-2-7b
-- llama-2-7b-chat
-- llama-2-7b-hf
-- falcon 1B
-- falcon 7B
-- falcon:180b-chat
-- jais-13b-chat
-- codellama:34b
-- codellama:70b
-- deepseek-coder:33b
-- dolphin-mixtral:8x7b
-- llava
-- medllama2
-- megadolphin
-- mixtral:8x7b-instruct-v0.1-q8_0
-- mixtral:latest
-- phi
-- stablelm-zephyr
-- starcoder:7b
-- starcoder:15b
-- tinyllama
-- wizardlm-uncensored:13b
-- wizardlm:70b-llama2-q4_0
-- yarn-mistral:7b-128k
-- zephyr
+  - hugging face models: ``/scratch/shared/ai/models/llms/hugging_face``
+  - ollama models: ``/scratch/shared/ai/models/llms/ollama``
 
-The model directory is in ``/scratch/shared/ai/models/llms``.
-and alot of ``ollama`` models (see :ref:`here <ollama>`)
+In total around 100 models are available in the model library with a total size of 5 TB.
+The following list is the list of hugging face models are available on ``octopus``
+(last updated 2024-12-13):
+
+  .. code-block:: bash
+
+      core24/
+      └── jais-13b-chat
+      FreedomIntelligence
+      ├── AceGPT-13B
+      ├── AceGPT-7B
+      └── AceGPT-7B-chat
+      google
+      ├── gemma-2-2b-it
+      └── gemma-2-9b-it
+      inceptionai
+      ├── jais-13b
+      ├── jais-13b-chat
+      ├── jais-30b-chat-v3
+      └── jais-30b-v3
+      meta-llama
+      ├── llama-2-13b
+      ├── llama-2-13b-chat
+      ├── llama-2-13b-hf
+      ├── llama-2-7b
+      ├── llama-2-7b-chat
+      ├── llama-2-7b-chat-hf
+      ├── llama-2-7b-hf
+      ├── Llama-3.1-70B-Instruct
+      ├── Llama-3.1-8B-Instruct
+      ├── Llama-3.2-11B-Vision-Instruct
+      ├── Llama-3.2-1B-Instruct
+      ├── Llama-3.2-3B-Instruct
+      ├── Llama-3.2-90B-Vision-Instruct
+      ├── Meta-Llama-3-8B
+      └── Meta-Llama-3-8B-Instruct
+      mistralai
+      ├── Mistral-7B-Instruct-v0.3
+      ├── Mistral-7B-v0.1
+      ├── mistral-7b-v0.1.Q4_K_M
+      ├── Mistral-7B-v0.3
+      ├── Mistral-Large-Instruct-2407
+      └── Mixtral-8x7B-Instruct-v0.1
+      pfnet
+      └── Llama3-Preferred-MedSwallow-70B
+      Qwen
+      ├── Qwen2.5-72B-Instruct
+      ├── Qwen2.5-7B-Instruct
+      ├── Qwen2-VL-2B-Instruct
+      ├── Qwen2-VL-72B-Instruct
+      └── Qwen2-VL-7B-Instruct
+      tiiaue
+      ├── falcon-180b
+      ├── falcon-1b
+      ├── falcon-40b
+      ├── falcon-40b-instruct
+      └── falcon-7b
+
+The following list is the list of ollama models (last updated 2024-12-13) (see also :ref:`here <ollama>`):
+
+  .. code-block:: bash
+
+      llama3.1:latest                     42182419e950    4.7 GB    2 weeks ago
+      llama3.1:405b                       65fa6b82bfda    228 GB    7 weeks ago
+      nemotron:latest                     2262f047a28a    42 GB     7 weeks ago
+      llama3.2:1b                         baf6a787fdff    1.3 GB    7 weeks ago
+      gemma:latest                        a72c7f4d0a15    5.0 GB    7 months ago
+      gemma:2b                            b50d6c999e59    1.7 GB    7 months ago
+      llama3:70b-instruct                 bcfb190ca3a7    39 GB     7 months ago
+      llama3:70b                          bcfb190ca3a7    39 GB     7 months ago
+      llama3:latest                       71a106a91016    4.7 GB    7 months ago
+      llama3:instruct                     71a106a91016    4.7 GB    7 months ago
+      mixtral:8x7b-text-v0.1-fp16         221f0bf341e3    93 GB     10 months ago
+      codellama:70b-code                  f51f75d243f2    38 GB     10 months ago
+      codellama:70b                       e59b580dfce7    38 GB     10 months ago
+      codellama:70b-instruct              e59b580dfce7    38 GB     10 months ago
+      deepseek-coder:33b-instruct-fp16    b54904179335    66 GB     10 months ago
+      deepseek-coder:33b-base-q4_0        ca50732c8ee1    18 GB     10 months ago
+      deepseek-coder:33b                  acec7c0b0fd9    18 GB     10 months ago
+      mistral:latest                      61e88e884507    4.1 GB    10 months ago
+      deepseek-coder:6.7b                 ce298d984115    3.8 GB    10 months ago
+      deepseek-coder:1.3b-base-q8_0       71f702eff852    1.4 GB    10 months ago
+      deepseek-coder:1.3b                 3ddd2d3fc8d2    776 MB    10 months ago
+      deepseek-coder:latest               3ddd2d3fc8d2    776 MB    10 months ago
+      deepseek-coder:1.3b-instruct        3ddd2d3fc8d2    776 MB    10 months ago
+      megadolphin:latest                  8fa55398527b    67 GB     10 months ago
+      dolphin-mixtral:8x7b                cfada4ba31c7    26 GB     10 months ago
+      zephyr:latest                       bbe38b81adec    4.1 GB    10 months ago
+      stablelm-zephyr:latest              0a108dbd846e    1.6 GB    10 months ago
+      deepseek-coder:33b-instruct         acec7c0b0fd9    18 GB     10 months ago
+      wizardlm:70b-llama2-q4_0            2d269a65a092    38 GB     10 months ago
+      yarn-mistral:7b-128k                6511b83c33d5    4.1 GB    10 months ago
+      wizardlm-uncensored:13b             886a369d74fc    7.4 GB    10 months ago
+      falcon:180b-chat                    e2bc879d7cee    101 GB    10 months ago
+      mixtral:latest                      7708c059a8bb    26 GB     10 months ago
+      starcoder:7b                        53fdbc3a2006    4.3 GB    10 months ago
+      starcoder:15b                       fc59c84e00c5    9.0 GB    10 months ago
+      codellama:34b                       685be00e1532    19 GB     10 months ago
+      starcoder:3b                        847e5a7aa26f    1.8 GB    10 months ago
+      starcoder:1b                        77e6c46054d9    726 MB    10 months ago
+      falcon:7b                           4280f7257e73    4.2 GB    10 months ago
+      medllama2:latest                    a53737ec0c72    3.8 GB    10 months ago
+      mixtral:8x7b-instruct-v0.1-q8_0     a6689be5de7d    49 GB     10 months ago
+      llava:latest                        cd3274b81a85    4.5 GB    10 months ago
+      mistral:instruct                    61e88e884507    4.1 GB    10 months ago
+      phi:latest                          e2fd6321a5fe    1.6 GB    10 months ago
+      tinyllama:latest                    2644915ede35    637 MB    10 months ago
+
+For the latest list check the contant of the directories listed above. Note that some models
+require permission to access them.
+
+Since downloading large models it time consuming please email
+``it.helpdesk@aub.edu.lb`` for additional models that you would like to be
+deployed that are not in the list above.
 
 It is a good practice to cache the model (if it fits) to ``/dev/shm/`` to speed
 up loading the models for repeated use. The read and write speed to ``/dev/shm``
 is around 4 GB/s. Loading the hugging face mistral 7B model can be done in about
 5 seconds.
 
-
-.. note:: In order to access the LLaMA models please email it.helpdesk@aub.edu.lb
-   and provide a copy of your signed agreement https://llama.meta.com/llama-downloads/
+.. note:: In order to access the LLaMA models (or models that are not readable by your account)
+   please email it.helpdesk@aub.edu.lb and provide a copy of your signed
+   form ( .. todo:: add link here) agreement https://llama.meta.com/llama-downloads/
    or place your own copy that you have obtained e.g from hugging face or if
    you have already obtained the model on ``octopus``.
 
@@ -474,6 +560,9 @@ Fine tuning
 +++++++++++
 
 # 4 GPUs
+
+  .. code-block:: bash
+
       python -m llama_recipes.finetuning  --use_peft --peft_method lora --quantization --model_name models/13B --output_dir /dev/shm/PEFT/model
     master
         $ torchrun --nproc-per-node=1 --nnodes=4 --node-rank=0 --master-addr=onode10 --master-port=4444 examples/finetuning.py --use_peft --peft_method lora --quantization --model_name models/13B --output_dir /dev/shm/PEFT/model
@@ -498,35 +587,9 @@ There are a bunch of models that are available on ``octopus``. The models are
     codellama:70b-code                      f51f75d243f2    38 GB   2 days ago
     codellama:70b-instruct                  e59b580dfce7    38 GB   2 days ago
     deepseek-coder:1.3b                     3ddd2d3fc8d2    776 MB  8 days ago
-    deepseek-coder:1.3b-base-q8_0           71f702eff852    1.4 GB  7 days ago
-    deepseek-coder:1.3b-instruct            3ddd2d3fc8d2    776 MB  8 days ago
-    deepseek-coder:33b                      acec7c0b0fd9    18 GB   7 days ago
-    deepseek-coder:33b-base-q4_0            ca50732c8ee1    18 GB   7 days ago
-    deepseek-coder:33b-instruct             acec7c0b0fd9    18 GB   8 days ago
-    deepseek-coder:33b-instruct-fp16        b54904179335    66 GB   7 days ago
-    deepseek-coder:6.7b                     ce298d984115    3.8 GB  7 days ago
-    deepseek-coder:latest                   3ddd2d3fc8d2    776 MB  8 days ago
-    dolphin-mixtral:8x7b                    cfada4ba31c7    26 GB   8 days ago
-    falcon:180b-chat                        e2bc879d7cee    101 GB  8 days ago
-    falcon:7b                               4280f7257e73    4.2 GB  9 days ago
-    llava:latest                            cd3274b81a85    4.5 GB  9 days ago
-    medllama2:latest                        a53737ec0c72    3.8 GB  9 days ago
-    megadolphin:latest                      8fa55398527b    67 GB   8 days ago
-    mistral:instruct                        61e88e884507    4.1 GB  9 days ago
-    mistral:latest                          61e88e884507    4.1 GB  7 days ago
-    mixtral:8x7b-instruct-v0.1-q8_0         a6689be5de7d    49 GB   9 days ago
-    mixtral:latest                          7708c059a8bb    26 GB   9 days ago
-    phi:latest                              e2fd6321a5fe    1.6 GB  9 days ago
-    stablelm-zephyr:latest                  0a108dbd846e    1.6 GB  8 days ago
-    starcoder:15b                           fc59c84e00c5    9.0 GB  9 days ago
-    starcoder:1b                            77e6c46054d9    726 MB  9 days ago
-    starcoder:3b                            847e5a7aa26f    1.8 GB  9 days ago
-    starcoder:7b                            53fdbc3a2006    4.3 GB  9 days ago
-    tinyllama:latest                        2644915ede35    637 MB  9 days ago
-    wizardlm:70b-llama2-q4_0                2d269a65a092    38 GB   8 days ago
-    wizardlm-uncensored:13b                 886a369d74fc    7.4 GB  8 days ago
-    yarn-mistral:7b-128k                    6511b83c33d5    4.1 GB  8 days ago
-    zephyr:latest                           bbe38b81adec    4.1 GB  8 days ago
+    ....
+    ....
+    ....
 
 Since downloading large models it time consuming please email
 ``it.helpdesk@aub.edu.lb`` for additional models that you would like to be
@@ -569,7 +632,7 @@ Run a model in interactive mode
 Run a model in batch mode
 +++++++++++++++++++++++++
 
-Create a python script that uses the ollama client to run the model.
+Create a python script that uses the ollama client to run a model.
 In the example below the ``phi`` model is used since it is small and can
 be loaded quickly.
 
