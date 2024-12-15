@@ -176,8 +176,7 @@ The following list is the list of ollama models (last updated 2024-12-13) (see a
       phi:latest                          e2fd6321a5fe    1.6 GB    10 months ago
       tinyllama:latest                    2644915ede35    637 MB    10 months ago
 
-For the latest list check the contant of the directories listed above. Note that some models
-require permission to access them.
+For the latest list check the content of the directories listed above.
 
 Since downloading large models it time consuming please email
 ``it.helpdesk@aub.edu.lb`` for additional models that you would like to be
@@ -188,11 +187,38 @@ up loading the models for repeated use. The read and write speed to ``/dev/shm``
 is around 4 GB/s. Loading the hugging face mistral 7B model can be done in about
 5 seconds.
 
-.. note:: In order to access the LLaMA models (or models that are not readable by your account)
-   please email it.helpdesk@aub.edu.lb and provide a copy of your signed
-   form ( .. todo:: add link here) agreement https://llama.meta.com/llama-downloads/
-   or place your own copy that you have obtained e.g from hugging face or if
-   you have already obtained the model on ``octopus``.
+.. note:: Some of the models that are gated on hugging face require permission to access them
+  on octopus as well. These models are the following:
+
+      - meta-llama
+      - mistral
+      - inceptionai
+
+   In order to access them please contact it.helpdesk@aub.edu.lb to have access to them. It is a
+   pre-requisites to already have access to the models on huggingface before getting access to them
+   on octopus. All the ollama models are available to all users.
+
+
+The following snippet can be used to load the a model from the model library on octopus:
+
+.. code-block:: python
+
+  import os
+  from transformers import AutoModelForCausalLM, AutoTokenizer
+
+  cache_dir = '/scratch/shared/ai/models/llms/hugging_face'
+
+  model_name = "meta-llama/Llama-3.2-1B"
+  model = AutoModelForCausalLM.from_pretrained(model_name, cache_dir=cache_dir)
+
+  # ... use the model for inference or training or fine tuning ...
+  # ...
+  # ...
+
+  # write the checkpoints if needed to your scratch dir
+  model.save_pretrained(os.path.expanduser('~/scratch/my_model'))
+
+  print('done')
 
 
 Running inference and evaluating models
