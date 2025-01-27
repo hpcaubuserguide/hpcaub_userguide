@@ -45,4 +45,5 @@ https://github.com/NVIDIA/multi-gpu-programming-models/tree/master/mpi
     module load prun
     module load pmix
 
-    srun --mpi=mpix ./jacobi
+    make jacobi -B  # Compile the code
+    srun --mpi=mpix ./jacobi    # Run the code
