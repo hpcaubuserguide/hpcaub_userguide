@@ -203,23 +203,25 @@ The following snippet can be used to load the a model from the model library on 
 
 .. code-block:: python
 
-  import os
-  from transformers import AutoModelForCausalLM, AutoTokenizer
+    import os
+    from transformers import AutoModelForCausalLM, AutoTokenizer
 
-  cache_dir = '/scratch/shared/ai/models/llms/hugging_face'
+    cache_dir = '/scratch/shared/ai/models/llms/hugging_face'
+    model_name = "meta-llama/Llama-3.2-1B-Instruct"
+    model_path = os.path.join(cache_dir, model_name)
+    model = AutoModelForCausalLM.from_pretrained(model_path, cache_dir=cache_dir)
 
-  model_name = "meta-llama/Llama-3.2-1B"
-  model = AutoModelForCausalLM.from_pretrained(model_name, cache_dir=cache_dir)
+    #
+    # do something with the model ...
+    #
 
-  # ... use the model for inference or training or fine tuning ...
-  # ...
-  # ...
+    # dump the modified model to disk
+    trial_no = 0
+    model_out = os.path.join('~/scratch/models_workspace/', f'{model_name}_{trial_no}')
+    os.makedirs(model_out, exist_ok=True)
+    model.save_pretrained(os.path.expanduser(model_out))
 
-  # write the checkpoints if needed to your scratch dir
-  model.save_pretrained(os.path.expanduser('~/scratch/my_model'))
-
-  print('done')
-
+    print('done')
 
 Running inference and evaluating models
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
