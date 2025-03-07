@@ -198,6 +198,13 @@ is around 4 GB/s. Loading the hugging face mistral 7B model can be done in about
    pre-requisites to already have access to the models on huggingface before getting access to them
    on octopus. All the ollama models are available to all users.
 
+To cache the a model (e.g Llama-3.2-1B-instruct) to ``/dev/shm/`` the following command can be used:
+
+.. code-block:: bash
+
+    rsync -PrlHvtpog /scratch/shared/ai/models/llms/hugging_face/meta-llama/Llama-3.1-8B-Instruct \
+        --exclude "*.git*" --exclude "*original*" \
+        /dev/shm
 
 The following snippet can be used to load the a model from the model library on octopus:
 

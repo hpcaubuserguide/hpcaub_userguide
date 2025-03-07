@@ -37,7 +37,7 @@ https://github.com/NVIDIA/multi-gpu-programming-models/tree/master/mpi
     #SBATCH --ntasks-per-node=1
     #SBATCH --cpus-per-task=1
     #SBATCH --mem=8000
-    ##SBATCH --gres=gpu:v100d8q:1
+    ##SBATCH --gres=gpu:v100d32q:1
     #SBATCH --time=0-01:00:00
 
     module load mpi/openmpi/4.1.4-slurm-18.08.6-cuda-12.4
