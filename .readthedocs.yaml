@@ -18,6 +18,8 @@ build:
       - pip install build
       - git clone https://github.com/pydata/pydata-sphinx-theme.git
       - cd pydata-sphinx-theme && python3 -m build && cd ..
+      - pwd
+      - ls -la
       - .venv/bin/deactivate
       - pip install -r requirements.txt
       - pip install pydata-sphinx-theme/dist/pydata_sphinx_theme-*.whl
