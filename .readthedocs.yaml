@@ -16,11 +16,10 @@ build:
       - virtualenv .venv
       - . .venv/bin/activate
       - pip install -r requirements.txt
-      - git clone https://github.com/pydata/pydata-sphinx-theme.git
-      - cd pydata-sphinx-theme
       - pip install build
-      - python3 -m build
-      - pip install dist/pydata_sphinx_theme-*.whl
+      - git clone https://github.com/pydata/pydata-sphinx-theme.git
+      - cd pydata-sphinx-theme && python3 -m build && cd ..
+      - pip install pydata-sphinx-theme/dist/pydata_sphinx_theme-*.whl
 
 # Build documentation in the docs/ directory with Sphinx
 sphinx:
