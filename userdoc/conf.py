@@ -87,8 +87,8 @@ html_theme_options = {
             "name": "Research Request form",
         },
         {
-            "url": "https://numfocus.org/donate",
-            "name": "Donate to NumFocus",
+            "url": "https://jupyterhub.aub.edu.lb",
+            "name": "AUB Jupyterhub",
         },
     ],
     "header_links_before_dropdown": 5,
@@ -111,9 +111,9 @@ html_theme_options = {
     # [left, content, right] For testing that the navbar items align properly
     "navbar_align": "left",
     # "show_nav_level": 2,
-    "announcement": "https://raw.githubusercontent.com/pydata/pydata-sphinx-theme/main/docs/_templates/custom-template.html",
-    "show_version_warning_banner": True,
-    "navbar_center": ["version-switcher", "navbar-nav"],
+    #"announcement": "https://raw.githubusercontent.com/pydata/pydata-sphinx-theme/main/docs/_templates/custom-template.html",
+    #"show_version_warning_banner": True,
+    #"navbar_center": ["version-switcher", "navbar-nav"],
     # "navbar_start": ["navbar-logo"],
     # "navbar_end": ["theme-switcher", "navbar-icon-links"],
     # "navbar_persistent": ["search-button"],
@@ -168,7 +168,7 @@ rediraffe_redirects = {
 }
 
 project = 'AUB HPC user guide'
-copyright = '2023, HPC admin team, IT helpdesk'
+copyright = '2025, HPC admin team, IT helpdesk'
 author = 'HPC admin team'
 
 todo_include_todos = True

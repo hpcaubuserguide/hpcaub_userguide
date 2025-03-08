@@ -9,6 +9,18 @@ build:
   os: ubuntu-22.04
   tools:
     python: "3.12"
+    nodejs: "22"
+  jobs:
+    create_environment:
+      - apt-get -y update
+      - apt-get -y install python3-virtualenv
+      - virtualenv .venv
+      - . .venv/bin/activate
+      - pip install -r requirements.txt
+      - git clone https://github.com/pydata/pydata-sphinx-theme.git
+      - cd pydata-sphinx-theme
+      - python3 -m build
+      - pip install dist/pydata_sphinx_theme-*.whl
 
 # Build documentation in the docs/ directory with Sphinx
 sphinx:
@@ -16,6 +28,6 @@ sphinx:
 
 # We recommend specifying your dependencies to enable reproducible builds:
 # https://docs.readthedocs.io/en/stable/guides/reproducible-builds.html
-python:
-  install:
-  - requirements: requirements.txt
+#python:
+#  install:
+#  - requirements: requirements.txt
