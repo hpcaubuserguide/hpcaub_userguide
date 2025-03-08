@@ -19,7 +19,7 @@ Graphical user interface mode
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To launch the ``Abaqus`` GUI after connecting to a desktop environment, to launch
-``CAE`` (Complete Abaqus Environment) the following command can be executed in a 
+``CAE`` (Complete Abaqus Environment) the following command can be executed in a
 terminal:
 
 .. code-block:: bash
@@ -52,13 +52,14 @@ one compute node.
 
    source ~/.bashrc
    module load abaqus/2020
+   # module load intel/2021   # uncomment to load the intel compiler to build user subroutines
    abaqus job=my_abaqus_sim_name input=my_sim.inp cpus=`nproc` mp_mode=threads interactive
 
 Multi-node parallel Abaqus jobs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The following job script :ref:`below <abaqus_multinode_mpi>` can be used to run a
-parallel Abaqus job using multiple compute nodes in batch mode. The script below can be 
+parallel Abaqus job using multiple compute nodes in batch mode. The script below can be
 downloaded by clicking :download:`here <abaqus/slurm_abaqus_mpi_job.sh>`
 
 If a graphica user interface job is used then the following :download:`script <abaqus/slurm_abaqus_mpi_env_gen.sh>`
@@ -115,7 +116,7 @@ After the job is executed ``MPI`` must be selected in the the ``ABAQUS`` job in 
    mp_host_list="["
    for HOST in `sort ${SLURM_HOSTS_FILE} | uniq`; do
        echo ${HOST}
-       mp_host_list="${mp_host_list}""['${HOST}',`grep ${HOST} ${SLURM_HOSTS_FILE} | wc -l`]" 
+       mp_host_list="${mp_host_list}""['${HOST}',`grep ${HOST} ${SLURM_HOSTS_FILE} | wc -l`]"
    done
 
    mp_host_list=`echo ${mp_host_list} | sed 's/\]\[/\]\,\[/g'`"]"
@@ -138,3 +139,78 @@ After the job is executed ``MPI`` must be selected in the the ``ABAQUS`` job in 
    abaqus job=my_input_file.inp cpus=$SLURM_NPROCS` -verbose 3 standard_parallel=all mp_mode=mpi interactive
 
 
+User defined subroutines and functions in Abaqus
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To define user subroutines and functions in Abaqus the following steps should be followed:
+
+  #. Create the subroutine file (e.g. ``my_custom_constants.f``)
+  #. Compile it to build a library
+  #. Run the simulation using the compiled library
+
+The ``.inp`` and the ``.f`` file should be in the same folder. It is possible
+to organize them into different folders but the paths should be specified with
+care (check the abaqus help and documentation for more information).
+
+The following should exist in the directory of the simulation:
+
+    * job.sh
+    * my_simulation.inp
+    * my_custom_constants.f
+    * libstandardU.so             #   this is generated in step-2 below
+
+Step-1: Create the subroutine file
+""""""""""""""""""""""""""""""""""
+
+The following example shows how to create a subroutine file (disclamer, this
+subroutine does not do anything useful, please make sure to replace the content
+with your own):
+
+.. code-block:: fortran
+
+          SUBROUTINE CREEP(DECRA,DESWA,STATEV,SERD,EC,ESW,P,QTILD,
+         1 TEMP,DTEMP,PREDEF,DPRED,TIME,DTIME,CMNAME,LEXIMP,LEND,
+         2 COORDS,NSTATV,NOEL,NPT,LAYER,KSPT,KSTEP,KINC)
+
+          INCLUDE 'aba_param.inc'
+
+          CHARACTER*80 CMNAME
+          DIMENSION DECRA(*)
+
+          DECRA(1) = 0.001 * DTIME
+
+          RETURN
+          END
+
+Step-2: Compile the subroutine file
+"""""""""""""""""""""""""""""""""""
+
+The Intel compiler environment should be loaded since abaqus relies on Intel's
+fortran compiler to build the libraries. The following command can be used to
+
+.. code-block:: bash
+
+    module load intel/2021
+    $ abaqus make library=my_custom_constants.f
+
+    [john@node ~]$ abaqus make library=foo.f
+    Abaqus JOB foo.f
+    Begin Compiling Abaqus/Standard User Subroutines
+    Mon 13 May 2024 05:28:07 AM EEST
+    Intel(R) Fortran Intel(R) 64 Compiler Classic for applications running on Intel(R) 64, Version 2021.2.0 Build 20210228_000000
+    Copyright (C) 1985-2021 Intel Corporation.  All rights reserved.
+
+     Intel(R) Fortran 2021.2.0-2262
+    End Compiling Abaqus/Standard User Subroutines
+    Begin Linking Abaqus/Standard User Subroutines
+    Intel(R) Fortran Intel(R) 64 Compiler Classic for applications running on Intel(R) 64, Version 2021.2.0 Build 20210228_000000
+    Copyright (C) 1985-2021 Intel Corporation.  All rights reserved.
+
+    GNU ld version 2.27-34.base.el7
+    End Linking Abaqus/Standard User Subroutines
+    Mon 13 May 2024 05:28:13 AM EEST
+    Abaqus JOB foo.f COMPLETED
+```
+
+The following file will be generated ``libstandardU.so`` that is automatically
+picked up by abaqus when running the simulation.

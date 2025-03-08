@@ -8,5 +8,5 @@ Astrophysics Applications and Libraries
 
    rebound.rst
    nbody6.rst
-   gauss.rst
+   ngwire.rst
    using_enzo.rst

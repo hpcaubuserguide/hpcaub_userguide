@@ -1,2 +1,0 @@
-Gauss - secular dynamics framework
-----------------------------------
