@@ -12,7 +12,10 @@ all:
 	cd userdoc && make html
 	echo "file://"$(ROOT)"/userdoc/_build/html/index.html"
 
+run:
+	python -m http.server 40080 -b 127.0.0.1 --director userdoc/_build/html/
+
 clean:
 	rm -fvr \#* *~ *.exe out
-	find . -name __pycache__ -exec rm -fvr '{}' \;
+	rm -fvr userdoc/_build
 # ======================================================================================

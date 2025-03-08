@@ -84,3 +84,7 @@ target/
 #Ipython Notebook
 .ipynb_checkpoints
 .idea
+
+CACHEDIR.TAG
+bin/
+pyvenv.cfg
