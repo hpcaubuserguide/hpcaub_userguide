@@ -15,12 +15,14 @@ build:
       - pip install build
       - git clone https://github.com/pydata/pydata-sphinx-theme.git
       - cd pydata-sphinx-theme && python3 -m build && cd ..
-      - pip install -r requirements.txt
-      - pip install pydata-sphinx-theme/dist/pydata_sphinx_theme-*.whl
+  commands:
+    - pip install -r requirements.txt
+    - pip install pydata-sphinx-theme/dist/pydata_sphinx_theme-*.whl
+    - cd userdoc && make html
 
 # Build documentation in the docs/ directory with Sphinx
-sphinx:
-  configuration: userdoc/conf.py
+#sphinx:
+#  configuration: userdoc/conf.py
 
 # We recommend specifying your dependencies to enable reproducible builds:
 # https://docs.readthedocs.io/en/stable/guides/reproducible-builds.html
