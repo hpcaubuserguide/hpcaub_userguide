@@ -12,15 +12,9 @@ build:
     nodejs: "22"
   jobs:
     create_environment:
-      - pip install virtualenv
-      - virtualenv .venv
-      - . .venv/bin/activate
       - pip install build
       - git clone https://github.com/pydata/pydata-sphinx-theme.git
       - cd pydata-sphinx-theme && python3 -m build && cd ..
-      - pwd
-      - ls -la
-      - deactivate
       - pip install -r requirements.txt
       - pip install pydata-sphinx-theme/dist/pydata_sphinx_theme-*.whl
 
