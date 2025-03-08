@@ -19,6 +19,7 @@ build:
       - pip install build
       - git clone https://github.com/pydata/pydata-sphinx-theme.git
       - cd pydata-sphinx-theme && python3 -m build && cd ..
+      - deactivate
       - pip install pydata-sphinx-theme/dist/pydata_sphinx_theme-*.whl
 
 # Build documentation in the docs/ directory with Sphinx
