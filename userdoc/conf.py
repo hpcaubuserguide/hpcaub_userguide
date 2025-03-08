@@ -16,6 +16,7 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
+
 import os
 import sys
 import subprocess
@@ -46,212 +47,333 @@ extensions = [
     'sphinx.ext.autosectionlabel',
 ]
 
-# Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
-# recommonmark is a python utility that allows markdown to be used within
-# Sphinx projects.
-# Installed version as per directive in docs/requirement.txt
-from recommonmark.parser import CommonMarkParser
+# -- Options for HTML output -------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-source_parsers = {
-    '.md': CommonMarkParser,
+html_theme = "pydata_sphinx_theme"
+
+html_static_path = ['_static']
+
+html_css_files = []
+
+html_js_files = []
+
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.txt': 'markdown',
+    '.md': 'markdown',
 }
 
-# The suffix(es) of source filenames.
-# You can specify multiple suffix as a list of string:
-#
-# source_suffix = ['.rst', '.md']
-source_suffix = ['.rst', '.md']
+myst_enable_extensions = [
+    "colon_fence",
+    "deflist",
+    "fieldlist"
+    # other useful extensions: "deflist", "fieldlist", etc.
+]
+myst_heading_anchors = 2
+todo_include_todos = True
 
-# The master toctree document.
-master_doc = 'index'
+html_theme_options = {
+    "external_links": [
+        {
+            "url": "https://www.aub.edu.lb",
+            "name": "AUB",
+        },
+        {
+            "url": "https://servicedesk.aub.edu.lb/TDClient/1398/Portal/Requests/ServiceDet?ID=29749",
+            "name": "Research Request form",
+        },
+        {
+            "url": "https://numfocus.org/donate",
+            "name": "Donate to NumFocus",
+        },
+    ],
+    "header_links_before_dropdown": 5,
+    "icon_links": [
+        {
+            "name": "GitHub",
+            "url": "https://github.com/hpcaubuserguide/hpcaub_userguide",
+            "icon": "fa-brands fa-github",
+        }
+    ],
+    # alternative way to set twitter and github header icons
+    # "github_url": "https://github.com/pydata/pydata-sphinx-theme",
+    # "twitter_url": "https://twitter.com/PyData",
+    "logo": {
+        "text": "AUB HPC wiki",
+        "image_dark": "_static/logo-dark.svg",
+    },
+    "use_edit_page_button": True,
+    "show_toc_level": 2,
+    # [left, content, right] For testing that the navbar items align properly
+    "navbar_align": "left",
+    # "show_nav_level": 2,
+    "announcement": "https://raw.githubusercontent.com/pydata/pydata-sphinx-theme/main/docs/_templates/custom-template.html",
+    "show_version_warning_banner": True,
+    "navbar_center": ["version-switcher", "navbar-nav"],
+    # "navbar_start": ["navbar-logo"],
+    # "navbar_end": ["theme-switcher", "navbar-icon-links"],
+    # "navbar_persistent": ["search-button"],
+    # "primary_sidebar_end": ["custom-template", "sidebar-ethical-ads"],
+    # "article_footer_items": ["test", "test"],
+    # "content_footer_items": ["test", "test"],
+    "footer_start": ["copyright"],
+    "footer_center": ["sphinx-version"],
+    "secondary_sidebar_items": {
+        "**/*": ["page-toc", "edit-this-page", "sourcelink"],
+        "examples/no-sidebar": [],
+    },
+    #"switcher": {
+    #    "json_url": json_url,
+    #    "version_match": version_match,
+    #},
+    # "back_to_top_button": False,
+    "search_as_you_type": True,
+}
 
-# General information about the project.
+
+html_sidebars = {
+    "community/index": [
+        "sidebar-nav-bs",
+        "custom-template",
+    ],  # This ensures we test for custom sidebars
+    "examples/no-sidebar": [],  # Test what page looks like with no sidebar items
+    "examples/persistent-search-field": ["search-field"],
+    # Blog sidebars
+    # ref: https://ablog.readthedocs.io/manual/ablog-configuration-options/#blog-sidebars
+    "examples/blog/*": [
+        "ablog/postcard.html",
+        "ablog/recentposts.html",
+        "ablog/tagcloud.html",
+        "ablog/categories.html",
+        "ablog/authors.html",
+        "ablog/languages.html",
+        "ablog/locations.html",
+        "ablog/archives.html",
+    ],
+}
+
+html_context = {
+    "github_user": "pydata",
+    "github_repo": "pydata-sphinx-theme",
+    "github_version": "main",
+    "doc_path": "docs",
+}
+
+rediraffe_redirects = {
+    "contributing.rst": "community/index.rst",
+}
+
 project = 'AUB HPC user guide'
 copyright = '2023, HPC admin team, IT helpdesk'
 author = 'HPC admin team'
 
-# The version info for the project you're documenting, acts as replacement for
-# |version| and |release|, also used in various other places throughout the
-# built documents.
-#
-# The short X.Y version.
-version = u'master'
-# The full version, including alpha/beta/rc tags.
-release = u'master'
-
-# The language for content autogenerated by Sphinx. Refer to documentation
-# for a list of supported languages.
-#
-# This is also used if you do content translation via gettext catalogs.
-# Usually you set "language" from the command line for these cases.
-language = None
-
-# List of patterns, relative to source directory, that match files and
-# directories to ignore when looking for source files.
-# This patterns also effect to html_static_path and html_extra_path
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
-
-# The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
-
-# If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True
 
-
-# -- Options for HTML output ----------------------------------------------
-
-# The theme to use for HTML and HTML Help pages.  See the documentation for
-# a list of builtin themes.
-#
-#html_theme = os.getenv('USERGUIDETHEME')
-html_theme = 'bootstrap'
-if html_theme == 'sphinx_rtd_theme':
-    import sphinx_rtd_theme
-    html_theme_path = sphinx_rtd_theme.get_html_theme_path()
-elif html_theme == 'bootstrap':
-    import sphinx_bootstrap_theme
-    html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
-elif html_theme is None:
-    html_theme = 'sphinx_rtd_theme'
-    import sphinx_rtd_theme
-    html_theme_path = sphinx_rtd_theme.get_html_theme_path()
-else:
-    # no theme specified
-    pass
-
-# Theme options are theme-specific and customize the look and feel of a theme
-# further.  For a list of options available for each theme, see the
-# documentation.
-#
-# html_theme_options = {}
-
-# Add any paths that contain custom static files (such as style sheets) here,
-# relative to this directory. They are copied after the builtin static files,
-# so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
-
-def placeholderReplace(app, docname, source):
-    result = source[0]
-    for key in app.config.placeholder_replacements:
-        result = result.replace(key, app.config.placeholder_replacements[key])
-    source[0] = result
-
-
-def setup(app):
-    app.add_stylesheet('css/custom.css')
-    app.add_config_value('placeholder_replacements', {}, True)
-    app.connect('source-read', placeholderReplace)
-
-# -- Options for HTMLHelp output ------------------------------------------
-
-# Output file base name for HTML help builder.
-htmlhelp_basename = 'hpcuserguidedoc'
-
-
-# -- Options for LaTeX output ---------------------------------------------
-
-latex_elements = {
-    # The paper size ('letterpaper' or 'a4paper').
-    #
-    # 'papersize': 'letterpaper',
-
-    # The font size ('10pt', '11pt' or '12pt').
-    #
-    # 'pointsize': '10pt',
-
-    # Additional stuff for the LaTeX preamble.
-    #
-    # 'preamble': '',
-
-    # Latex figure (float) alignment
-    #
-    # 'figure_align': 'htbp',
-}
-
-# Grouping the document tree into LaTeX files. List of tuples
-# (source start file, target name, title,
-#  author, documentclass [howto, manual, or own class]).
-latex_documents = [
-    (master_doc, 'hpcuserguide.tex', 'hpc user guide Documentation',
-     'HPC admin team', 'manual'),
-]
-
-
-# -- Options for manual page output ---------------------------------------
-
-# One entry per manual page. List of tuples
-# (source start file, name, description, authors, manual section).
-man_pages = [
-    (master_doc, 'hpcuserguide', 'hpc user guide Documentation',
-     [author], 1)
-]
-
-
-# -- Options for Texinfo output -------------------------------------------
-
-# Grouping the document tree into Texinfo files. List of tuples
-# (source start file, target name, title, author,
-#  dir menu entry, description, category)
-texinfo_documents = [
-    (master_doc, 'hpcuserguide', 'hpc user guide Documentation',
-     author, 'hpcuserguide', 'One line description of project.',
-     'Miscellaneous'),
-]
-
-
-
-# -- Options for Epub output ----------------------------------------------
-
-# Bibliographic Dublin Core info.
-epub_title = project
-epub_author = author
-epub_publisher = author
-epub_copyright = copyright
-
-# The unique identifier of the text. This can be a ISBN number
-# or the project homepage.
-#
-# epub_identifier = ''
-
-# A unique identification for the text.
-#
-# epub_uid = ''
-
-# A list of files that should not be packed into the epub file.
-epub_exclude_files = ['search.html']
-
-# Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {'https://docs.python.org/': None}
-
-# Skip the links with anchor tags during the linkcheck
-linkcheck_anchors = False
-
-# Increase the linkcheck timeout to 5 seconds
-linkcheck_timeout = 5
-
-html_sidebars = {
-    '**': [
-        'globaltoc.html',
-        'relations.html',
-        'searchbox.html',
-        'localtoc.html'
-    ]
-}
-
-#html_js_files = [
-#    'js/custom.js'
-#]
-
-#html_theme_options = {
-#    "collapse_navigation": False,
-#}
-
-#html_sidebars = { '**': ['custom_templates.html'] }
-
-
-#html_sidebars = {
-#   '**': ['globaltoc.html', 'sourcelink.html'],
-#   'using/windows': ['windowssidebar.html'],
-#}
+##### recommonmark is a python utility that allows markdown to be used within
+##### Sphinx projects.
+##### Installed version as per directive in docs/requirement.txt
+####from recommonmark.parser import CommonMarkParser
+####
+####source_parsers = {
+####    '.md': CommonMarkParser,
+####}
+####
+##### The suffix(es) of source filenames.
+##### You can specify multiple suffix as a list of string:
+#####
+##### source_suffix = ['.rst', '.md']
+####source_suffix = ['.rst', '.md']
+####
+##### The master toctree document.
+####master_doc = 'index'
+####
+##### General information about the project.
+#@@@@###project = 'AUB HPC user guide'
+#@@@@###copyright = '2023, HPC admin team, IT helpdesk'
+#@@@@###author = 'HPC admin team'
+####
+##### The version info for the project you're documenting, acts as replacement for
+##### |version| and |release|, also used in various other places throughout the
+##### built documents.
+#####
+##### The short X.Y version.
+####version = u'master'
+##### The full version, including alpha/beta/rc tags.
+####release = u'master'
+####
+##### The language for content autogenerated by Sphinx. Refer to documentation
+##### for a list of supported languages.
+#####
+##### This is also used if you do content translation via gettext catalogs.
+##### Usually you set "language" from the command line for these cases.
+####language = None
+####
+####
+####
+##### The name of the Pygments (syntax highlighting) style to use.
+####pygments_style = 'sphinx'
+####
+##### If true, `todo` and `todoList` produce output, else they produce nothing.
+####todo_include_todos = True
+####
+####
+##### -- Options for HTML output ----------------------------------------------
+####
+##### The theme to use for HTML and HTML Help pages.  See the documentation for
+##### a list of builtin themes.
+#####
+#####html_theme = os.getenv('USERGUIDETHEME')
+#####html_theme = 'bootstrap'
+####html_theme = "pydata_sphinx_theme"
+####if html_theme == 'sphinx_rtd_theme':
+####    import sphinx_rtd_theme
+####    html_theme_path = sphinx_rtd_theme.get_html_theme_path()
+####elif html_theme == 'bootstrap':
+####    import sphinx_bootstrap_theme
+####    html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
+####elif html_theme is None:
+####    html_theme = 'sphinx_rtd_theme'
+####    import sphinx_rtd_theme
+####    html_theme_path = sphinx_rtd_theme.get_html_theme_path()
+####else:
+####    # no theme specified
+####    pass
+####
+##### Theme options are theme-specific and customize the look and feel of a theme
+##### further.  For a list of options available for each theme, see the
+##### documentation.
+#####
+##### html_theme_options = {}
+####
+##### Add any paths that contain custom static files (such as style sheets) here,
+##### relative to this directory. They are copied after the builtin static files,
+##### so a file named "default.css" will overwrite the builtin "default.css".
+####html_static_path = ['_static']
+####
+####def placeholderReplace(app, docname, source):
+####    result = source[0]
+####    for key in app.config.placeholder_replacements:
+####        result = result.replace(key, app.config.placeholder_replacements[key])
+####    source[0] = result
+####
+####
+#####def setup(app):
+#####    app.add_stylesheet('css/custom.css')
+#####    app.add_config_value('placeholder_replacements', {}, True)
+#####    app.connect('source-read', placeholderReplace)
+####
+##### -- Options for HTMLHelp output ------------------------------------------
+####
+##### Output file base name for HTML help builder.
+####htmlhelp_basename = 'hpcuserguidedoc'
+####
+####
+##### -- Options for LaTeX output ---------------------------------------------
+####
+####latex_elements = {
+####    # The paper size ('letterpaper' or 'a4paper').
+####    #
+####    # 'papersize': 'letterpaper',
+####
+####    # The font size ('10pt', '11pt' or '12pt').
+####    #
+####    # 'pointsize': '10pt',
+####
+####    # Additional stuff for the LaTeX preamble.
+####    #
+####    # 'preamble': '',
+####
+####    # Latex figure (float) alignment
+####    #
+####    # 'figure_align': 'htbp',
+####}
+####
+##### Grouping the document tree into LaTeX files. List of tuples
+##### (source start file, target name, title,
+#####  author, documentclass [howto, manual, or own class]).
+####latex_documents = [
+####    (master_doc, 'hpcuserguide.tex', 'hpc user guide Documentation',
+####     'HPC admin team', 'manual'),
+####]
+####
+####
+##### -- Options for manual page output ---------------------------------------
+####
+##### One entry per manual page. List of tuples
+##### (source start file, name, description, authors, manual section).
+####man_pages = [
+####    (master_doc, 'hpcuserguide', 'hpc user guide Documentation',
+####     [author], 1)
+####]
+####
+####
+##### -- Options for Texinfo output -------------------------------------------
+####
+##### Grouping the document tree into Texinfo files. List of tuples
+##### (source start file, target name, title, author,
+#####  dir menu entry, description, category)
+####texinfo_documents = [
+####    (master_doc, 'hpcuserguide', 'hpc user guide Documentation',
+####     author, 'hpcuserguide', 'One line description of project.',
+####     'Miscellaneous'),
+####]
+####
+####
+####
+##### -- Options for Epub output ----------------------------------------------
+####
+##### Bibliographic Dublin Core info.
+####epub_title = project
+####epub_author = author
+####epub_publisher = author
+####epub_copyright = copyright
+####
+##### The unique identifier of the text. This can be a ISBN number
+##### or the project homepage.
+#####
+##### epub_identifier = ''
+####
+##### A unique identification for the text.
+#####
+##### epub_uid = ''
+####
+##### A list of files that should not be packed into the epub file.
+####epub_exclude_files = ['search.html']
+####
+##### Example configuration for intersphinx: refer to the Python standard library.
+#####intersphinx_mapping = {'https://docs.python.org/': None}
+####
+##### Skip the links with anchor tags during the linkcheck
+####linkcheck_anchors = False
+####
+##### Increase the linkcheck timeout to 5 seconds
+####linkcheck_timeout = 5
+####
+####html_sidebars = {
+####    '**': [
+####        'globaltoc.html',
+####        'relations.html',
+####        'searchbox.html',
+####        'localtoc.html'
+####    ]
+####}
+####
+#####html_js_files = [
+#####    'js/custom.js'
+#####]
+####
+#####html_theme_options = {
+#####    "collapse_navigation": False,
+#####}
+####
+#####html_sidebars = { '**': ['custom_templates.html'] }
+####
+####
+#####html_sidebars = {
+#####   '**': ['globaltoc.html', 'sourcelink.html'],
+#####   'using/windows': ['windowssidebar.html'],
+#####}
