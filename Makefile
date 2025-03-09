@@ -18,4 +18,9 @@ run:
 clean:
 	rm -fvr \#* *~ *.exe out
 	rm -fvr userdoc/_build
+
+help:
+	conda activate sphinx-hpcaub-userguide
+	. .venv_sphinx8/bin/activate
+	make all
 # ======================================================================================

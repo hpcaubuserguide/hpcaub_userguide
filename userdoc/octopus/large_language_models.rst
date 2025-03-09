@@ -23,17 +23,17 @@ Resources requirements estimation tips and tricks
 
 .. warning:: Do not expect for code or notebooks copied and pasted from
     huggingface, kaggle, github, stack overflow or elsewhere to work on
-    ``octopus`` out of the box since the HPC contraints and optimizations
+    ``octopus`` out of the box since the HPC constraints and optimizations
     should be taken into account and you should know what you are doing and
     understand the code being executed.
-    This is a common amature mistake users frequently do and that results in
+    This is a common amateur mistake users frequently do and that results in
     degraded performance or wrong results.
 
 .. warning:: Make sure that your scripts make use of accelerators whenever the
      GPU resources are specified in the job scripts. The V100 GPUs are
-     enterprise grade high end GPUs. If the performace you are getting is
-     slower than what you expect, most probably there is a bottelneck in your
-     script. The bottelneck could be in:
+     enterprise grade high end GPUs. If the performance you are getting is
+     slower than what you expect, most probably there is a bottleneck in your
+     script. The bottleneck could be in:
 
       - make sure that the compute node you are running on has a GPU by executing
         ``nvidia-smi``. If you are not getting any output, then the compute node
@@ -44,7 +44,7 @@ Resources requirements estimation tips and tricks
       - if you installed additional packages using pip or conda or set up
         your environment from scratch ensure that your changes do not override
         the pre-installed packages.
-      - make sure to profile your script to identify the bottelneck. You can
+      - make sure to profile your script to identify the bottleneck. You can
         use basic profilers or use ``gpu_usage_live`` or ``nvtop`` to monitor
         the GPU usage.
       - Other advanced profilers are available on ``octopus``. You can use
@@ -52,11 +52,11 @@ Resources requirements estimation tips and tricks
         ``nvvp`` to visualize the profiling results.
       - Understand the resources requirements of your model for training or
         inference and compare that to the capabilities of the GPU. If the
-        performace is much slower than expected then most probably there is a
-        bottelneck in your script.
+        performance is much slower than expected then most probably there is a
+        bottleneck in your script.
       - To optimize reads and writes you can use caching to the ram disk in
-        ``/dev/shm`` on ``onode10`` and ``onode11``. These have 128GB of ram
-        and can be used to cache the data.
+        ``/dev/shm`` on ``onode10``, ``onode11``, ``onode12``, ``onode17``.
+        These have 128GB of ram and can be used to cache the data.
       - if all the above attempts fail then please contact HPC support for
         further assistance.
 
@@ -229,6 +229,40 @@ The following snippet can be used to load the a model from the model library on 
     model.save_pretrained(os.path.expanduser(model_out))
 
     print('done')
+
+Download the model to the local disk to a custom path from hugging face
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+If the model is small you can try to download it to the local disk into the scratch directory.
+Please set your HF_HOME environment variable to the scratch directory before downloading the model.
+Executing the following a cache directory will be created for the model and huggingface datasets
+in your scratch directory.
+
+.. code-block:: bash
+
+    export HF_HOME=~/scratch/huggingface
+    # to make this permanant add the above line to your .bashrc file, it will take affect next time
+    # you login to the system or source ~/.bsahrc
+    echo "export HF_HOME=~/scratch/huggingface" >> ~/.bashrc
+
+    # read about the huggingface-cli tool
+    huggingface-cli --help
+
+    # (optional) only for gated content
+    # login to hugginface or set up your api key via the environment variable HF_TOKEN
+    huggingface-cli login
+    # or set the HF_TOKEN environment variable
+    export HF_TOKEN=replace_this_your_huggingface_token_replace_this
+
+    # specify the model name and download it
+    MODEL="Qwen/Qwen2.5-VL-3B-Instruct"
+    huggingface-cli download ${MODEL}
+
+    # to download the model to a custom path
+    MODEL="Qwen/Qwen2.5-VL-3B-Instruct"
+    mkdir -p ~/scratch/my_custom_dir/${MODEL}
+    huggingface-cli download ${MODEL} --local-dir ~/scratch/my_custom_dir/${MODEL}
+
 
 Running inference and evaluating models
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
