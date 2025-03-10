@@ -45,6 +45,11 @@ extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.viewcode',
     'sphinx.ext.autosectionlabel',
+    'sphinx.ext.viewcode',
+    'sphinx_tabs.tabs',
+    'sphinx-prompt',
+    'sphinx_toolbox',
+    'sphinx_toolbox.github',
 ]
 
 templates_path = ['_templates']
@@ -134,6 +139,9 @@ html_theme_options = {
     "search_as_you_type": True,
 }
 
+# Configuration required by sphinx_toolbox.github extension
+github_username = "hpcaubuserguide"
+github_repository = "hpcaub_userguide"
 
 html_sidebars = {
     "community/index": [
@@ -157,8 +165,8 @@ html_sidebars = {
 }
 
 html_context = {
-    "github_user": "pydata",
-    "github_repo": "pydata-sphinx-theme",
+    "github_user": "hpcaubuserguide",  # Updated to match your repository
+    "github_repo": "hpcaub_userguide",  # Updated to match your repository
     "github_version": "main",
     "doc_path": "docs",
 }

@@ -1,12 +1,12 @@
 Large language models
----------------------
+=====================
 
 **Author: Mher Kazandjian**
 
 .. warning:: This document is a work in progress and is subject to change.
 
 Environments
-^^^^^^^^^^^^
+------------
 
 The following environments are available on ``octopus`` for running large
 language models and developing new models:
@@ -61,7 +61,7 @@ Resources requirements estimation tips and tricks
         further assistance.
 
 Available models in the model library
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------------
 
 Currently the HPC service provides two main repositories for large language models:
 
@@ -230,42 +230,68 @@ The following snippet can be used to load the a model from the model library on 
 
     print('done')
 
-Download the model to the local disk to a custom path from hugging face
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Download the model and datasets
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If the model is small you can try to download it to the local disk into the scratch directory.
 Please set your HF_HOME environment variable to the scratch directory before downloading the model.
-Executing the following a cache directory will be created for the model and huggingface datasets
-in your scratch directory.
+Executing the following commands will create a cache directory for the model and Hugging Face datasets
+in your scratch directory or in a custom local directory.
 
 .. code-block:: bash
 
+    # read about the huggingface-cli tool
+    module load python/ai-4
+    huggingface-cli --help
+
     export HF_HOME=~/scratch/huggingface
-    # to make this permanant add the above line to your .bashrc file, it will take affect next time
-    # you login to the system or source ~/.bsahrc
+    # to make this permanent add the above line to your .bashrc file, it will take effect next time
+    # you login to the system or source ~/.bashrc
     echo "export HF_HOME=~/scratch/huggingface" >> ~/.bashrc
 
     # read about the huggingface-cli tool
     huggingface-cli --help
 
     # (optional) only for gated content
-    # login to hugginface or set up your api key via the environment variable HF_TOKEN
+    # login to huggingface or set up your api key via the environment variable HF_TOKEN
     huggingface-cli login
     # or set the HF_TOKEN environment variable
-    export HF_TOKEN=replace_this_your_huggingface_token_replace_this
+    export HF_TOKEN="replace_this_your_huggingface_token_replace_this"
 
-    # specify the model name and download it
+    #
+    # specify the model or dataset name and download it
+    #
     MODEL="Qwen/Qwen2.5-VL-3B-Instruct"
     huggingface-cli download ${MODEL}
 
     # to download the model to a custom path
-    MODEL="Qwen/Qwen2.5-VL-3B-Instruct"
-    mkdir -p ~/scratch/my_custom_dir/${MODEL}
-    huggingface-cli download ${MODEL} --local-dir ~/scratch/my_custom_dir/${MODEL}
+    DIRPATH=~/scratch/my_custom_dir         # use $PWD to download in the local dir
+    mkdir -p ${DIRPATH}/${MODEL}
+    huggingface-cli download ${MODEL} --local-dir ${DIRPATH}/${MODEL}
+
+
+A similar approach can be followed to download datasets from huggingface.
+
+.. code-block:: bash
+
+    # (optional) only for gated content
+    # login to huggingface or set up your api key via the environment variable HF_TOKEN
+    huggingface-cli login
+    # or set the HF_TOKEN environment variable
+    export HF_TOKEN="replace_this_your_huggingface_token_replace_this"
+
+    # specify the dataset name and download it
+    DATASET="PULSE-ECG/ECGBench"
+    huggingface-cli dataset download "${DATASET}"
+
+    # to download the dataset to a custom path
+    DIRPATH=~/scratch/my_custom_dir         # use $PWD to download in the local dir
+    mkdir -p "${DIRPATH}/${DATASET}"
+    huggingface-cli dataset download "${DATASET}" --local-dir "${DIRPATH}/${DATASET}"
 
 
 Running inference and evaluating models
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------------------
 
 Hugging face models using the transformers package
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -358,11 +384,12 @@ Evaluating quantized models
 Once a model is fine tuned or trained (see below) it is convient (assuming that
 the loss in accuracy is not high to quantize the model to evaluate the quantized
 model for testing purposes. For use cases that do not requite high accuracy
-quantized models are good enough and they outperform the llama7B model (.. todo::
-double check this statement).
+quantized models are good enough and they outperform the llama7B model)
+
+.. todo:: double check this statement.
 
 Using llama.cpp
-+++++++++++++++
+"""""""""""""""
 
 In this section I will explain the basics of quantization and how to evaluate
 such models without any optimization on a CPU. Later in this section I will
@@ -370,13 +397,9 @@ describe and demonstrate how to scale the model evaluation using a single GPU
 and multiple GPUs across several hosts or across multiple mosts using only CPUs
 and compare the performance.
 
-Quantizing models
-#################
-
-.. todo:: add notes here
 
 Evaluate the quantized model on a CPU - non optimized
-######################################################
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 .. code-block:: bash
@@ -386,7 +409,7 @@ Evaluate the quantized model on a CPU - non optimized
     /apps/sw/llama.cpp/amd-avx2/bin/main -t 16 -ngl 24 --color --temp 0.7 -n 1 -m /dev/shm/mistral-7b-v0.1.Q4_K_M/mistral-7b-v0.1.Q4_K_M.gguf -p "Building a website can be done in 10 simple steps:\nStep 1:" -n 400 -e
 
 Evaluate the quantized model on a CPU (optimized)
-#################################################
+"""""""""""""""""""""""""""""""""""""""""""""""""
 
 .. code-block:: bash
 
@@ -396,14 +419,14 @@ Evaluate the quantized model on a CPU (optimized)
     /apps/sw/llama.cpp/amd-v100-cublas-12/bin/main -t 8 -ngl 24 --color --temp 0.7 -n 1 -m /dev/shm/mistral-7b-v0.1.Q4_K_M/mistral-7b-v0.1.Q4_K_M.gguf -p "Building a website can be done in 10 simple steps:\nStep 1:" -n 400 -e
 
 Evaluate the quantized model on a CPU across multiple hosts
-###########################################################
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 .. code-block:: bash
 
     module load llama.cpp/mpi
 
 Evaluate the quantized model on a GPU
-#####################################
+"""""""""""""""""""""""""""""""""""""
 
 .. code-block:: bash
 
@@ -414,8 +437,7 @@ Evaluate the quantized model on a GPU
     ...
 
 Evaluate the quantized model across multiple GPUs
-#################################################
-
+"""""""""""""""""""""""""""""""""""""""""""""""""
 
 .. code-block:: bash
 
@@ -426,7 +448,7 @@ Evaluate the quantized model across multiple GPUs
     ...
 
 Benchmark the quantized model
-#############################
+"""""""""""""""""""""""""""""
 
 .. code-block:: bash
 
@@ -441,7 +463,7 @@ Benchmark the quantized model
     | llama 7B Q4_K - Medium         |   4.07 GiB |     7.24 B | CUDA       |  99 | tg 128     |     82.05 ± 0.15 |
 
 Farm the evaluation of quantized models
-#######################################
+"""""""""""""""""""""""""""""""""""""""
 
 .. todo:: under development
 
@@ -458,11 +480,55 @@ Farm the evaluation of quantized models
       --prompts-file=/path/to/my_prompts.txt \
       --stats
 
-Fine tuning large language models
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Fine-tuning
+-----------
+
+Using Accelerate
+^^^^^^^^^^^^^^^^
+
+.. todo:: in progress
+
+Using Deepspeed
+^^^^^^^^^^^^^^^
+
+.. todo:: in progress
+
+Using unsloth
+^^^^^^^^^^^^^
+
+It is possible to fine tune quantized models using unsloth up to 70B using two V100 GPUs.
+Smaller models can be executed on one V100 GPU.
+In order to use unsloth a singularity container has been prepared and it works out of the box.
+
+The official unsloth documentation can be found here: https://docs.unsloth.ai/
+
+The procudure of running the fine tuning is as follows:
+
+  - Create a slurm job script that allocated two V100 GPUs
+  - Run the unsloth container
+  - Inside the container run the fine tuning script
+
+The unsloth container is available on ``octopus`` at the following location:
+
+    /apps/sw/apptainer/images/unsloth-2025-03.sif
+
+The following is a job script that is also located at
+
+    /home/shared/fine_tune_llama_70B_unsloth/job-2025-03.sh
+
+.. collapse:: A long code block
+
+    .. literalinclude:: scripts/fine_tune_llama_70B_unsloth_job-2025-03.py
+       :language: python
+       :linenos:
+
+.. literalinclude:: scripts/fine_tune_llama_70B_unsloth_job-2025-03.sh
+   :language: bash
+   :linenos:
+
 
 Fine tuning llama2 7B using the official facebook llama repo
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **TL;DR** Procedure to fune-tune llama2 7B on one V100 GPU on ``octopus``.
 
@@ -609,6 +675,7 @@ home directory and executed as follows (change test04 with your username):
 
 
 .. todo:: Add instructions for resuming from an epoch
+
 .. todo:: Add instructions for providing a custom fine-tuning dataset
 
 Fine tuning llama2 13B
@@ -619,14 +686,10 @@ two or four V100 GPUs.
 ### note:: i am not sure if it was possible to fine tune 13B on two GPUs!
     try again
 
-Sharding
-++++++++
-
-.. todo:: add a section here on how to shard llama2 13B
 
 
-Fine tuning
-+++++++++++
+Fine tuning using llama_recipes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 # 4 GPUs
 
@@ -640,8 +703,15 @@ Fine tuning
         $ torchrun --nproc-per-node=1 --nnodes=4 --node-rank=2 --master-addr=onode10 --master-port=4444 examples/finetuning.py --use_peft --peft_method lora --quantization --model_name models/13B --output_dir /dev/shm/PEFT/model
         $ torchrun --nproc-per-node=1 --nnodes=4 --node-rank=3 --master-addr=onode10 --master-port=4444 examples/finetuning.py --use_peft --peft_method lora --quantization --model_name models/13B --output_dir /dev/shm/PEFT/model
 
+
+Sharding
+--------
+
+.. todo:: add a section here on how to shard llama2 13B
+
+
 Serving models using ollama
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------
 
 .. _ollama:
 
@@ -679,7 +749,7 @@ deployed that are not in the list above.
 .. todo:: add a bash function that caches a certain named model to ``/dev/shm``
 
 Load and list the models
-++++++++++++++++++++++++
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 
@@ -688,7 +758,7 @@ Load and list the models
 
 
 Run a model in interactive mode
-+++++++++++++++++++++++++++++++
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 
@@ -699,7 +769,7 @@ Run a model in interactive mode
     ollama run phi:latest
 
 Run a model in batch mode
-+++++++++++++++++++++++++
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Create a python script that uses the ollama client to run a model.
 In the example below the ``phi`` model is used since it is small and can
@@ -727,3 +797,9 @@ be loaded quickly.
 
 .. Training large language models
 .. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Quantizing models
+-----------------
+
+.. todo:: add notes here
