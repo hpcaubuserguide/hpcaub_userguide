@@ -516,7 +516,7 @@ The following is a job script that is also located at
 
     /home/shared/fine_tune_llama_70B_unsloth/job-2025-03.sh
 
-.. collapse:: A long code block
+.. collapse:: Unsloth training script
 
     .. literalinclude:: scripts/fine_tune_llama_70B_unsloth_job-2025-03.py
        :language: python
