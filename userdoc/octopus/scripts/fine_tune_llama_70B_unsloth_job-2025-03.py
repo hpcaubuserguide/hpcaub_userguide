@@ -37,6 +37,7 @@ model = FastLanguageModel.get_peft_model(
     random_state = 3407,
     use_rslora = False,  # We support rank stabilized LoRA
     loftq_config = None, # And LoftQ
+    device_map='auto',  # This is the key parameter for multi-GPU
 )
 
 # %%
@@ -66,8 +67,8 @@ def formatting_prompts_func(examples):
     return { "text" : texts, }
 
 from datasets import load_dataset
-dataset = load_dataset("yahma/alpaca-cleaned", split = "train")
-dataset = dataset.map(formatting_prompts_func, batched = True,)
+dataset = load_dataset("yahma/alpaca-cleaned", split="train")
+dataset = dataset.map(formatting_prompts_func, batched=True,)
 
 # %%
 from trl import SFTTrainer
@@ -86,7 +87,7 @@ trainer = SFTTrainer(
         per_device_train_batch_size = 2,
         gradient_accumulation_steps = 4,
         warmup_steps = 5,
-        # num_train_epochs = 1, # Set this for 1 full training run.
+        #num_train_epochs = 3, # Set this for 1 full training run.
         max_steps = 60,
         learning_rate = 2e-4,
         fp16 = not is_bfloat16_supported(),
@@ -98,6 +99,9 @@ trainer = SFTTrainer(
         seed = 3407,
         output_dir = "outputs",
         report_to = "none", # Use this for WandB etc
+        # Multi-GPU specific settings
+        ddp_find_unused_parameters=False,  # Important for efficiency
+        local_rank=-1,  # Will be set by accelerate
     ),
 )
 

@@ -82,6 +82,7 @@ myst_heading_anchors = 2
 todo_include_todos = True
 
 html_theme_options = {
+    "default_mode": "light",
     "external_links": [
         {
             "url": "https://www.aub.edu.lb",
