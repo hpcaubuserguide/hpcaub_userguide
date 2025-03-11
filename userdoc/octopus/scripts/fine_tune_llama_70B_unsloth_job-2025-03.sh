@@ -30,9 +30,9 @@ TRAIN_SCRIPT_NAME=fine_tune_llama_70B_unsloth_job-2025-03.py
 cp /home/shared/fine_tune_llama_70B_unsloth/${TRAIN_SCRIPT_NAME} .
 
 singularity exec --nv \
-  /apps/sw/apptainer/images/unsloth-2025-03.sif \
-  --bind /scratch:/scratch \
-  /bin/bash -c \
-   ". /apps/miniconda/etc/profile.d/conda.sh && \
-    conda activate unsloth && \
-    python3 ${TRAIN_SCRIPT_NAME} 2>&1 | tee output.log"
+    --bind /scratch:/scratch \
+    /apps/sw/apptainer/images/unsloth-2025-03.sif \
+    /bin/bash -c \
+     ". /apps/miniconda/etc/profile.d/conda.sh && \
+      conda activate unsloth && \
+      python3 ${TRAIN_SCRIPT_NAME} 2>&1 | tee output.log"

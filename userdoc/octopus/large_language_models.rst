@@ -526,11 +526,22 @@ The following is a job script that is also located at
    :language: bash
    :linenos:
 
+These scripts are available on the cluster at the following path:
 
-Fine tuning llama2 7B using the official facebook llama repo
+``/home/shared/fine_tune_llama_70B_unsloth/fine_tune_llama_70B_unsloth_job-2025-03.sh``
+
+To reproduce this example, the following steps are required:
+
+  - copy the script to your home directory
+  - change the ``account`` to your account
+  - change the ``mail-user`` to your email
+  - submit the job
+  - you should get the fine tuned model in ~/scratch/llama_70B_unsloth_test_1
+
+Fine-tuning llama2 7B using the official facebook llama repo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**TL;DR** Procedure to fune-tune llama2 7B on one V100 GPU on ``octopus``.
+**TL;DR** Procedure to fine-tune llama2 7B on one V100 GPU on ``octopus``.
 
 The following pre-requisites are required to fine tune the llama2 7B model:
 
@@ -683,12 +694,12 @@ Fine tuning llama2 13B
 
 Prior to fine tuning the 13B llama2 model, it must be shared in-order fit on
 two or four V100 GPUs.
-### note:: i am not sure if it was possible to fine tune 13B on two GPUs!
-    try again
+
+.. note:: i am not sure if it was possible to fine tune 13B on two GPUs! try again
 
 
 
-Fine tuning using llama_recipes
+Fine-tuning using llama_recipes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 # 4 GPUs

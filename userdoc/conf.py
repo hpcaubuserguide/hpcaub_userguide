@@ -50,6 +50,7 @@ extensions = [
     'sphinx-prompt',
     'sphinx_toolbox',
     'sphinx_toolbox.github',
+    'sphinx_copybutton'
 ]
 
 templates_path = ['_templates']
