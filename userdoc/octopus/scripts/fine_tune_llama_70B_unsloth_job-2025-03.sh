@@ -16,6 +16,8 @@
 
 module load singularity
 
+hostname
+
 # list/check the available GPUs that are on the node
 singularity exec --nv /apps/sw/apptainer/images/unsloth-2025-03.sif nvidia-smi
 

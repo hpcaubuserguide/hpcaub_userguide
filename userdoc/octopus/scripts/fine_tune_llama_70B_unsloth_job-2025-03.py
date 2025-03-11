@@ -9,8 +9,8 @@ dtype = None # None for auto detection. Float16 for Tesla T4, V100, Bfloat16 for
 load_in_4bit = True # Use 4bit quantization to reduce memory usage. Can be False.
 
 # %%
-#model_name = "/scratch/shared/ai/models/llms/hugging_face/unsloth/Meta-Llama-3.1-70B-bnb-4bit"
-model_name = "/scratch/shared/ai/models/llms/hugging_face/unsloth/Llama-3.2-1B-Instruct"
+model_name = "/scratch/shared/ai/models/llms/hugging_face/unsloth/Meta-Llama-3.1-70B-bnb-4bit"
+#model_name = "/scratch/shared/ai/models/llms/hugging_face/unsloth/Llama-3.2-1B-Instruct"
 #model_name = "/dev/shm/unsloth/Meta-Llama-3.1-70B-bnb-4bit"
 #model_name = "/dev/shm/unsloth/Llama-3.2-1B-Instruct"
 model, tokenizer = FastLanguageModel.from_pretrained(
@@ -19,6 +19,7 @@ model, tokenizer = FastLanguageModel.from_pretrained(
     dtype = dtype,
     load_in_4bit = load_in_4bit,
     # token = "hf_...", # use one if using gated models like meta-llama/Llama-2-7b-hf
+    device_map = 'auto'
 )
 
 # %%
@@ -37,7 +38,6 @@ model = FastLanguageModel.get_peft_model(
     random_state = 3407,
     use_rslora = False,  # We support rank stabilized LoRA
     loftq_config = None, # And LoftQ
-    device_map='auto',  # This is the key parameter for multi-GPU
 )
 
 # %%

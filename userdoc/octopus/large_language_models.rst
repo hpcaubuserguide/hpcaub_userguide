@@ -538,6 +538,73 @@ To reproduce this example, the following steps are required:
   - submit the job
   - you should get the fine tuned model in ~/scratch/llama_70B_unsloth_test_1
 
+The expected output should look something like this (the output below is trimmed)
+
+.. code-block:: bash
+
+    Tue Mar 11 15:33:42 2025
+    +---------------------------------------------------------------------------------------+
+    | NVIDIA-SMI 535.104.05             Driver Version: 535.104.05   CUDA Version: 12.2     |
+    |-----------------------------------------+----------------------+----------------------+
+    | GPU  Name                 Persistence-M | Bus-Id        Disp.A | Volatile Uncorr. ECC |
+    | Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |
+    |                                         |                      |               MIG M. |
+    |=========================================+======================+======================|
+    |   0  Tesla V100-PCIE-32GB           Off | 00000000:04:00.0 Off |                  Off |
+    | N/A   42C    P0              27W / 250W |      0MiB / 32768MiB |      0%      Default |
+    |                                         |                      |                  N/A |
+    +-----------------------------------------+----------------------+----------------------+
+    |   1  Tesla V100-PCIE-32GB           Off | 00000000:1B:00.0 Off |                  Off |
+    | N/A   38C    P0              23W / 250W |      0MiB / 32768MiB |      0%      Default |
+    |                                         |                      |                  N/A |
+    +-----------------------------------------+----------------------+----------------------+
+
+    +---------------------------------------------------------------------------------------+
+    | Processes:                                                                            |
+    |  GPU   GI   CI        PID   Type   Process name                            GPU Memory |
+    |        ID   ID                                                             Usage      |
+    |=======================================================================================|
+    |  No running processes found                                                           |
+    +---------------------------------------------------------------------------------------+
+    /bin/sh: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+    /bin/bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+    /bin/sh: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+     Unsloth: Will patch your computer to enable 2x faster free finetuning.
+     Unsloth Zoo will now patch everything to make training faster!
+    ==((====))==  Unsloth 2025.3.9: Fast Llama patching. Transformers: 4.49.0.
+       \\   /|    Tesla V100-PCIE-32GB. Num GPUs = 2. Max memory: 31.739 GB. Platform: Linux.
+    O^O/ \_/ \    Torch: 2.6.0+cu124. CUDA: 7.0. CUDA Toolkit: 12.4. Triton: 3.2.0
+    \        /    Bfloat16 = FALSE. FA [Xformers = 0.0.29.post3. FA2 = False]
+     "-____-"     Free license: http://github.com/unslothai/unsloth
+    Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+    Loading checkpoint shards: 100%|██████████| 6/6 [00:17<00:00,  2.95s/it]
+    Unsloth 2025.3.9 patched 80 layers with 80 QKV layers, 80 O layers and 80 MLP layers.
+    Detected kernel version 3.10.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+    ==((====))==  Unsloth - 2x faster free finetuning | Num GPUs used = 2
+       \\   /|    Num examples = 51,760 | Num Epochs = 1 | Total steps = 60
+    O^O/ \_/ \    Batch size per device = 2 | Gradient accumulation steps = 4
+    \        /    Data Parallel GPUs = 1 | Total batch size (2 x 4 x 1) = 8
+     "-____-"     Trainable parameters = 207,093,760/36,535,279,616 (0.57% trained)
+    GPU = Tesla V100-PCIE-32GB. Max memory = 31.739 GB.
+    15.875 GB of memory reserved.
+    100%|██████████| 60/60 [22:14<00:00, 22.24s/it]
+    Unsloth: Will smartly offload gradients to save VRAM!
+    {'loss': 1.3177, 'grad_norm': nan, 'learning_rate': 0.0, 'epoch': 0.0}
+    {'loss': 0.0, 'grad_norm': nan, 'learning_rate': 0.0, 'epoch': 0.0}
+    {'loss': 5.6959, 'grad_norm': nan, 'learning_rate': 0.0, 'epoch': 0.0}
+    .
+    .
+    .
+    {'loss': 1.9101, 'grad_norm': nan, 'learning_rate': 0.00019272727272727274, 'epoch': 0.01}
+    {'loss': 4.2287, 'grad_norm': nan, 'learning_rate': 0.00019272727272727274, 'epoch': 0.01}
+    {'train_runtime': 1334.31, 'train_samples_per_second': 0.36, 'train_steps_per_second': 0.045, 'train_loss': 4.311967599391937, 'epoch': 0.01}
+    1334.31 seconds used for training.
+    22.24 minutes used for training.
+    Peak reserved memory = 18.598 GB. (per device)
+    Peak reserved memory for training = 2.723 GB. (per device)
+    Peak reserved memory % of max memory = 58.597 %.
+    Peak reserved memory for training % of max memory = 8.579 %.
+
 Fine-tuning llama2 7B using the official facebook llama repo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
