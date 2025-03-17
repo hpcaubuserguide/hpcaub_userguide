@@ -282,13 +282,12 @@ A similar approach can be followed to download datasets from huggingface.
 
     # specify the dataset name and download it
     DATASET="PULSE-ECG/ECGBench"
-    huggingface-cli dataset download "${DATASET}"
+    huggingface-cli download --repo-type dataset "${DATASET}"
 
     # to download the dataset to a custom path
     DIRPATH=~/scratch/my_custom_dir         # use $PWD to download in the local dir
     mkdir -p "${DIRPATH}/${DATASET}"
-    huggingface-cli dataset download "${DATASET}" --local-dir "${DIRPATH}/${DATASET}"
-
+    huggingface-cli download --repo-type dataset "${DATASET}" --local-dir "${DIRPATH}/${DATASET}"
 
 Running inference and evaluating models
 ---------------------------------------
