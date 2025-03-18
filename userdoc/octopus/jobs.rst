@@ -111,15 +111,30 @@ Batch job submission and monitoring procedure
   .. code-block:: bash
 
       $ squeue -a
+      # check the status of your jobs only
+      $ squeue -u $USER
+
+- check the status and the priority of the jobs
+
+  .. code-block:: bash
+
+      $ sq
+      $ sq -u $USER    # show only your jobs
 
 - After the job is dispatched for executing (starts running), monitor the
   output by checking the ``.o`` file.
 
 For more information on using SLURM, please consult the ``man`` pages:
 
+- Check the overall status of the partitions you have access to
+
+  .. code-block:: bash
+
+     $ sp
+
 .. code-block:: bash
 
-   $ man sbatch
+     $ man sbatch
 
 Jobs time limits and checkpoints
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
