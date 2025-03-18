@@ -121,20 +121,21 @@ Batch job submission and monitoring procedure
       $ sq
       $ sq -u $USER    # show only your jobs
 
-- After the job is dispatched for executing (starts running), monitor the
-  output by checking the ``.o`` file.
-
-For more information on using SLURM, please consult the ``man`` pages:
-
 - Check the overall status of the partitions you have access to
 
   .. code-block:: bash
 
      $ sp
 
+- After the job is dispatched for executing (starts running), monitor the
+  output by checking the ``.o`` file.
+
+For more information on using SLURM, please consult the ``man`` pages:
+
 .. code-block:: bash
 
      $ man sbatch
+     $ man sinfo
 
 Jobs time limits and checkpoints
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
