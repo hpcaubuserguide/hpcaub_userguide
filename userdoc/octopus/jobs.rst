@@ -106,19 +106,24 @@ Batch job submission and monitoring procedure
   or set in pending mode until the requested resources are available for the job
   to run.
 
-- check the status of the job
+- check the status of the job for all and your user only
 
   .. code-block:: bash
 
       $ squeue -a
-      # check the status of your jobs only
+
+  .. code-block:: bash
+
       $ squeue -u $USER
 
-- check the status and the priority of the jobs
+- check the status and the priority of the jobs for all and your user only
 
   .. code-block:: bash
 
       $ sq
+
+  .. code-block:: bash
+
       $ sq -u $USER    # show only your jobs
 
 - Check the overall status of the partitions you have access to
@@ -135,6 +140,9 @@ For more information on using SLURM, please consult the ``man`` pages:
 .. code-block:: bash
 
      $ man sbatch
+
+.. code-block:: bash
+
      $ man sinfo
 
 Jobs time limits and checkpoints
