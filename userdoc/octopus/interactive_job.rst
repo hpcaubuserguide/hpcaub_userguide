@@ -9,6 +9,12 @@ For example, although ``matlab`` or ``Ansys Fluent`` jobs can be run as
 batch jobs through the command line or scripts, sometimes interacting with their
 GUIs is necessary.
 
+Prerequisites
++++++++++++++
+
+For Windows, download the portable version of `RealVNC Viewer <https://www.realvnc.com/en/connect/download/viewer/?lai_vid=8rVE8Wk8DfRz&lai_sr=0-4&lai_sl=l#>`_.
+The portable version does not require admin rights to run.
+
 Recommended workflow
 ++++++++++++++++++++
 
@@ -97,6 +103,8 @@ script is also included in ~/.vnc folder. After submitting the job, the
         #SBATCH --cpus-per-task=8
         #SBATCH --mem=4000
         #SBATCH --time=0-01:00:00
+        #SBATCH --mail-type=ALL
+        #SBATCH --mail-user=abc123@mail.aub.edu
 
         ### DO NOT EDIT BEYOND HERE UNLESS YOU KNOW WHAT YOU ARE DOING
         source ~/.bashrc

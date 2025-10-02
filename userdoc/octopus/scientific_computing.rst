@@ -16,6 +16,7 @@ Scientific Computing Environments
    large_language_models.rst
    matlab.rst
    fluent.rst
+   electronics.rst
    oil_and_gas.rst
    abaqus.rst
    cst.rst

@@ -9,10 +9,10 @@ dtype = None # None for auto detection. Float16 for Tesla T4, V100, Bfloat16 for
 load_in_4bit = True # Use 4bit quantization to reduce memory usage. Can be False.
 
 # %%
-model_name = "/scratch/shared/ai/models/llms/hugging_face/unsloth/Meta-Llama-3.1-70B-bnb-4bit"
+#model_name = "/scratch/shared/ai/models/llms/hugging_face/unsloth/Meta-Llama-3.1-70B-bnb-4bit"
 #model_name = "/scratch/shared/ai/models/llms/hugging_face/unsloth/Llama-3.2-1B-Instruct"
 #model_name = "/dev/shm/unsloth/Meta-Llama-3.1-70B-bnb-4bit"
-#model_name = "/dev/shm/unsloth/Llama-3.2-1B-Instruct"
+model_name = "/dev/shm/unsloth/Llama-3.2-1B-Instruct"
 model, tokenizer = FastLanguageModel.from_pretrained(
     model_name = model_name,
     max_seq_length = max_seq_length,
@@ -134,6 +134,10 @@ print(f"Peak reserved memory for training % of max memory = {lora_percentage} %.
 ### save the fine-tuned model
 model.save_pretrained("lora_model")  # Local saving
 tokenizer.save_pretrained("lora_model")
+
+# %%
+# Save to q4_k_m GGUF (see below for more options)
+model.save_pretrained_gguf("model_guff_q4_k_m", tokenizer, quantization_method="q4_k_m")
 
 # %%
 if True:
