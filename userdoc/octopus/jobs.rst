@@ -145,6 +145,32 @@ For more information on using SLURM, please consult the ``man`` pages:
 
      $ man sinfo
 
+Interactive terminal jobs
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+For light weight testing and development or debugging jobs it is possible to obtain a
+terminal session on a compute node using an interactive job thruough srun.
+
+The simplest procedure is to use srun as follows:
+
+.. code-block:: bash
+
+     $  srun --partition=arza -N 1  --pty /bin/bash
+
+It is recommended to specify a small amount of resources for the interactive job, i.e a few
+cores and a few GB ram and maybe one gpu if needed. The following alias can be used to
+allocate one core and 2GB ram in the ``normal`` partition for 30 minutes:
+
+.. code-block:: bash
+
+     $ serial_job
+
+This command is the alias for:
+
+.. code-block:: bash
+
+    $ srun --partition=normal -N 1 --ntasks=1 --cpus-per-task=1 --mem=2000 --time=00:30:00 --pty /bin/bash
+
 Jobs time limits and checkpoints
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
