@@ -171,6 +171,18 @@ This command is the alias for:
 
     $ srun --partition=normal -N 1 --ntasks=1 --cpus-per-task=1 --mem=2000 --time=00:30:00 --pty /bin/bash
 
+To allocate a gpu node for interactive use, the following alias can be used:
+
+.. code-block:: bash
+
+     $ gpu_job
+
+This command is the alias for:
+
+.. code-block:: bash
+
+    $ srun --partition=gpu --nodes=1 --ntasks-per-node=1 --cpus-per-task=4 --gres=gpu:v100d32q:1 --mem=64000 --pty /bin/bash"
+
 Jobs time limits and checkpoints
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
