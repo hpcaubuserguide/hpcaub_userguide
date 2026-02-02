@@ -230,6 +230,52 @@ The following snippet can be used to load the a model from the model library on 
 
     print('done')
 
+Running the latest version(s) of ollama in a container
+-------------------------------------------------------
+
+A container is available to run the latest version(s) of ollama on octopus. The container abstracts
+the installation and configuration of ollama and provides an easy to use interface to run ollama models.
+
+A typical workflow of using ollama in a container in a job script is the following:
+
+  - load the container module (apptainer)
+  - run the ollama server in asynchronous mode
+  - run the ollama client to interact with the server through the ollama executable or the
+    ollama python package
+  - once done, make sure to kill the server so that the job script exits, or you can implement logic
+    such that the job script exits while running the server in the background.
+
+Below is a sample script that can be used to run ollama models in a job script:
+
+.. code-block:: bash
+
+    # load the container module and run the ollama server in the background
+    module load apptainer
+
+    # run ollama server in the background
+    apptainer exec --nv \
+      --bind /scratch:/scratch \
+      --bind /apps:/apps \
+      /apps/sw/apptainer/images/ubuntu-24.04-ollama.sif \
+      bash -c "export OLLAMA_MODELS=/scratch/shared/ai/models/llms/ollama/models && \
+      /apps/sw/ollama-v0.13.5/bin/ollama serve &"
+
+    # test interacting with the server, for example list the available models: ollama list
+    apptainer exec \
+      --bind /scratch:/scratch \
+      --bind /apps:/apps \
+      /apps/sw/apptainer/images/ubuntu-24.04-ollama.sif \
+      bash -c "export OLLAMA_MODELS=/scratch/shared/ai/models/llms/ollama/models && \
+      sleep 10 &&
+      /apps/sw/ollama-v0.13.5/bin/ollama list"
+
+    # interact with the the python ollama package
+    module load python ai-4
+    # run a script that calls ollama, e.g
+    #   https://github.com/ollama/ollama-python?tab=readme-ov-file#usage
+    python example.py
+
+
 Download the model and datasets
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
