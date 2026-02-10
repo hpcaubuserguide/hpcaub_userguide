@@ -168,7 +168,7 @@ Workflow
    1) :ref:`Create the VNC configuration <create_novnc_configuration>`. [one time] This step is
       done when the account is created and hence can be skipped. Execute the procedure
       described there if your VNC configuration does not exist or is corrupted.
-   2) :ref:`submit the job script <submit_novnc_job>` ( e.g ``/home/shared/sample_scripts/slurm_vnc_job/novnc_slum_job.sh``)
+   2) :ref:`submit the job script <submit_novnc_job>` ( e.g ``/home/shared/sample_scripts/slurm_vnc_job/novnc_slurm_job.sh``)
       or copy it from below, edit it to change the resources options and submit it using ``sbatch``.
    3) After the job start check the output slurm file, the content should be similar to the following:
 
