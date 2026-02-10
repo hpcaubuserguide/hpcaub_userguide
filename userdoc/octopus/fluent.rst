@@ -196,94 +196,96 @@ This example is just for demonstration purposes and as a starting point for more
 
 .. code-block:: python
 
-  # %% script that changes a boundary condition parameter and runs a simulation
-  # The following steps are done:
-  # 1) load a mesh file
-  # 2) list all boundary zones and their types
-  # 3) change a parameter of a specific boundary zone
-  # 4) initialize the solution
-  # 5) run the simulation for a set number of iterations
+    # %% script that changes a boundary condition parameter and runs a simulation
+    # The following steps are done:
+    # 1) load a mesh file
+    # 2) list all boundary zones and their types
+    # 3) change a parameter of a specific boundary zone
+    # 4) initialize the solution
+    # 5) run the simulation for a set number of iterations
 
-  # %%
-  import ansys.fluent.core as pyfluent
+    # %%
+    import ansys.fluent.core as pyfluent
 
-  # %%
-  mesh_fpath = '../Room-AC_3D_Mesh.msh.gz'
+    # %%
+    mesh_fpath = '../Room-AC_3D_Mesh.msh.gz'
 
-  # read the mesh file
-  session = pyfluent.launch_fluent(mode='solver', processor_count=4)
-  session.tui.file.read_case(mesh_fpath)
+    # read the mesh file
+    session = pyfluent.launch_fluent(mode='solver', processor_count=4)
+    session.tui.file.read_case(mesh_fpath)
 
-  # %% define a utility function that list all boundary zones and their types
-  # list the zones
-  bc = session.settings.setup.boundary_conditions
+    # %% define a utility function that list all boundary zones and their types
+    # list the zones
+    bc = session.settings.setup.boundary_conditions
 
-  # fluent boundary types (as of Fluent 2024 R1)
-  BOUNDARY_TYPE = [
-      "wall",
-      "velocity_inlet",
-      "pressure_inlet",
-      "mass_flow_inlet",
-      "pressure_outlet",
-      "mass_flow_outlet",
-      "outflow",
-      "symmetry",
-      "axis",
-      "fan",
-      "intake_fan",
-      "exhaust_fan",
-      "inlet_vent",
-      "outlet_vent",
-      "porous_jump",
-      "interface",
-      "periodic",
-      "shadow",
-      "interior",  # not a "BC" you set, but often useful to include for completeness
-  ]
-  def get_all_boundary_zones(bc):
-      """Retrieve all boundary zones from the BC settings and group them by type."""
-      zones_by_type = {}
-      for boundary_type in BOUNDARY_TYPE:
-          obj = getattr(bc, boundary_type, None)
-          if obj is None:
-              continue
-          try:
-              names = obj.get_object_names()
-          except Exception:
-              # some containers may be inactive depending on solver/physics
-              continue
+    # fluent boundary types (as of Fluent 2024 R1)
+    BOUNDARY_TYPE = [
+        "wall",
+        "velocity_inlet",
+        "pressure_inlet",
+        "mass_flow_inlet",
+        "pressure_outlet",
+        "mass_flow_outlet",
+        "outflow",
+        "symmetry",
+        "axis",
+        "fan",
+        "intake_fan",
+        "exhaust_fan",
+        "inlet_vent",
+        "outlet_vent",
+        "porous_jump",
+        "interface",
+        "periodic",
+        "shadow",
+        "interior",  # not a "BC" you set, but often useful to include for completeness
+    ]
 
-          if names:
-              zones_by_type[boundary_type] = list(names)
+    def get_all_boundary_zones(bc):
+        """Retrieve all boundary zones from the BC settings and group them by type."""
+        zones_by_type = {}
+        for boundary_type in BOUNDARY_TYPE:
 
-      return zones_by_type
+            obj = getattr(bc, boundary_type, None)
+            if obj is None:
+                continue
+            try:
+                names = obj.get_object_names()
+            except Exception:
+                # some containers may be inactive depending on solver/physics
+                continue
 
-  # %% get all the zones grouped by type and print them and change the mass flow rate
-  # for one of the inlet zones
-  zones_by_type = get_all_boundary_zones(bc)
-  print("boundary zones by type:")
-  for btype, znames in zones_by_type.items():
-      print(f"{btype}: {znames}")
+            if names:
+                zones_by_type[boundary_type] = list(names)
 
-  # change the mass flow rate of the ac_inlet_vent zone
-  ac_inlet_vent = bc.mass_flow_inlet["ac_inlet_vent"]
+        return zones_by_type
 
-  # change the mass flow rate to 0.1 kg/s
-  ac_inlet_vent.momentum.mass_flow_rate.value = 0.1
+    # %% get all the zones grouped by type and print them and change the mass flow rate
+    # for one of the inlet zones
+    zones_by_type = get_all_boundary_zones(bc)
+    print("boundary zones by type:")
+    for btype, znames in zones_by_type.items():
+        print(f"{btype}: {znames}")
 
-  # %% initialize the solution using standard initialization from all zones and run 200 iterations
-  solution = session.settings.solution
-  init = solution.initialization
-  init.compute_defaults(from_zone_type="all-zones", from_zone_name="all-zones")
+    # change the mass flow rate of the ac_inlet_vent zone
+    ac_inlet_vent = bc.mass_flow_inlet["ac_inlet_vent"]
 
-  # choose "Standard Initialization"
-  init.initialization_type = "standard"
+    # change the mass flow rate to 0.1 kg/s
+    ac_inlet_vent.momentum.mass_flow_rate.value = 0.1
 
-  # initialize the flow field
-  init.standard_initialize()
+    # %% initialize the solution using standard initialization from all zones and run 200 iterations
+    solution = session.settings.solution
+    init = solution.initialization
+    init.compute_defaults(from_zone_type="all-zones", from_zone_name="all-zones")
 
-  # run iterations (steady) / or whatever your framework wants
-  solution.run_calculation.iterate(iter_count=200)
+    # choose "Standard Initialization"
+    init.initialization_type = "standard"
+
+    # initialize the flow field
+    init.standard_initialize()
+
+    # run iterations (steady) / or whatever your framework wants
+    solution.run_calculation.iterate(iter_count=200)
 
 To run the above script on ``octopus``, save it to a file called ``fluent_simulation.py`` and create
 a job script as shown below:
