@@ -171,7 +171,8 @@ Workflow
      - [one time] set a vnc password if you have not done so by executing the command ``vncpasswd``
        (set a strong password that is at least 12 characters long)
    2) Copy the following job script to your home directory :ref:`submit the job script <submit_novnc_job>` ( e.g ``/home/shared/sample_scripts/slurm_vnc_job/novnc_slurm_job.sh``)
-      or create a new file by copying it from the job script below, edit it to change the resources options and submit it using ``sbatch``.
+      or create a new file by copying it from the job script below, edit it to change the resources
+      options and submit it using ``sbatch``.
       In either case edit the job script and use your account name instead of ``abc123``.
    3) After the job start check the output slurm file, the content should be similar to the following:
 
@@ -187,9 +188,9 @@ Workflow
          use the following url to access the desktop via novnc:
             http://localhost:3092/vnc.html
          going to sleep indefinitely to keep the job alive...
-   4) create the tunnel by pasting the ssh command above in your terminal (e.g bash or cmd)`.
-      for every job the port number is different, so make sure to copy/paste the content of the
-      output of the slurm job.
+   4) Create the tunnel by pasting the ssh command above in your **local** terminal
+      (e.g bash or cmd)` **not** on the cluster. For every job the port number is different, so
+      make sure to copy/paste the content of the output of the slurm job.
 
       .. code-block:: bash
 
@@ -197,7 +198,7 @@ Workflow
          #in the example above, YOUR_PORT is 3092 and the command is
          ssh -L 3092:localhost:3092 abc123@octopus.aub.edu.lb -N
 
-   5) connect to the session by pasting the url in your web browser (e.g chrome, firefox, edge).
+   5) Connect to the session by pasting the url in your web browser (e.g chrome, firefox, edge).
       For every job the port number is different, so make sure to copy/paste the content of the
       output of the slurm job.
 
