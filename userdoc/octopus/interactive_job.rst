@@ -162,6 +162,12 @@ The process for using noVNC in the browser is similar to using a VNC viewer but 
 approach does not require downloading the VNC client software. Instead, it allows you to access
 the VNC session directly from a web browser.
 
+The following screencast walks through the whole workflow end to end: logging in, setting the
+vnc password, editing and submitting the job script, creating the tunnel and opening the desktop
+in the browser.
+
+.. youtube:: QlN2fOPpZSQ
+
 Workflow
 ++++++++
 
