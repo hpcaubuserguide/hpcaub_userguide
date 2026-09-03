@@ -6,26 +6,16 @@ version: 2
 
 # Set the OS, Python version and other tools you might need
 build:
-  os: ubuntu-22.04
+  os: ubuntu-24.04
   tools:
-    python: "3.12"
-    nodejs: "22"
-  jobs:
-    install:
-      - pip install build
-      - git clone https://github.com/pydata/pydata-sphinx-theme.git
-      - cd pydata-sphinx-theme && python3 -m build && cd ..
-      - pip install -r requirements.txt
-      - pip install pydata-sphinx-theme/dist/pydata_sphinx_theme-*.whl
-      - pwd
-      - ls -la
+    python: "3.14"
 
-# Build documentation in the docs/ directory with Sphinx
+# Build documentation with Sphinx
 sphinx:
   configuration: userdoc/conf.py
 
-# We recommend specifying your dependencies to enable reproducible builds:
+# Dependencies are pinned in requirements.txt for reproducible builds:
 # https://docs.readthedocs.io/en/stable/guides/reproducible-builds.html
-#python:
-#  install:
-#  - requirements: requirements.txt
+python:
+  install:
+    - requirements: requirements.txt
