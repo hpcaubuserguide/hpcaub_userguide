@@ -143,7 +143,7 @@ VNC is a simple way to join a remote desktop session on the cluster. There
 are several flavours and clients of VNC. We recommend the following:
 
    - realVNC: https://www.realvnc.com/en/connect/download/viewer/linux/  (easy)
-   - TigerVNC: https://wiki.archlinux.org/index.php/TigerVNC             (easy-advanced)
+   - TigerVNC: https://wiki.archlinux.org/title/TigerVNC                 (easy-advanced)
 
 TigerVNC can be easily installed on most linux operating systems. RealVNC
 is more user freindly and is available for most common operating systems.
@@ -157,10 +157,9 @@ will be using them in what follows:
 
   - native linux tunnel https://www.revsys.com/writings/quicktips/ssh-tunnel.html
   - tunnels with putty
-        + https://infosecaddicts.com/perform-local-ssh-tunneling/
         + https://www.youtube.com/watch?v=7YNd1tFJfwc
   - tunnels with powershell https://www.youtube.com/watch?v=gh03CpaUxbQ
   - tunnels with mobaxterm
         + https://blog.mobatek.net/post/ssh-tunnels-and-port-forwarding/
-        + http://emp.byui.edu/ercanbracks/cs213/SSH%20tunneling%20with%20Mobaxterm.htm
+        + https://mobaxterm.mobatek.net/documentation.html#2_1_5
   - contact it.helpdesk and mention ``HPC getting connected``

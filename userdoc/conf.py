@@ -50,7 +50,8 @@ extensions = [
     'sphinx-prompt',
     'sphinx_toolbox',
     'sphinx_toolbox.github',
-    'sphinx_copybutton'
+    'sphinx_copybutton',
+    'sphinxcontrib.youtube'
 ]
 
 templates_path = ['_templates']
@@ -170,7 +171,9 @@ html_context = {
     "github_user": "hpcaubuserguide",  # Updated to match your repository
     "github_repo": "hpcaub_userguide",  # Updated to match your repository
     "github_version": "main",
-    "doc_path": "docs",
+    # the sources live in userdoc/, not docs/ -- with the wrong value here the
+    # theme's "Edit on GitHub" button points at a path that does not exist
+    "doc_path": "userdoc",
 }
 
 rediraffe_redirects = {
