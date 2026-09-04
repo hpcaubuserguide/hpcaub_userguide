@@ -167,6 +167,7 @@ vnc password, editing and submitting the job script, creating the tunnel and ope
 in the browser.
 
 .. youtube:: QlN2fOPpZSQ
+   :width: 100%
 
 Workflow
 ++++++++
