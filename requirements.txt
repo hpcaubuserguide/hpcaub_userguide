@@ -78,6 +78,6 @@ uc-micro-py==1.0.3
 urllib3==2.3.0
 waitress==3.0.2
 webencodings==0.5.1
-WebOb==1.8.9
+WebOb==1.8.11
 WebTest==3.0.4
 wheel==0.45.1
