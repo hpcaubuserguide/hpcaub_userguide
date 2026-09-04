@@ -35,7 +35,7 @@ natsort==8.4.0
 packaging==24.2
 platformdirs==4.3.6
 pydata-sphinx-theme==0.15.4
-Pygments==2.19.1
+Pygments==2.20.0
 pyproject_hooks==1.2.0
 PyYAML==6.0.2
 readthedocs-sphinx-search==0.3.2
