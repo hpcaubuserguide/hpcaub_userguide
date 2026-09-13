@@ -179,14 +179,16 @@ cluster and start a small web server on port ``8765``. Binding it to
 ``127.0.0.1`` means it only accepts connections from the head node itself, so it
 cannot be reached directly from your machine. The server exposes every file in the
 directory it is started in to anyone who can connect, including other users logged
-in to the head node, so start it in an empty directory (with ``cd``, because the
-Python 3.6 on the head node has no ``--directory`` option):
+in to the head node, so start it in a directory created just for this demo (with
+``cd``, because the Python 3.6 on the head node has no ``--directory`` option).
+The ``index.html`` file gives the server something recognisable to return:
 
 .. code-block:: bash
 
     # terminal 1: log in to the cluster, then start the web server there
     $ ssh test02@octopus.aub.edu.lb
     $ mkdir -p ~/tunnel-demo && cd ~/tunnel-demo
+    $ echo "Hello from Octopus" > index.html
     $ python3 -m http.server 8765 --bind 127.0.0.1
 
 In a second terminal on your own machine, nothing is listening on port ``8765``
@@ -199,12 +201,13 @@ yet, so the request fails:
     curl: (7) Failed to connect to localhost port 8765: Connection refused
 
 Now open the tunnel from the same terminal and repeat the request. This time
-``curl`` prints the directory listing returned by the web server on the cluster:
+``curl`` prints the page served by the web server on the cluster:
 
 .. code-block:: bash
 
     $ ssh -f -N -L 8765:localhost:8765 test02@octopus.aub.edu.lb
     $ curl http://localhost:8765
+    Hello from Octopus
 
 The options of the tunnel command are:
 
