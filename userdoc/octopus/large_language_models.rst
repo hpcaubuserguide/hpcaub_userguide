@@ -671,7 +671,7 @@ The following pre-requisites are required to fine tune the llama2 7B model:
 
 - The facebook llama-recipes repo (already installed on ``octopus``)
 - The LLaMA 7B HF model (email it.helpdesk@aub.edu.lb to request access by
-  presenting a copy of your signed agreement https://developer.meta.com/ai/llama-downloads/
+  presenting a copy of your signed agreement https://www.llama.com/llama-downloads/
   or place your own copy in the right location - see below).
 - A python environment with the right requirements (already installed on
   ``octopus``)
