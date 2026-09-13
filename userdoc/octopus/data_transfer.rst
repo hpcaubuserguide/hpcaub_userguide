@@ -5,13 +5,15 @@ Transferring data
 There are several ways to transfer data from and to ``Octopus``. The following
 is a subset and an incomplete list of methods and tools:
 
-   - :ref:`scp <scp>`
-   - :ref:`rsync <rsync>`
-   - :ref:`winscp <winscp>`
-   - :ref:`sftp <sftp>`
-   - :ref:`cyberduck <cyberduck>`
-   - :ref:`filezilla <filezilla>`
-   - :ref:`mobaxterm <mobaxterm>`
+   - :ref:`scp <data_transfer_scp>`
+   - :ref:`rsync <data_transfer_rsync>`
+   - :ref:`winscp <data_transfer_winscp>`
+   - :ref:`sftp <data_transfer_sftp>`
+   - :ref:`cyberduck <data_transfer_cyberduck>`
+   - :ref:`filezilla <data_transfer_filezilla>`
+   - :ref:`mobaxterm <data_transfer_mobaxterm>`
+
+.. _data_transfer_scp:
 
 scp
 +++
@@ -32,9 +34,10 @@ unless a ssh tunnel is created. ``rsync`` supports this out of the box.
 
 More information on using scp can be found in the official `manual <https://man7.org/linux/man-pages/man1/scp.1.html>`__.
 
+.. _data_transfer_rsync:
+
 rsync
 +++++
-.. _rsync
 
 .. image:: https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
 .. image:: https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black
@@ -55,9 +58,10 @@ To transfer files from ``octopus`` to the local machine:
 
 More information on using rsync can be found in the official `manual <https://man7.org/linux/man-pages/man1/rsync.1.html>`__.
 
+.. _data_transfer_sftp:
+
 sftp
 ++++
-.. _sftp
 
 .. image:: https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
 .. image:: https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black
@@ -75,9 +79,10 @@ to send / receive data (files, folders, ... etc).
 
 More information on using sftp can be found in the official `manual <https://man7.org/linux/man-pages/man1/sftp.1.html>`__.
 
+.. _data_transfer_winscp:
+
 winscp
 ++++++
-.. _winscp
 
 .. image:: https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
 
@@ -87,9 +92,10 @@ that can be downloaded from the `here <https://winscp.net/eng/download.php>`_. T
 `tutorial <https://www.youtube.com/watch?v=xW0BQIaz7Ic&ab_channel=ExaVault>`_ is a good reference
 on how to use it.
 
+.. _data_transfer_cyberduck:
+
 cyberduck
 +++++++++
-.. _cyberduck
 
 .. image:: https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=apple&logoColor=white
 
@@ -99,9 +105,10 @@ that can be downloaded from the `here <https://cyberduck.io/download/>`_. The fo
 `tutorial <https://www.youtube.com/watch?v=Dv7CCO7B_Ok&ab_channel=HowToDoAnythingTV>`_ is a good
 reference on how to use it. There are many other tutorials too, feel free to explore.
 
+.. _data_transfer_filezilla:
+
 filezilla
 +++++++++
-.. _filezilla
 
 .. image:: https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
 .. image:: https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black
@@ -112,9 +119,10 @@ the local machine and the HPC cluster. It is a free tool that can be downloaded 
 the `here <https://filezilla-project.org/>`_. The portable version that does not require administrator
 right for windows is available `here <https://portableapps.com/apps/internet/filezilla_portable>`_.
 
+.. _data_transfer_mobaxterm:
+
 mobaxterm
 +++++++++
-.. _mobaxterm
 
 .. image:: https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
 
