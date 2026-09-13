@@ -127,7 +127,6 @@ html_theme_options = {
     "footer_center": ["sphinx-version"],
     "secondary_sidebar_items": {
         "**/*": ["page-toc", "edit-this-page", "sourcelink"],
-        "examples/no-sidebar": [],
     },
     #"switcher": {
     #    "json_url": json_url,
@@ -154,5 +153,3 @@ html_context = {
 project = 'AUB HPC user guide'
 copyright = '2025, HPC admin team, IT helpdesk'
 author = 'HPC admin team'
-
-todo_include_todos = True
