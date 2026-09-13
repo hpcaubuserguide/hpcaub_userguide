@@ -1,7 +1,7 @@
 Abaqus
 ------
 
-`Abaqus <https://www.3ds.com/products-services/simulia/products/abaqus/>`_ is an
+`Abaqus <https://www.3ds.com/products/simulia/abaqus>`_ is an
 application that is used for solving structural simulation of multi-physics problems.
 
 There are two main modes of running Abaqus on Octopus:
