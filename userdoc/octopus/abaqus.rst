@@ -193,7 +193,7 @@ fortran compiler to build the libraries. The following command can be used to
     module load intel/2021
     $ abaqus make library=my_custom_constants.f
 
-    [john@node ~]$ abaqus make library=foo.f
+    [test02@node ~]$ abaqus make library=foo.f
     Abaqus JOB foo.f
     Begin Compiling Abaqus/Standard User Subroutines
     Mon 13 May 2024 05:28:07 AM EEST

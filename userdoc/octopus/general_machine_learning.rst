@@ -228,7 +228,7 @@ specs of the GPU(s) and the list of GPU processes at the end (in this case none)
 
 .. code-block:: bash
 
-    [john@onode12 ~]$ nvidia-smi
+    [test02@onode12 ~]$ nvidia-smi
     Sun Dec  8 00:41:27 2019
     +-----------------------------------------------------------------------------+
     | NVIDIA-SMI 430.30       Driver Version: 430.30       CUDA Version: 10.2     |

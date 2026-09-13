@@ -27,7 +27,7 @@ Users who wish to extend/create custom python these environment can:
 
         import IPython
         print(IPython)
-        >>> <module 'IPython' from '/home/john/.local/lib/python3.7/site-packages/IPython/__init__.py'>
+        >>> <module 'IPython' from '/home/test02/.local/lib/python3.7/site-packages/IPython/__init__.py'>
 
   - a similar approach can be done for ``anaconda`` environments.
 
@@ -35,7 +35,7 @@ Users who wish to extend/create custom python these environment can:
 
       .. code-block:: bash
 
-          conda create --prefix /home/john/test-env python=3.8
+          conda create --prefix /home/test02/my-env python=3.8
 
   - ``virtualenvs`` are by default created in the home directory ``~/.virtualenvs``.
     It might be also useful to use the package ``Virtualenvwrapper``.

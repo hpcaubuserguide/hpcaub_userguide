@@ -288,7 +288,7 @@ produced by executing the following (after a job is allocated):
 .. code-block:: python
 
      import yt
-     ds = yt.load("/home/john/my_enzo_simulation/DD0000/DD0000")
+     ds = yt.load("/home/test02/my_enzo_simulation/DD0000/DD0000")
      print ("Redshift =", ds.current_redshift)
      p.save()
 
