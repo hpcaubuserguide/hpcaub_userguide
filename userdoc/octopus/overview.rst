@@ -21,10 +21,12 @@ following specifications:
    - 100 TB shared storage and scratch space
 
 .. todo:: the hardware figures above (total and per-processor core counts,
-   main memory, GPU counts) have not been verified against the current
+   main memory, GPU counts, and the single-host RAM quoted for memory
+   intensive jobs below) have not been verified against the current
    cluster. On the head node, run ``scontrol show nodes`` and add up
    ``CPUTot`` and ``RealMemory`` and count the ``Gres`` GPUs over the compute
-   nodes only (nodes that belong to a partition, not the head nodes). Confirm
+   nodes only (nodes that belong to a partition, not the head nodes); the
+   largest single ``RealMemory`` gives the single-host RAM. Confirm
    the processor models, interconnect and storage figures with the
    administrators.
 

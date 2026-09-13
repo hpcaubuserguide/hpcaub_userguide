@@ -172,8 +172,8 @@ This command is the alias for:
 
     $ srun --partition=normal --nodes=1 --ntasks-per-node=1 --cpus-per-task=1 --mem=2000 --pty /bin/bash
 
-.. note:: the alias does not set ``--time``, so the job gets the default time
-   limit of the ``normal`` partition (1 day). For a shorter limit, run the
+.. note:: the alias does not set ``--time``, so the job inherits the default
+   time limit of the ``normal`` partition. For a shorter limit, run the
    ``srun`` command above directly and add e.g. ``--time=00:30:00`` before ``--pty``.
 
 To allocate a gpu node for interactive use, the following alias can be used:
@@ -194,13 +194,18 @@ Jobs time limits and checkpoints
 .. _octopus_jobs_checkpoints_resume:
 
 In-order to have fair usage of the resources and the partitions (queues), different
-partitions have different time limits. The maximum time limit for jobs is 1 day.
+partitions have different time limits. The maximum time limit for jobs is 3 days.
 Also partitions have different priorities that are necessary for fair usage, for
 example, short jobs have higher priorities than long jobs. When a job reaches
 the time limit that is specified in the job script or the time limit of the
 partition, it is automatically killed and removed from the queue. It is the
 responsibility of the user to set the job parameters based on the requirements
 of the job and the available resources.
+
+.. todo:: the maximum time limit stated above has not been verified against
+   the current cluster. On the head node, run ``scontrol show partition`` and
+   take the largest ``MaxTime`` among the partitions users can submit to
+   (ignore partitions whose ``AllowGroups`` only allows the ``admin`` group).
 
 in all the examples below it is the responsibility of the user to manage writing
 the checkpoint file and loading it.
