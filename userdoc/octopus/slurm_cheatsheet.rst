@@ -41,7 +41,7 @@ running
 
     $ squeue
 
-The list of jobs running or queueud on the cluster
+The list of jobs running or queued on the cluster
 
 .. code-block:: bash
 
@@ -58,7 +58,7 @@ Remove a job from the queue
 
 Use ``squeue`` to query the running jobs and get the ``JOBID``. Once the
 job id (that is an integer in the first column of the output of ``squeue``)
-of the job to be killed is know, execute:
+of the job to be killed is known, execute:
 
 .. code-block:: bash
 

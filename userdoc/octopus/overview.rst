@@ -117,7 +117,7 @@ The following types of jobs can be run on the cluster:
    - GPU jobs (e.g scientific computing using GPGPUs or deep learning)
    - memory intensive jobs (up to 500GB RAM on a single machine available as a SMP host)
    - IO intensive jobs using the scratch partition (e.g several TB processing per job)
-   - Interactive Jupyer jobs running on the compute hosts
+   - Interactive Jupyter jobs running on the compute hosts
    - Fully interactive desktop environment running on a compute node
 
 
@@ -130,7 +130,7 @@ For more information on using the scheduler please consult the :ref:`SLURM cheat
 Partitions
 ==========
 
-There list below summarizes the main partitions:
+The list below summarizes the main partitions:
 
   - ``normal``: 11 hosts with 16 vCPUs each with 64GB RAM.
   - ``gpu``: 13 hosts (7 with a Nvidia K20m card and 6 with Nvidia V100 cards).
@@ -186,7 +186,7 @@ resource limits and hardware accelerators.
 ``mediumdev``, ``dev`` and ``all`` only accept jobs from members of the ``admin``
 group; they are listed because ``sinfo`` shows them to every user.
 
-For more information on using the paritions with the information on the resources
+For more information on using the partitions with the information on the resources
 and time limits please consult the :ref:`hosts and partitions section <hosts_and_partitions>`.
 
 Storage

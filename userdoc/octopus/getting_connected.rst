@@ -16,7 +16,7 @@ any of the following methods can be used to login to the head node of the cluste
     ssh my_user_name@ohead2.aub.edu.lb    # optional  (not recommended)
     ssh my_user_name@192.168.137.23       # last resort (if all of the above do not work)
 
-TIP: Passwordless login can be set up to avoid typing the password everytime and
+TIP: Passwordless login can be set up to avoid typing the password every time and
      is safer than saving the password in the ssh client or re-typing it.
 
 .. warning:: SECURITY: make sure to change your account password after the
@@ -32,7 +32,7 @@ Any of the following can be used to connect to Octopus:
 
    - native ssh on linux or mac (recommended)
    - `msys2 <https://www.msys2.org>`_ (recommended on windows) [execute ``pacman -S openssh rsync``]
-   - `mobaxterm <https://mobaxterm.mobatek.net>`_ (most user freindly) [install the portable version]
+   - `mobaxterm <https://mobaxterm.mobatek.net>`_ (most user friendly) [install the portable version]
    - winscp: https://winscp.net/eng/index.php
    - putty: https://putty.org/
 
@@ -42,7 +42,7 @@ Generating a ssh private-public key pair
 
 SSH keys can be used to authenticate yourself to login to the cluster. This is
 the recommended method and is more secure than typing in password or saving
-the passowrd in the ssh client (e.g putty). The generated key pair will allow
+the password in the ssh client (e.g putty). The generated key pair will allow
 you to login to the cluster from your local machine.
 
 
@@ -59,7 +59,7 @@ The key pair consists of two files:
    - public key : ``~/.ssh/id_ed25519.pub``
    - private key: ``~/.ssh/id_ed25519``
 
-execute the following command in a terminal on you machine:
+execute the following command in a terminal on your machine:
 
 .. code-block:: bash
 
@@ -71,15 +71,15 @@ execute the following command in a terminal on you machine:
    my machine> ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519
 
 .. warning:: this will overwrite any keys that already exist. You can specify
- a new identity name using the ``-f my_ouptut_keyfie``
+ a new identity name using the ``-f my_output_keyfile``
 
 .. note:: this same process can be done on windows also from the command line
  assuming that you already have openssh installed. (e.g using ``msys2``)
 
 `screencast <https://mailaub-my.sharepoint.com/:v:/g/personal/mk250_aub_edu_lb/EWg5ybylXRpHhMCuMk6w8i4BaqSskOoZPl_CvQ4xbFs5yA?e=KaKaX8>`__
 
-on windwows using mobaxterm
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+on windows using mobaxterm
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ``Mobaxterm`` can be used to generate a ssh private-public key pair.
 `screencast <http://website.aub.edu.lb/it/hpc/SiteAssets/Pages/faq/generate_ssh_public_private_key_pair_mobaxterm_windows_and_enable_passwordless_login.mp4>`__
@@ -108,8 +108,8 @@ To test if the key has been added correctly:
 
 `screencast <http://website.aub.edu.lb/it/hpc/SiteAssets/Pages/faq/login_with_ssh_key_linux.mp4>`__
 
-on windows using mobaxterm
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+on windows with mobaxterm
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The second part of the following `screencast <http://website.aub.edu.lb/it/hpc/SiteAssets/Pages/faq/generate_ssh_public_private_key_pair_mobaxterm_windows_and_enable_passwordless_login.mp4>`_ covers using mobaxterm and a ssh
 identity to log in without a password.
@@ -126,12 +126,12 @@ In this section the procedure for creating a VNC session on the head node is des
 .. note::
 
    VNC session on the head node should be restricted for non-compute or memory or input/output
-   intensive tasks. For demanding interative work with a desktop environment use the job script
+   intensive tasks. For demanding interactive work with a desktop environment use the job script
    for running a VNC server on a :ref:`compute node <interactive_job_octopus_anchor>` that has
-   signifincantly more resources than the head node and significantly more rendering power on
+   significantly more resources than the head node and significantly more rendering power on
    the GPU nodes.
 
-VNC session are not needed for command line work or for running batch batch.
+VNC session are not needed for command line work or for running batch jobs.
 
 VNC clients
 ^^^^^^^^^^^
@@ -143,7 +143,7 @@ are several flavours and clients of VNC. We recommend the following:
    - TigerVNC: https://wiki.archlinux.org/title/TigerVNC                 (easy-advanced)
 
 TigerVNC can be easily installed on most linux operating systems. RealVNC
-is more user freindly and is available for most common operating systems.
+is more user friendly and is available for most common operating systems.
 
 Creating SSH tunnels
 ====================

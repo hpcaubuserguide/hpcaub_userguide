@@ -121,7 +121,7 @@ job script is also available in ``/home/shared/sample_scripts/slurm_vnc_job/``. 
         sleep infinity
 
 A copy of this file can be obtained from ``/home/shared/sample_scripts/slurm_vnc_job/job.sh``.
-Altenatively create the file in your ``~/`` directory. The script can be submitted
+Alternatively create the file in your ``~/`` directory. The script can be submitted
 the usual way using ``sbatch``.
 
 .. code-block:: bash

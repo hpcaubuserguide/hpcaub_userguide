@@ -1,9 +1,9 @@
 Job scripts
 -----------
 
-The following script can be used as a template to exectute some bash commands
+The following script can be used as a template to execute some bash commands
 for a serial or parallel program. This is just a template that has the most
-commontly used flags. For working example see the :ref:`job scripts examples <octopus_jobs_examples>`.
+commonly used flags. For working example see the :ref:`job scripts examples <octopus_jobs_examples>`.
 
 **template job script**
 
@@ -32,7 +32,7 @@ commontly used flags. For working example see the :ref:`job scripts examples <oc
 - ``#SBATCH --time=1-00:00:00``: The time limit of the job. When the limit is
   reached, the job is killed by the scheduler. Jobs that do not specify this
   flag will be rejected.
-- ``#SBATCH --mail-type=ALL``: recieve email notification for all stages of a job,
+- ``#SBATCH --mail-type=ALL``: receive email notification for all stages of a job,
   e.g when the job starts and terminates.
 - ``#SBATCH --mail-user=abc123@aub.edu.lb``: The email address to which the job
   notification emails are sent.
@@ -150,7 +150,7 @@ Interactive terminal jobs
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 For light weight testing and development or debugging jobs it is possible to obtain a
-terminal session on a compute node using an interactive job thruough srun.
+terminal session on a compute node using an interactive job through srun.
 
 The simplest procedure is to use srun as follows:
 
@@ -195,14 +195,14 @@ Jobs time limits and checkpoints
 
 In-order to have fair usage of the resources and the partitions (queues), different
 partitions have different time limits. The maximum time limit for jobs is 1 day.
-Also paritions have different priorities that are necessary for fair usage, for
+Also partitions have different priorities that are necessary for fair usage, for
 example, short jobs have higher priorities than long jobs. When a job reaches
 the time limit that is specified in the job script or the time limit of the
-partition, it is automatically killed and removed the the queue. It is the
+partition, it is automatically killed and removed from the queue. It is the
 responsibility of the user to set the job parameters based on the requirements
 of the job and the available resources.
 
-in all the examples below it is the responsibily of the user to manage writing
+in all the examples below it is the responsibility of the user to manage writing
 the checkpoint file and loading it.
 
 Resubmit a job automatically using job arrays
@@ -210,7 +210,7 @@ Resubmit a job automatically using job arrays
 
 In the following example, a job array (``#SBATCH --array=1-30%1``) is used to
 indicate that the job should be run as a chain of 30 jobs back to back. Using
-this flow a job can be run for arbitarily long periods, in this case and for
+this flow a job can be run for arbitrarily long periods, in this case and for
 the sake of demonstration, this job runs for 30 days using individual jobs
 that run for 1 day each. When the first job finishes, a checkpoint file
 ``foo.chkp`` is written to the disk and the execution of the next job starts where
@@ -253,10 +253,10 @@ resubmit a job automatically using job dependencies
 """""""""""""""""""""""""""""""""""""""""""""""""""
 
 The main difference between using job dependencies and job array is that
-using dependencies the job will be resubmitted infinit times until the user
+using dependencies the job will be resubmitted infinite times until the user
 decides to cancel the automatic re-submission.
 
-.. warning:: It is important to include a wait time of a few minuites (e.g 5 min)
+.. warning:: It is important to include a wait time of a few minutes (e.g 5 min)
  so that the scheduler will not be overloaded by the recursive resubmission of
  jobs in case something goes wrong.
 
