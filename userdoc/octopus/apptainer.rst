@@ -66,12 +66,30 @@ Make a copy of this script and put it in your (e.g) home directory and call it m
    develop your .def file we recommend building a writable sandbox image first and put that
    sandbox in /dev/shm.
 
+Before running the commands below, get an interactive session on the ``builder`` partition
+(see :ref:`interactive jobs <interactive_job_octopus_anchor>` for background on interactive
+jobs in general):
+
+.. code-block:: bash
+
+   srun --partition=builder --time=02:00:00 --pty /bin/bash
+
+The ``builder`` partition has a 4-hour maximum time limit; if you don't pass ``--time`` you
+get a 2-hour session by default. Set ``--time`` explicitly (up to 4 hours) if your build is
+likely to take a while.
+
 To create a sandbox image in /dev/shm do the following:
 
 .. code-block:: bash
 
    mkdir -p /dev/shm/${USER}/
    ls -l /dev/shm/${USER}/
+
+.. warning:: ``/dev/shm`` is node-local storage and is cleared when your job ends, so
+    anything built there is lost once the allocation finishes - this is still the right
+    place to build for the speed it gives you, just make sure to either finish the build
+    within a single interactive session or copy the result (sandbox or ``.sif``) to your
+    home directory or ``/scratch`` before the session ends.
 
 Load the apptainer module
 
