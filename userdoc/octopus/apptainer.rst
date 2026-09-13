@@ -28,6 +28,8 @@ Developing Apptainer Images
 To build an apptainer image you need to create a definition file (usually with a ``.def``
 extension)
 
+.. todo:: add some references to good youtube videos or other tutorials for building apptainer images
+
 Below is a sample minimal definition file that users can use to build a basic apptainer images
 and customize it as needed.
 
