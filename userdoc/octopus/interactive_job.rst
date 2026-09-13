@@ -65,7 +65,6 @@ Create/edit folder and files
 
         rm -fvr ~/.vnc
         cp -fvr /home/shared/sample_scripts/slurm_vnc_job/.vnc ~/
-        chown -Rc $USER ~/.vnc
         cp /home/shared/sample_scripts/slurm_vnc_job/job.sh ~/
 
   set the vnc password by executing the command (set a strong password that is
