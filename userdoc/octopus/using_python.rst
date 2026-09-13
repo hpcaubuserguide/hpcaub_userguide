@@ -40,11 +40,14 @@ Users who wish to extend/create custom python these environment can:
   - ``virtualenvs`` are by default created in the home directory ``~/.virtualenvs``.
     It might be also useful to use the package ``Virtualenvwrapper``.
 
-  - use ``pipenv`` for creating and managing python environments. The following is
-    an excellent guide on getting started with ``pipenv``
-    https://thoughtbot.com/blog/how-to-manage-your-python-projects-with-pipenv
+  - use ``conda`` to create and manage environments — available via
+    ``module load python/base/miniconda3``. See the
+    `conda documentation <https://docs.conda.io/projects/conda/en/stable/>`_.
 
-  - install anaconda locally in their home directories
+  - ``uv`` and ``poetry`` are not installed on Octopus, but either can be
+    installed into your own home directory if you prefer them. See the
+    `uv documentation <https://docs.astral.sh/uv/>`_ and the
+    `poetry documentation <https://python-poetry.org/docs/>`_.
 
   - compile and install ``python`` from source. This is non-trivial and requires
     good knowledge of what the user is doing, but gives full control on the build
