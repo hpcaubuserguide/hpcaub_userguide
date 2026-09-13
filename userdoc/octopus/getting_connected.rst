@@ -56,8 +56,8 @@ on linux and mac
 
 The key pair consists of two files:
 
-   - public key : ``~/.ssh/id_rsa.pub``
-   - private key: ``~/.ssh/id_rsa``
+   - public key : ``~/.ssh/id_ed25519.pub``
+   - private key: ``~/.ssh/id_ed25519``
 
 execute the following command in a terminal on you machine:
 
@@ -67,8 +67,8 @@ execute the following command in a terminal on you machine:
    my machine> mkdir -p ~/.ssh
    my machine> chmod 700 ~/.ssh
 
-    # first generate an ssh key on A
-    my machine> ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa
+   # generate an ed25519 key pair
+   my machine> ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519
 
 .. warning:: this will overwrite any keys that already exist. You can specify
  a new identity name using the ``-f my_ouptut_keyfie``
@@ -98,13 +98,13 @@ used.
 
 .. code-block:: bash
 
-    $ ssh-copy-id -i id_rsa john@octopus.aub.edu.lb
+    $ ssh-copy-id -i ~/.ssh/id_ed25519.pub john@octopus.aub.edu.lb
 
 To test if the key has been added correctly:
 
 .. code-block:: bash
 
-    $ ssh -i ~/.ssh/id_rsa john@octopus.aub.edu.lb
+    $ ssh -i ~/.ssh/id_ed25519 john@octopus.aub.edu.lb
 
 `screencast <http://website.aub.edu.lb/it/hpc/SiteAssets/Pages/faq/login_with_ssh_key_linux.mp4>`__
 
