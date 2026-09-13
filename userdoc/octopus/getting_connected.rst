@@ -6,7 +6,7 @@ Connecting to a terminal
 ========================
 
 When on the AUB network (also valid when connected through the VPN service
-https://servicedesk.aub.edu.lb/TDClient/Requests/ServiceDet?ID=29740 ),
+https://servicedesk.aub.edu.lb/TDClient/1398/Portal/Requests/Service/29740/Secure-Socket-Layer-Virtual-Private-Network-SSL-VPN ),
 any of the following methods can be used to login to the head node of the cluster.
 
 .. code-block:: bash

@@ -4,10 +4,9 @@ SLURM cheatsheet help
 ---------------------
 
 This page is dedicated to commonly used SLURM commands with short tips and howto
-quickies. You can find more details at (first two hits on google search):
+quickies. You can find more details in the official SLURM command summary:
 
    - https://slurm.schedmd.com/pdfs/summary.pdf
-   - https://www.chpc.utah.edu/presentations/SlurmCheatsheet.pdf
 
 Submitting a job
 ================

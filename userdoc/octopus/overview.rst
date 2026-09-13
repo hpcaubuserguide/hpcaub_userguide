@@ -8,16 +8,16 @@ Hardware Resources
 following specifications:
 
    - 880 cores
-        + 376 `AMD EPYC 7551p <https://www.amd.com/en/products/cpu/amd-epyc-7551p>`_ vCPUs
-        + 96  `Intel Xeon E5-2695 v4 <https://ark.intel.com/content/www/us/en/ark/products/91316/intel-xeon-processor-e5-2695-v4-45m-cache-2-10-ghz.html>`_ vCPUs
-        + 288 `Intel Xeon E5-2665 <https://ark.intel.com/products/64597/Intel-Xeon-Processor-E5-2665-20M-Cache-2_40-GHz-8_00-GTs-Intel-QPI?q=E5-2665>`_ physical cores
-        + 48  `Intel Xeon E5-2643 v2 <https://ark.intel.com/content/www/us/en/ark/products/75268/intel-xeon-processor-e5-2643-v2-25m-cache-3-50-ghz.html>`_ vCPUs
+        + 376 `AMD EPYC 7551p <https://www.amd.com/en/support/downloads/drivers.html/processors/epyc/epyc-7001-series/amd-epyc-7551p.html>`_ vCPUs
+        + 96  `Intel Xeon E5-2695 v4 <https://www.intel.com/content/www/us/en/products/sku/91316/intel-xeon-processor-e52695-v4-45m-cache-2-10-ghz/specifications.html>`_ vCPUs
+        + 288 `Intel Xeon E5-2665 <https://www.intel.com/content/www/us/en/products/sku/64597/intel-xeon-processor-e52665-20m-cache-2-40-ghz-8-00-gts-intel-qpi/specifications.html>`_ physical cores
+        + 48  `Intel Xeon E5-2643 v2 <https://www.intel.com/content/www/us/en/products/sku/75268/intel-xeon-processor-e52643-v2-25m-cache-3-50-ghz/specifications.html>`_ vCPUs
         + 72   misellaneous CPUs and vCPUs for management / storage and other tasks
    - 3.0 TB main memory
-   - 11 x `Nvidia V100 PCI-E <https://www.nvidia.com/en-us/data-center/v100/>`_ GPUs
-   - 8 x `Nvidia GK110GL Tesla K20m <http://www.nvidia.com/content/PDF/kepler/Tesla-K20X-BD-06397-001-v05.pdf>`_ GPUs
+   - 11 x `Nvidia V100 PCI-E <https://images.nvidia.com/content/technologies/volta/pdf/volta-v100-datasheet-update-us-1165301-r5.pdf>`_ GPUs
+   - 8 x `Nvidia GK110GL Tesla K20m <https://www.nvidia.com/content/PDF/kepler/Tesla-K20X-BD-06397-001-v05.pdf>`_ GPUs
    - 10 Gbit/s CISCO interconnect used for storage and computing
-   - 40 Gbit/s Infiniband interconnect `QLogic 12200 InfiniBand QDR switch <http://filedownloads.qlogic.com/files/software/77422/Install_Guide_QLogic_12000_B.pdf>`_ switch
+   - 40 Gbit/s Infiniband interconnect (QLogic 12200 InfiniBand QDR switch)
    - 100 TB shared storage and scratch space
 
 .. figure:: imgs/octopus_public_diagram.png

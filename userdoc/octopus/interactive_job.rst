@@ -12,7 +12,7 @@ GUIs is necessary.
 Prerequisites
 +++++++++++++
 
-For Windows, download the portable version of `RealVNC Viewer <https://www.realvnc.com/en/connect/download/viewer/?lai_vid=8rVE8Wk8DfRz&lai_sr=0-4&lai_sl=l#>`_.
+For Windows, download the portable version of `RealVNC Viewer <https://www.realvnc.com/en/connect/download/viewer/>`_.
 The portable version does not require admin rights to run.
 
 Recommended workflow

@@ -30,7 +30,7 @@ suitable since the command should be executed on octopus and that requires
 a connection from octopus to the local machine that is usually not possible
 unless a ssh tunnel is created. ``rsync`` supports this out of the box.
 
-More information on using scp can be found in the official `manual <https://linux.die.net/man/1/scp>`_.
+More information on using scp can be found in the official `manual <https://man7.org/linux/man-pages/man1/scp.1.html>`__.
 
 rsync
 +++++
@@ -53,7 +53,7 @@ To transfer files from ``octopus`` to the local machine:
 
     rsync -PrlHvtpog <user>@octopus.aub.edu.lb:~/my_file .
 
-More information on using rsync can be found in the official `manual <https://linux.die.net/man/1/rsync>`_.
+More information on using rsync can be found in the official `manual <https://man7.org/linux/man-pages/man1/rsync.1.html>`__.
 
 sftp
 ++++
@@ -73,7 +73,7 @@ To establish a secure ftp connection to octopus the following command can be use
 Once the connection is established sftp commands such as (get, put) can be used in the sftp prompt
 to send / receive data (files, folders, ... etc).
 
-More information on using sftp can be found in the official `manual <https://linux.die.net/man/1/sftp>`_.
+More information on using sftp can be found in the official `manual <https://man7.org/linux/man-pages/man1/sftp.1.html>`__.
 
 winscp
 ++++++
