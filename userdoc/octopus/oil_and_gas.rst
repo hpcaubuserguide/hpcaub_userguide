@@ -12,7 +12,7 @@ You can do this with the following command:
 
 .. code-block:: bash
 
-   cp -fvr /apps/sw/petrel_2019.2/2019.2/eclipse/data/ ~/eclipse_example_data
+   cp -fvr /apps/sw/petrel_2023.2/2023.2/eclipse/data/ ~/eclipse_example_data
 
 Loading the Module
 ------------------
