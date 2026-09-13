@@ -54,10 +54,7 @@ you to login to the cluster from your local machine.
 on linux and mac
 ^^^^^^^^^^^^^^^^
 
-To generate the key files:
-
-.. code-block:: bash
-
+The key pair consists of two files:
 
    - public key : ``~/.ssh/id_rsa.pub``
    - private key: ``~/.ssh/id_rsa``
@@ -79,13 +76,13 @@ execute the following command in a terminal on you machine:
 .. note:: this same process can be done on windows also from the command line
  assuming that you already have openssh installed. (e.g using ``msys2``)
 
-<`screencast <https://mailaub-my.sharepoint.com/:v:/g/personal/mk250_aub_edu_lb/EWg5ybylXRpHhMCuMk6w8i4BaqSskOoZPl_CvQ4xbFs5yA?e=KaKaX8>`_>
+`screencast <https://mailaub-my.sharepoint.com/:v:/g/personal/mk250_aub_edu_lb/EWg5ybylXRpHhMCuMk6w8i4BaqSskOoZPl_CvQ4xbFs5yA?e=KaKaX8>`__
 
 on windwows using mobaxterm
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ``Mobaxterm`` can be used to generate a ssh private-public key pair.
-<`screencast <http://website.aub.edu.lb/it/hpc/SiteAssets/Pages/faq/generate_ssh_public_private_key_pair_mobaxterm_windows_and_enable_passwordless_login.mp4>`_>
+`screencast <http://website.aub.edu.lb/it/hpc/SiteAssets/Pages/faq/generate_ssh_public_private_key_pair_mobaxterm_windows_and_enable_passwordless_login.mp4>`__
 
 Login to the HPC cluster using a ssh public key
 ===============================================
@@ -109,7 +106,7 @@ To test if the key has been added correctly:
 
     $ ssh -i ~/.ssh/id_rsa john@octopus.aub.edu.lb
 
-<`screencast <http://website.aub.edu.lb/it/hpc/SiteAssets/Pages/faq/login_with_ssh_key_linux.mp4>`_>
+`screencast <http://website.aub.edu.lb/it/hpc/SiteAssets/Pages/faq/login_with_ssh_key_linux.mp4>`__
 
 on windows using mobaxterm
 ^^^^^^^^^^^^^^^^^^^^^^^^^^

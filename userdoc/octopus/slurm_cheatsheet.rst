@@ -12,7 +12,7 @@ quickies. You can find more details at (first two hits on google search):
 Submitting a job
 ================
 In order to submit a job, a script compatible with the scheduler directives
-should be passed to ``sbatch`
+should be passed to ``sbatch``
 
 .. code-block:: bash
 

@@ -41,9 +41,6 @@ To connect to the vnc session using a vnc viewer (client) a tunnel to the
    :scale: 100 %
    :alt:
 
-details
-^^^^^^^^
-
 Create/edit folder and files
 ++++++++++++++++++++++++++++
 .. _create_vnc_configuration:
@@ -128,7 +125,7 @@ A copy of this file can be obtained from ``/home/shared/sample_scripts/slurm_vnc
 Altenatively create the file in your ``~/`` directory. The script can be submitted
 the usual way using ``sbatch``.
 
-.. code-block::bash
+.. code-block:: bash
 
     $ sbatch job.sh
 
@@ -172,7 +169,7 @@ in the browser.
 Workflow
 ++++++++
 
-   1) :ref:`Create the VNC configuration <create_novnc_configuration>`. [one time] This step is
+   1) :ref:`Create the VNC configuration <create_vnc_configuration>`. [one time] This step is
       done when the account is created and hence can be skipped. Execute the procedure
       described there if your VNC configuration does not exist or is corrupted.
      - [one time] set a vnc password if you have not done so by executing the command ``vncpasswd``
@@ -196,7 +193,7 @@ Workflow
             http://localhost:3092/vnc.html
          going to sleep indefinitely to keep the job alive...
    4) Create the tunnel by pasting the ssh command above in your **local** terminal
-      (e.g bash or cmd)` **not** on the cluster. For every job the port number is different, so
+      (e.g bash or cmd) **not** on the cluster. For every job the port number is different, so
       make sure to copy/paste the content of the output of the slurm job.
 
       .. code-block:: bash
