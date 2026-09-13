@@ -137,7 +137,6 @@ To see the details of the available partition with their respective specs
     PARTITION           TIMELIMIT           MAX_CPUS_PER_NODE   NODES               JOB_SIZE            CPUS                MEMORY              GRES                NODES(A/I/O/T)      NODELIST
     normal*             1-00:00:00          UNLIMITED           11                  1-infinite          16                  64000               (null)              5/0/6/11            onode[01-09,18-19]
     medium              1-00:00:00          UNLIMITED           2                   1-infinite          12                  20000               (null)              0/0/2/2             onode[20-21]
-    mediumdev           5-00:00:00          UNLIMITED           2                   1-infinite          12                  20000               (null)              0/1/1/2             onode[22-23]
     gpu                 6:00:00             UNLIMITED           1                   1-infinite          32                  32000               gpu:v100d32q:1      1/0/0/1             onode27
     gpu                 6:00:00             UNLIMITED           5                   1-infinite          8                   32000+              gpu:v100d32q:2      4/0/1/5             onode[10-12,17,26]
     gpu                 6:00:00             UNLIMITED           7                   1-infinite          16                  64000               gpu:k20:1           1/5/1/7             anode[01-02,04-08]
@@ -150,10 +149,5 @@ To see the details of the available partition with their respective specs
     interactive-gpu     2:00:00             4                   7                   1                   16                  64000               gpu:k20:1           1/5/1/7             anode[01-02,04-08]
     builder             4:00:00             4                   1                   1                   32                  32000               gpu:v100d32q:1      1/0/0/1             onode27
     builder             4:00:00             4                   1                   1                   16                  64000               (null)              1/0/0/1             onode07
-    all                 1-00:00:00          UNLIMITED           1                   1-infinite          32                  32000               gpu:v100d32q:1      1/0/0/1             onode27
-    all                 1-00:00:00          UNLIMITED           29                  1-infinite          12+                 20000+              (null)              13/4/12/29          anode[09-16],onode[0
-    all                 1-00:00:00          UNLIMITED           5                   1-infinite          8                   32000+              gpu:v100d32q:2      4/0/1/5             onode[10-12,17,26]
-    all                 1-00:00:00          UNLIMITED           8                   1-infinite          16                  64000               gpu:k20:1           1/5/2/8             anode[01-08]
-    dev                 1-00:00:00          UNLIMITED           4                   1-infinite          16                  64000               (null)              2/1/1/4             anode[10,12,14,16]
     cudadev             3:00:00             4                   4                   1                   8                   128000              gpu:v100d32q:2      3/0/1/4             onode[10-12,17]
     cudadev             3:00:00             4                   7                   1                   16                  64000               gpu:k20:1           1/5/1/7             anode[01-02,04-08]

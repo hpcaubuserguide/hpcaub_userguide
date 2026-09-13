@@ -26,8 +26,7 @@ Compute nodes
 
 The compute nodes are split into two classes: ``onode01`` - ``onode27`` and
 ``anode01`` - ``anode16``. The ``anode`` hosts make up the whole ``arza``
-partition and include all eight Nvidia K20m GPU nodes. Every compute node is
-also a member of the ``all`` partition, which is restricted to the ``admin`` group.
+partition and include all eight Nvidia K20m GPU nodes.
 
 .. list-table::
    :header-rows: 1
@@ -53,8 +52,7 @@ also a member of the ``all`` partition, which is restricted to the ``admin`` gro
      - 64000
      - Intel
      -
-     - ``arza``, ``interactive`` (``anode10``, ``anode12``, ``anode14`` and
-       ``anode16`` are also in ``dev``)
+     - ``arza``, ``interactive``
    * - ``onode[01-06]``
      - 6
      - 16
@@ -89,8 +87,8 @@ also a member of the ``all`` partition, which is restricted to the ``admin`` gro
      - 20000
      - Intel
      -
-     - ``medium`` (``onode20-21``), ``mediumdev`` (``onode22-23``),
-       ``interactive`` (``onode20-23``); ``onode24-25`` are only in ``all``
+     - ``medium`` (``onode20-21``), ``interactive`` (``onode20-23``);
+       ``onode24-25`` are not in any partition open to users
    * - ``onode26``
      - 1
      - 8
@@ -165,13 +163,6 @@ resource limits and hardware accelerators.
      - 20000
      -
      -
-   * - mediumdev
-     - 5-00:00:00
-     - 2
-     - 12
-     - 20000
-     -
-     - admin group only
    * - gpu
      - 6:00:00
      - 7
@@ -270,23 +261,6 @@ resource limits and hardware accelerators.
      - 32000
      - 1 x Nvidia V100
      - 1 node, 4 cores, 16000 MB max per job
-   * - dev
-     - 1-00:00:00
-     - 4
-     - 16
-     - 64000
-     -
-     - admin group only
-   * - all
-     - 1-00:00:00
-     - 43
-     - 8-64
-     - 20000-500000
-     - Nvidia K20m, V100
-     - admin group only
-
-``mediumdev``, ``dev`` and ``all`` only accept jobs from members of the ``admin``
-group; they are listed because ``sinfo`` shows them to every user.
 
 For more information on using the partitions with the information on the resources
 and time limits please consult the :ref:`hosts and partitions section <hosts_and_partitions>`.
