@@ -75,13 +75,20 @@ execute the following command in a terminal on your machine:
 .. note:: this same process can be done on windows also from the command line
  assuming that you already have openssh installed. (e.g using ``msys2``)
 
-`screencast <https://mailaub-my.sharepoint.com/:v:/g/personal/mk250_aub_edu_lb/EWg5ybylXRpHhMCuMk6w8i4BaqSskOoZPl_CvQ4xbFs5yA?e=KaKaX8>`__
+.. todo:: add a screencast showing how to generate an ssh key pair on linux/mac
+   and log in for the first time. The previous SharePoint-hosted screencast has
+   expired and was removed. Replace it with the new "SSH keys and first login"
+   recording once it has been reviewed and hosted.
 
 on windows using mobaxterm
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ``Mobaxterm`` can be used to generate a ssh private-public key pair.
 `screencast <http://website.aub.edu.lb/it/hpc/SiteAssets/Pages/faq/generate_ssh_public_private_key_pair_mobaxterm_windows_and_enable_passwordless_login.mp4>`__
+
+.. todo:: review this MobaXterm screencast (it is also linked in the login
+   section below) and update or re-record it if it no longer matches the
+   current MobaXterm version or the steps on this page.
 
 Login to the HPC cluster using a ssh public key
 ===============================================
@@ -106,6 +113,10 @@ To test if the key has been added correctly:
     $ ssh -i ~/.ssh/id_ed25519 john@octopus.aub.edu.lb
 
 `screencast <http://website.aub.edu.lb/it/hpc/SiteAssets/Pages/faq/login_with_ssh_key_linux.mp4>`__
+
+.. todo:: review this screencast of logging in with an ssh key on linux and
+   re-record it if it no longer matches the steps above (ed25519 key,
+   ``ssh-copy-id -i ~/.ssh/id_ed25519.pub``).
 
 on windows with mobaxterm
 ^^^^^^^^^^^^^^^^^^^^^^^^^
