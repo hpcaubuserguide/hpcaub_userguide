@@ -24,7 +24,10 @@ and shown in the matlab workspace on the client. For this use case, the user
 does not have to login (or interact) with the HPC cluster.
 
 .. note:: this section of the guide has been tested with Matlab 2019b
- make sure you have the same version on the client machine.
+ make sure you have the same version on the client machine. ``matlab/2020b`` and
+ ``matlab/2021b`` are also available on the cluster if you need a newer version, but
+ the client-side setup below (settings bundle, screenshots) has only been verified
+ against 2019b.
 
 .. note:: Multiple such parallel configuration can co-exist and can be selected
  at runtime.
@@ -177,7 +180,7 @@ running the matlab script ``my_serial_script.m``.
      #SBATCH --mem=16000
      #SBATCH --time=0-01:00:00
 
-     module load matlab/2018b
+     module load matlab/2019b
 
      matlab -nodisplay -r "run('my_smp_script.m'); exit" > matlab_${SLURM_JOBID}.out
 
@@ -236,7 +239,7 @@ running the matlab script ``my_smp_script.m``.
      #SBATCH --mem=16000
      #SBATCH --time=0-01:00:00
 
-     module load matlab/2018b
+     module load matlab/2019b
 
      matlab -nodisplay -r "run('my_smp_script.m'); exit" > matlab_${SLURM_JOBID}.out
 
