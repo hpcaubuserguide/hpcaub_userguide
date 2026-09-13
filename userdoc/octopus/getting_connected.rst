@@ -177,12 +177,16 @@ Example: reaching a port on the cluster from your machine
 The following example uses two terminals. In the first one, log in to the
 cluster and start a small web server on port ``8765``. Binding it to
 ``127.0.0.1`` means it only accepts connections from the head node itself, so it
-cannot be reached directly from your machine:
+cannot be reached directly from your machine. The server exposes every file in the
+directory it is started in to anyone who can connect, including other users logged
+in to the head node, so start it in an empty directory (with ``cd``, because the
+Python 3.6 on the head node has no ``--directory`` option):
 
 .. code-block:: bash
 
     # terminal 1: log in to the cluster, then start the web server there
     $ ssh test02@octopus.aub.edu.lb
+    $ mkdir -p ~/tunnel-demo && cd ~/tunnel-demo
     $ python3 -m http.server 8765 --bind 127.0.0.1
 
 In a second terminal on your own machine, nothing is listening on port ``8765``
