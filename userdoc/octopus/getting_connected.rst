@@ -104,13 +104,13 @@ used.
 
 .. code-block:: bash
 
-    $ ssh-copy-id -i ~/.ssh/id_ed25519.pub john@octopus.aub.edu.lb
+    $ ssh-copy-id -i ~/.ssh/id_ed25519.pub test02@octopus.aub.edu.lb
 
 To test if the key has been added correctly:
 
 .. code-block:: bash
 
-    $ ssh -i ~/.ssh/id_ed25519 john@octopus.aub.edu.lb
+    $ ssh -i ~/.ssh/id_ed25519 test02@octopus.aub.edu.lb
 
 `screencast <http://website.aub.edu.lb/it/hpc/SiteAssets/Pages/faq/login_with_ssh_key_linux.mp4>`__
 
