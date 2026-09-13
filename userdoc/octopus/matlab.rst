@@ -29,6 +29,12 @@ does not have to login (or interact) with the HPC cluster.
  the client-side setup below (settings bundle, screenshots) has only been verified
  against 2019b.
 
+.. note:: The Slurm integration plugin below is now obtained directly from MathWorks
+ upstream (see Pre-requisites). Its folder layout differs from an older bundled
+ ``slurm.zip`` that may have circulated previously for this guide — if you have that
+ older zip, use the upstream plugin linked below instead, since the steps here follow
+ the current upstream layout.
+
 .. note:: Multiple such parallel configuration can co-exist and can be selected
  at runtime.
  
@@ -38,25 +44,26 @@ Setting up a Matlab 2019b client
 Pre-requisites:
 
   - Matlab 2019b installed on the client.
-  - `slurm.zip <https://mailaub.sharepoint.com/:f:/r/sites/vLab/Shared%20Documents/Shares/Matlab%20Slurm?csf=1&e=OLWlut>`_ folder to be extracted in the integration folder
+  - The `MATLAB Parallel Server plugin for Slurm <https://github.com/mathworks/matlab-parallel-slurm-plugin>`_
+    (also on `File Exchange <https://www.mathworks.com/matlabcentral/fileexchange/127364-parallel-computing-toolbox-plugin-for-slurm>`_),
+    downloaded or cloned to your client machine.
   - :download:`Octopus Matlab 2019b client settings <matlab/2019b/octopus.mlsettings>`
   - A working directory (folder) on your “C” or “D” drive.
   - Have your Matlab code modified to exploit parallelism.
 
 
-- Once ``slurm.zip`` is downloaded, extract it to ``Documents\MATLAB`` (shown in screenshot below) or to the
-  corresponding directory of your non-default Matlab installation directory:
- 
+- Once the plugin is downloaded or cloned, extract/place it under ``Documents\MATLAB`` (shown in
+  screenshot below) or the corresponding directory of your non-default Matlab installation directory.
+  Note that unlike an older bundled ``slurm.zip`` that may have circulated previously, this plugin is
+  a single flat folder of scripts — there is no ``shared``/``remote``/``nonshared`` subfolder to choose
+  between. The shared-vs-not-shared distinction is instead set through the ``HasSharedFilesystem``
+  cluster property when editing the profile below.
+
    .. figure:: imgs/matlab/2019b/screenshots/matlab_screenshot_set_path.png
      :scale: 100 %
      :alt:
 
 - Open Matlab R2019b on the client machine (e.g your laptop)
-
-    + Select ``Set Path`` (under HOME -> ENVIRONMENT)
-    + Click on ``Add Folder``
-    + Browse to ``Documents\MATLAB\slurm\nonshared`` 
-    + Click save
 
 - To import the ``octopus.mlsettings`` profile:
 
@@ -81,6 +88,10 @@ Pre-requisites:
       .. figure:: imgs/matlab/2019b/screenshots/matlab_screenshot_remote_job_storage_location.png
          :scale: 100 %
          :alt:
+
+      + Also set ``PluginScriptsLocation`` to the folder where you extracted/cloned the plugin in
+        the previous step (e.g. ``Documents\MATLAB\matlab-parallel-slurm-plugin``), since this is a
+        path on your own client machine and cannot be pre-filled in a shared settings profile.
 
       + You can choose which queue to work on through modifying ``AdditionalSubmitArgs``:
 
