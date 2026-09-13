@@ -170,3 +170,54 @@ will be using them in what follows:
         + https://blog.mobatek.net/post/ssh-tunnels-and-port-forwarding/
         + https://mobaxterm.mobatek.net/documentation.html#2_1_5
   - contact it.helpdesk and mention ``HPC getting connected``
+
+Example: reaching a port on the cluster from your machine
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The following example uses two terminals. In the first one, log in to the
+cluster and start a small web server on port ``8765``. Binding it to
+``127.0.0.1`` means it only accepts connections from the head node itself, so it
+cannot be reached directly from your machine:
+
+.. code-block:: bash
+
+    # terminal 1: log in to the cluster, then start the web server there
+    $ ssh test02@octopus.aub.edu.lb
+    $ python3 -m http.server 8765 --bind 127.0.0.1
+
+In a second terminal on your own machine, nothing is listening on port ``8765``
+yet, so the request fails:
+
+.. code-block:: bash
+
+    # terminal 2: on your machine
+    $ curl http://localhost:8765
+    curl: (7) Failed to connect to localhost port 8765: Connection refused
+
+Now open the tunnel from the same terminal and repeat the request. This time
+``curl`` prints the directory listing returned by the web server on the cluster:
+
+.. code-block:: bash
+
+    $ ssh -f -N -L 8765:localhost:8765 test02@octopus.aub.edu.lb
+    $ curl http://localhost:8765
+
+The options of the tunnel command are:
+
+  - ``-L 8765:localhost:8765``: listen on port ``8765`` of your machine and
+    forward everything sent to it to ``localhost:8765`` as seen from the cluster,
+    i.e. the web server started in the first terminal. The general form is
+    ``-L local_port:destination_host:destination_port``.
+  - ``-N``: do not run a remote command, only forward the port.
+  - ``-f``: go to the background after logging in, so the terminal can still be used.
+
+If port ``8765`` is already in use, pick another port number (on the cluster,
+``random_unused_port`` prints a free one). When you are done, stop the web server
+with ``Ctrl+C`` in the first terminal and end the background ``ssh`` process that
+holds the tunnel, e.g. find its process id with ``ps aux | grep "ssh -f -N -L"``
+and ``kill`` it.
+
+The :ref:`Jupyter notebook <jupyter_notebook_job_octopus>` and
+:ref:`VNC / noVNC <create_vnc_tunnel>` instructions use the same pattern: they ask
+you to run an ``ssh -L`` command on your machine and then connect to ``localhost``
+on the forwarded port.
