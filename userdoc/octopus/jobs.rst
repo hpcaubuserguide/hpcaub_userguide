@@ -34,7 +34,7 @@ commonly used flags. For working example see the :ref:`job scripts examples <oct
   flag will be rejected.
 - ``#SBATCH --mail-type=ALL``: receive email notification for all stages of a job,
   e.g when the job starts and terminates.
-- ``#SBATCH --mail-user=abc123@aub.edu.lb``: The email address to which the job
+- ``#SBATCH --mail-user=abc123@mail.aub.edu``: The email address to which the job
   notification emails are sent.
 
 Job scripts examples
