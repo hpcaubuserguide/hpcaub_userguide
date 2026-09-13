@@ -80,8 +80,8 @@ submit the job
 .. _submit_vnc_job:
 
 The following job script can be used as a template and the resources options
-can be changed to meet the demands of a particular simulation. This job
-script is also included in ~/.vnc folder. After submitting the job, the
+can be changed to meet the demands of a particular simulation. A copy of this
+job script is also available in ``/home/shared/sample_scripts/slurm_vnc_job/``. After submitting the job, the
 ``VNC_HEAD_PORT`` is written to the ``slurm-JOBID.out`` file.
 
     .. code-block:: bash
@@ -171,8 +171,10 @@ Workflow
    1) :ref:`Create the VNC configuration <create_vnc_configuration>`. [one time] This step is
       done when the account is created and hence can be skipped. Execute the procedure
       described there if your VNC configuration does not exist or is corrupted.
-     - [one time] set a vnc password if you have not done so by executing the command ``vncpasswd``
-       (set a strong password that is at least 12 characters long)
+
+      - [one time] set a vnc password if you have not done so by executing the command ``vncpasswd``
+        (set a strong password that is at least 12 characters long)
+
    2) Copy the following job script to your home directory :ref:`submit the job script <submit_novnc_job>` ( e.g ``/home/shared/sample_scripts/slurm_vnc_job/novnc_slurm_job.sh``)
       or create a new file by copying it from the job script below, edit it to change the resources
       options and submit it using ``sbatch``.
@@ -211,13 +213,13 @@ Workflow
          #in the example above, YOUR_PORT is 3092 and the url is
          http://localhost:3092/vnc.html
 
-Submit the job
-++++++++++++++
+Submit the noVNC job
+++++++++++++++++++++
 .. _submit_novnc_job:
 
 The following job script can be used as a template and the resources options
-can be changed to meet the demands of a particular simulation. This job
-script is also included in ~/.vnc folder. After submitting the job, the
+can be changed to meet the demands of a particular simulation. A copy of this
+job script is also available in ``/home/shared/sample_scripts/slurm_vnc_job/``. After submitting the job, the
 ``VNC_HEAD_PORT`` is written to the ``slurm-JOBID.out`` file.
 
     .. code-block:: bash

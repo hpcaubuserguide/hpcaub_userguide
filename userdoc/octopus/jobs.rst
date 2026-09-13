@@ -194,7 +194,7 @@ Jobs time limits and checkpoints
 .. _octopus_jobs_checkpoints_resume:
 
 In-order to have fair usage of the resources and the partitions (queues), different
-partitions have different time limits. The maximum time limit for jobs is 3 days.
+partitions have different time limits. The maximum time limit for jobs is 1 day.
 Also paritions have different priorities that are necessary for fair usage, for
 example, short jobs have higher priorities than long jobs. When a job reaches
 the time limit that is specified in the job script or the time limit of the
@@ -206,7 +206,7 @@ in all the examples below it is the responsibily of the user to manage writing
 the checkpoint file and loading it.
 
 Resubmit a job automatically using job arrays
-=============================================
+"""""""""""""""""""""""""""""""""""""""""""""
 
 In the following example, a job array (``#SBATCH --array=1-30%1``) is used to
 indicate that the job should be run as a chain of 30 jobs back to back. Using
@@ -230,7 +230,7 @@ that run for 1 day each. When the first job finishes, a checkpoint file
      #SBATCH --ntasks-per-node=8
      #SBATCH --cpus-per-task=2
      #SBATCH --mem=12000
-     #SBATCH --time=0-01:00:00
+     #SBATCH --time=1-00:00:00
      #SBATCH --array=1-30%1
 
      ## load some modules
@@ -247,10 +247,10 @@ that run for 1 day each. When the first job finishes, a checkpoint file
      fi
 
 Each job in the job array will have its own ``.out`` file suffixed with the job
-array index, e.g ``my_slurm_30.out``.
+array index, e.g ``slurm-123456_30.out``.
 
 resubmit a job automatically using job dependencies
-===================================================
+"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 The main difference between using job dependencies and job array is that
 using dependencies the job will be resubmitted infinit times until the user
@@ -281,7 +281,7 @@ program from the checkpoint, otherwise run the program and create the checkpoint
      #SBATCH --time=0-01:00:00
 
      ## submit the dependency that will start after the current job finishes
-     sbatch --dependency=afterok:${SLURM_JOBID} job.sh
+     sbatch --dependency=afterany:${SLURM_JOBID} job.sh
      sleep 300
 
      # start executing the program,
