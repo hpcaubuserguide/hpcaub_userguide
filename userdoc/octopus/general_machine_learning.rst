@@ -103,15 +103,15 @@ possible workflows for jobs with checkpoints can be found in the
 :ref:`slurm jobs guide <octopus_jobs_checkpoints_resume>`
 
 
-Distribued training and inference with torch
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Distributed training and inference with torch
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Please follow the official documentation for distributed training and inference
 with torch:
 
-   - `torch run <https://pytorch.org/docs/stable/elastic/run.html>`_
-   - `torch.nn.DistributedDataParalle <https://pytorch.org/docs/stable/generated/torch.nn.parallel.DistributedDataParallel.html>`_
-   - `torch rpc parallel <https://pytorch.org/docs/stable/rpc.html>`_
+   - `torch run <https://docs.pytorch.org/docs/stable/elastic/run.html>`_
+   - `torch.nn.DistributedDataParalle <https://docs.pytorch.org/docs/stable/generated/torch.nn.parallel.DistributedDataParallel.html>`_
+   - `torch rpc parallel <https://docs.pytorch.org/docs/stable/rpc.html>`_
 
 Job sript for octopus using GPUs
 """"""""""""""""""""""""""""""""
@@ -136,8 +136,8 @@ salve(s)
     torchrun --nproc-per-node=1 --nnodes=4 --node-rank=3 --master-addr=<COMPUTE_HOST> --master-port=4444 \
        $PWD/my_torch_script.py baz --arg1=foo --arg2=bar
 
-Distribued training with tensorflow and keras
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Distributed training with tensorflow and keras
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Please follow the official documentation for distributed tensorflow training:
 
@@ -230,7 +230,7 @@ This snippet can be included in the job script
 
 **check the deep learning framework backend**
 
-For tensorflow, when the following snippet is executed:6Q, Compute Capability 7.0``)
+For tensorflow, when the following snippet is executed:
 
 .. code-block:: python
 
@@ -238,7 +238,7 @@ For tensorflow, when the following snippet is executed:6Q, Compute Capability 7.
      with tf.Session() as sess:
         devices = sess.list_devices()
 
-the GPU(s) should be displayed in the output (search for ``StreamExecutor device (0): GRID V100D-32Q
+the GPU(s) should be displayed in the output (search for ``StreamExecutor device (0): GRID V100D-32Q, Compute Capability 7.0``)
 
 .. code-block:: bash
 
