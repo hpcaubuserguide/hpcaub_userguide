@@ -13,6 +13,7 @@ language models and developing new models:
 
   - python/ai-4
   - python/transformers/r1
+  - python/transformers/r2 (current default; the worked example below uses r1)
 
 Resources requirements estimation tips and tricks
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -68,12 +69,25 @@ Currently the HPC service provides two main repositories for large language mode
   - hugging face models: ``/scratch/shared/ai/models/llms/hugging_face``
   - ollama models: ``/scratch/shared/ai/models/llms/ollama``
 
-In total around 100 models are available in the model library with a total size of 5 TB.
+In total 32 Hugging Face models are available in the model library, totalling 2.2 TB, plus
+around 1020 GB of ollama models (44 model:tag combinations).
+
+.. note:: The Hugging Face total above only counts models under namespaces readable without
+    gated access (see the note below on ``meta-llama``, ``mistralai`` and ``inceptionai``).
+    Users without access to those namespaces will see fewer models than this count.
+
 The following list is the list of hugging face models are available on ``octopus``
-(last updated 2024-12-13):
+(last updated 2026-09-13):
 
   .. code-block:: bash
 
+      CohereForAI
+      ├── aya-101
+      ├── aya-expanse-32b
+      ├── aya-expanse-8b
+      ├── c4ai-command-r-08-2024
+      ├── c4ai-command-r7b-12-2024
+      └── c4ai-command-r-plus
       core24/
       └── jais-13b-chat
       FreedomIntelligence
@@ -83,6 +97,8 @@ The following list is the list of hugging face models are available on ``octopus
       google
       ├── gemma-2-2b-it
       └── gemma-2-9b-it
+      IDEA-Research
+      └── grounding-dino-base
       inceptionai
       ├── jais-13b
       ├── jais-13b-chat
@@ -113,6 +129,8 @@ The following list is the list of hugging face models are available on ``octopus
       └── Mixtral-8x7B-Instruct-v0.1
       pfnet
       └── Llama3-Preferred-MedSwallow-70B
+      prometheus-eval
+      └── prometheus-7b-v2.0
       Qwen
       ├── Qwen2.5-72B-Instruct
       ├── Qwen2.5-7B-Instruct
@@ -125,56 +143,67 @@ The following list is the list of hugging face models are available on ``octopus
       ├── falcon-40b
       ├── falcon-40b-instruct
       └── falcon-7b
+      unsloth
+      ├── Llama-3.2-1B-Instruct
+      └── Meta-Llama-3.1-70B-bnb-4bit
 
-The following list is the list of ollama models (last updated 2024-12-13) (see also :ref:`here <ollama>`):
+The following list is the list of ollama models (last updated 2026-09-13) (see also :ref:`here <ollama>`):
 
   .. code-block:: bash
 
-      llama3.1:latest                     42182419e950    4.7 GB    2 weeks ago
-      llama3.1:405b                       65fa6b82bfda    228 GB    7 weeks ago
-      nemotron:latest                     2262f047a28a    42 GB     7 weeks ago
-      llama3.2:1b                         baf6a787fdff    1.3 GB    7 weeks ago
-      gemma:latest                        a72c7f4d0a15    5.0 GB    7 months ago
-      gemma:2b                            b50d6c999e59    1.7 GB    7 months ago
-      llama3:70b-instruct                 bcfb190ca3a7    39 GB     7 months ago
-      llama3:70b                          bcfb190ca3a7    39 GB     7 months ago
-      llama3:latest                       71a106a91016    4.7 GB    7 months ago
-      llama3:instruct                     71a106a91016    4.7 GB    7 months ago
-      mixtral:8x7b-text-v0.1-fp16         221f0bf341e3    93 GB     10 months ago
-      codellama:70b-code                  f51f75d243f2    38 GB     10 months ago
-      codellama:70b                       e59b580dfce7    38 GB     10 months ago
-      codellama:70b-instruct              e59b580dfce7    38 GB     10 months ago
-      deepseek-coder:33b-instruct-fp16    b54904179335    66 GB     10 months ago
-      deepseek-coder:33b-base-q4_0        ca50732c8ee1    18 GB     10 months ago
-      deepseek-coder:33b                  acec7c0b0fd9    18 GB     10 months ago
-      mistral:latest                      61e88e884507    4.1 GB    10 months ago
-      deepseek-coder:6.7b                 ce298d984115    3.8 GB    10 months ago
-      deepseek-coder:1.3b-base-q8_0       71f702eff852    1.4 GB    10 months ago
-      deepseek-coder:1.3b                 3ddd2d3fc8d2    776 MB    10 months ago
-      deepseek-coder:latest               3ddd2d3fc8d2    776 MB    10 months ago
-      deepseek-coder:1.3b-instruct        3ddd2d3fc8d2    776 MB    10 months ago
-      megadolphin:latest                  8fa55398527b    67 GB     10 months ago
-      dolphin-mixtral:8x7b                cfada4ba31c7    26 GB     10 months ago
-      zephyr:latest                       bbe38b81adec    4.1 GB    10 months ago
-      stablelm-zephyr:latest              0a108dbd846e    1.6 GB    10 months ago
-      deepseek-coder:33b-instruct         acec7c0b0fd9    18 GB     10 months ago
-      wizardlm:70b-llama2-q4_0            2d269a65a092    38 GB     10 months ago
-      yarn-mistral:7b-128k                6511b83c33d5    4.1 GB    10 months ago
-      wizardlm-uncensored:13b             886a369d74fc    7.4 GB    10 months ago
-      falcon:180b-chat                    e2bc879d7cee    101 GB    10 months ago
-      mixtral:latest                      7708c059a8bb    26 GB     10 months ago
-      starcoder:7b                        53fdbc3a2006    4.3 GB    10 months ago
-      starcoder:15b                       fc59c84e00c5    9.0 GB    10 months ago
-      codellama:34b                       685be00e1532    19 GB     10 months ago
-      starcoder:3b                        847e5a7aa26f    1.8 GB    10 months ago
-      starcoder:1b                        77e6c46054d9    726 MB    10 months ago
-      falcon:7b                           4280f7257e73    4.2 GB    10 months ago
-      medllama2:latest                    a53737ec0c72    3.8 GB    10 months ago
-      mixtral:8x7b-instruct-v0.1-q8_0     a6689be5de7d    49 GB     10 months ago
-      llava:latest                        cd3274b81a85    4.5 GB    10 months ago
-      mistral:instruct                    61e88e884507    4.1 GB    10 months ago
-      phi:latest                          e2fd6321a5fe    1.6 GB    10 months ago
-      tinyllama:latest                    2644915ede35    637 MB    10 months ago
+      codellama:34b                       d5981b4f8e77    19 GB     2024-01-26
+      codellama:70b                       7b5e1480ed2a    39 GB     2024-02-01
+      codellama:70b-code                  a42e97f8792a    39 GB     2024-02-01
+      codellama:70b-instruct              7b5e1480ed2a    39 GB     2024-02-01
+      deepseek-coder:1.3b                 d55c9eb1669a    776 MB    2024-01-27
+      deepseek-coder:1.3b-base-q8_0       d9da93078cdb    1 GB      2024-01-27
+      deepseek-coder:1.3b-instruct        d55c9eb1669a    776 MB    2024-01-27
+      deepseek-coder:33b                  1fe1cf68a363    19 GB     2024-01-27
+      deepseek-coder:33b-base-q4_0        0b07c5e3b9d8    19 GB     2024-01-27
+      deepseek-coder:33b-instruct         1fe1cf68a363    19 GB     2024-01-26
+      deepseek-coder:33b-instruct-fp16    b72c295ba639    67 GB     2024-01-27
+      deepseek-coder:6.7b                 772f510b9558    4 GB      2024-01-27
+      deepseek-coder:latest               d55c9eb1669a    776 MB    2024-01-27
+      deepseek-r1:1.5b                    a85fe2a2e58e    1 GB      2025-01-27
+      deepseek-r1:70b                     5e9a45d7d8b9    43 GB     2025-01-27
+      deepseek-r1:7b                      40fb844194b2    5 GB      2025-01-27
+      falcon:180b-chat                    6006e8df6626    101 GB    2024-01-26
+      falcon:7b                           9ce7398869ad    4 GB      2024-01-26
+      gemma:2b                            887433b89a90    2 GB      2024-04-22
+      gemma3:4b                           b6ae5839783f    3 GB      2026-01-29
+      gemma:latest                        0c2a5137eb3c    5 GB      2024-04-22
+      llama3.1:405b                       02766cd47dfb    229 GB    2024-10-21
+      llama3.2:1b                         4f659a1e86d7    1 GB      2026-01-06
+      llama3.2:3b                         34bb5ab01051    2 GB      2026-01-06
+      llama3:70b                          c795a06979ae    40 GB     2024-04-22
+      llama3:70b-instruct                 c795a06979ae    40 GB     2024-04-22
+      llama3:instruct                     db46ef36ef0b    5 GB      2024-04-22
+      llama3:latest                       db46ef36ef0b    5 GB      2024-04-22
+      llava:latest                        38dd3089f135    4 GB      2024-01-26
+      medllama2:latest                    f3d56c5b85c0    4 GB      2024-01-26
+      megadolphin:latest                  260c5790eb00    68 GB     2024-01-27
+      mistral:instruct                    f9b1e3196ecf    4 GB      2024-01-26
+      mistral:latest                      f9b1e3196ecf    4 GB      2024-01-27
+      mixtral:8x7b-instruct-v0.1-q8_0     486fa095b659    50 GB     2024-01-26
+      mixtral:latest                      9dec05e9b2db    26 GB     2024-01-26
+      nemotron-3-nano:30b                 12bee8c08a36    24 GB     2026-01-06
+      nemotron:latest                     2b4e98e1c22e    43 GB     2024-10-21
+      qwen2.5:0.5b                        005f95c74751    398 MB    2026-01-06
+      stablelm-zephyr:latest              5fd4e1793450    2 GB      2024-01-26
+      starcoder:15b                       b46bd0819a46    9 GB      2024-01-26
+      starcoder:3b                        f5664457ab5c    2 GB      2024-01-26
+      starcoder:7b                        5dbd0ca55d98    4 GB      2024-01-26
+      tinyllama:latest                    6331358be52a    638 MB    2024-01-26
+      wizardlm:70b-llama2-q4_0            20ae20055113    39 GB     2024-01-26
+      wizardlm-uncensored:13b             7f02c321310f    7 GB      2024-01-26
+      yarn-mistral:7b-128k                0fe5fb9e257d    4 GB      2024-01-26
+      zephyr:latest                       7d3eb0692a36    4 GB      2024-01-26
+
+.. note:: A handful of manifests on the cluster (``phi:latest``, ``dolphin-mixtral:8x7b``,
+    ``llama3.1:latest``, ``mixtral:8x7b-text-v0.1-fp16``, ``starcoder:1b``, ``deepseek-r1:32b``,
+    ``deepseek-r1:8b``) are zero-byte / corrupted as of 2026-09-13 and are excluded from the
+    list above; ``ollama run`` against these tags is expected to fail until they are
+    re-pulled. Please report this to ``it.helpdesk@aub.edu.lb`` if you need one of them.
 
 For the latest list check the content of the directories listed above.
 
@@ -351,7 +380,7 @@ that runs the model are available on ``octopus`` at:
 
 The expected evaluation time the example below is ?? seconds. This example
 produces ?? tokens at an average rate of ?? tokens / min.
-During this test a total of ?? GB is transfered from the disk to the GPU
+During this test a total of ?? GB is transferred from the disk to the GPU
 and a total of ?? (float??) operations are done.
 The total memory transfer from VRAM to the GPU is ?? GB at an average rate of
 ?? GB/s and a peak of ?? GB/s.
@@ -426,9 +455,9 @@ The job script is the following:
 Evaluating quantized models
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Once a model is fine tuned or trained (see below) it is convient (assuming that
+Once a model is fine tuned or trained (see below) it is convenient (assuming that
 the loss in accuracy is not high to quantize the model to evaluate the quantized
-model for testing purposes. For use cases that do not requite high accuracy
+model for testing purposes. For use cases that do not require high accuracy
 quantized models are good enough and they outperform the llama7B model)
 
 .. todo:: double check this statement.
@@ -436,68 +465,47 @@ quantized models are good enough and they outperform the llama7B model)
 Using llama.cpp
 """""""""""""""
 
-In this section I will explain the basics of quantization and how to evaluate
-such models without any optimization on a CPU. Later in this section I will
-describe and demonstrate how to scale the model evaluation using a single GPU
-and multiple GPUs across several hosts or across multiple mosts using only CPUs
-and compare the performance.
+This section explains the basics of quantization and how to evaluate such models on a
+GPU using ``llama.cpp``.
 
 
-Evaluate the quantized model on a CPU - non optimized
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-.. code-block:: bash
-
-    module load gcc/12
-    rsync -PrlHvtpog /scratch/shared/ai/models/llms/mistralai/Mistral-7B-v0.1/mistral-7b-v0.1.Q4_K_M /dev/shm/
-    /apps/sw/llama.cpp/amd-avx2/bin/main -t 16 -ngl 24 --color --temp 0.7 -n 1 -m /dev/shm/mistral-7b-v0.1.Q4_K_M/mistral-7b-v0.1.Q4_K_M.gguf -p "Building a website can be done in 10 simple steps:\nStep 1:" -n 400 -e
-
-Evaluate the quantized model on a CPU (optimized)
-"""""""""""""""""""""""""""""""""""""""""""""""""
-
-.. code-block:: bash
-
-    module load gcc/12
-    module load cuda/12
-    rsync -PrlHvtpog /scratch/shared/ai/models/llms/mistralai/Mistral-7B-v0.1/mistral-7b-v0.1.Q4_K_M /dev/shm/
-    /apps/sw/llama.cpp/amd-v100-cublas-12/bin/main -t 8 -ngl 24 --color --temp 0.7 -n 1 -m /dev/shm/mistral-7b-v0.1.Q4_K_M/mistral-7b-v0.1.Q4_K_M.gguf -p "Building a website can be done in 10 simple steps:\nStep 1:" -n 400 -e
-
-Evaluate the quantized model on a CPU across multiple hosts
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-.. code-block:: bash
-
-    module load llama.cpp/mpi
+.. note:: As of 2026-09-13 only a single llama.cpp build is provided on the cluster:
+    ``llama.cpp/b3943``. It is built with CUDA/cuBLAS support, so it must be run on a
+    GPU node (e.g. via ``srun``/``sbatch`` on the ``gpu`` partition); running it on the
+    head node or a CPU-only node fails with ``error while loading shared libraries:
+    libcuda.so.1``. Loading the module also automatically loads ``gcc/12`` and ``cuda/12``,
+    so those do not need to be loaded separately. The binary formerly called ``main`` in
+    older llama.cpp releases is now called ``llama-cli``.
 
 Evaluate the quantized model on a GPU
 """""""""""""""""""""""""""""""""""""
 
 .. code-block:: bash
 
-    module load llama.cpp/gpu-v100
-    ...
+    module load llama.cpp/b3943
+    rsync -PrlHvtpog /scratch/shared/ai/models/llms/mistralai/Mistral-7B-v0.1/mistral-7b-v0.1.Q4_K_M /dev/shm/
+    llama-cli -ngl 24 --color --temp 0.7 -n 1 -m /dev/shm/mistral-7b-v0.1.Q4_K_M/mistral-7b-v0.1.Q4_K_M.gguf -p "Building a website can be done in 10 simple steps:\nStep 1:" -n 400 -e
 
-    module load llama.cpp/gpu-k20
-    ...
+Use ``-ngl 0`` to keep all layers on the CPU (the process still needs to run on a node
+with the CUDA driver present, since the binary is linked against it) or a higher value
+to offload layers to the GPU; see ``llama-cli --help`` (run on a GPU node) for the full
+list of flags.
 
-Evaluate the quantized model across multiple GPUs
-"""""""""""""""""""""""""""""""""""""""""""""""""
-
-.. code-block:: bash
-
-    module load llama.cpp/gpu-v100-mpi
-    ...
-
-    module load llama.cpp/gpu-k20-mpi
-    ...
+.. note:: Multi-host/MPI and per-GPU-model (e.g. separate V100/K20) llama.cpp builds are
+    not currently provided on the cluster; only the single CUDA-enabled ``b3943`` build
+    above is available. If you need a CPU-only or MPI build, please contact
+    ``it.helpdesk@aub.edu.lb``.
 
 Benchmark the quantized model
 """""""""""""""""""""""""""""
 
+After ``module load llama.cpp/b3943`` (on a GPU node), ``llama-bench`` is available on the
+``PATH``. The example transcript below is from an older llama.cpp release and is kept for
+illustration; exact log lines (e.g. the CUDA init banner) may differ with ``b3943``.
+
 .. code-block:: bash
 
-    [test01@onode12 work]$ /apps/sw/llama.cpp/amd-v100-cublas-12/bin/llama-bench -m /dev/shm/mistral-7b-v0.1.Q4_K_M/mistral-7b-v0.1.Q4_K_M.gguf
+    [test01@onode12 work]$ llama-bench -m /dev/shm/mistral-7b-v0.1.Q4_K_M/mistral-7b-v0.1.Q4_K_M.gguf
     ggml_init_cublas: GGML_CUDA_FORCE_MMQ:   no
     ggml_init_cublas: CUDA_USE_TENSOR_CORES: yes
     ggml_init_cublas: found 1 CUDA devices:
@@ -545,7 +553,7 @@ It is possible to fine tune quantized models using unsloth up to 70B using two V
 Smaller models can be executed on one V100 GPU.
 In order to use unsloth a singularity container has been prepared and it works out of the box.
 
-The official unsloth documentation can be found here: https://docs.unsloth.ai/
+The official unsloth documentation can be found here: https://unsloth.ai/docs
 
 The procudure of running the fine tuning is as follows:
 
@@ -620,7 +628,7 @@ The expected output should look something like this (the output below is trimmed
        \\   /|    Tesla V100-PCIE-32GB. Num GPUs = 2. Max memory: 31.739 GB. Platform: Linux.
     O^O/ \_/ \    Torch: 2.6.0+cu124. CUDA: 7.0. CUDA Toolkit: 12.4. Triton: 3.2.0
     \        /    Bfloat16 = FALSE. FA [Xformers = 0.0.29.post3. FA2 = False]
-     "-____-"     Free license: http://github.com/unslothai/unsloth
+     "-____-"     Free license: https://github.com/unslothai/unsloth
     Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
     Loading checkpoint shards: 100%|██████████| 6/6 [00:17<00:00,  2.95s/it]
     Unsloth 2025.3.9 patched 80 layers with 80 QKV layers, 80 O layers and 80 MLP layers.
@@ -659,7 +667,7 @@ The following pre-requisites are required to fine tune the llama2 7B model:
 
 - The facebook llama-recipes repo (already installed on ``octopus``)
 - The LLaMA 7B HF model (email it.helpdesk@aub.edu.lb to request access by
-  presenting a copy of your signed agreement https://llama.meta.com/llama-downloads/
+  presenting a copy of your signed agreement https://developer.meta.com/ai/llama-downloads/
   or place your own copy in the right location - see below).
 - A python environment with the right requirements (already installed on
   ``octopus``)
