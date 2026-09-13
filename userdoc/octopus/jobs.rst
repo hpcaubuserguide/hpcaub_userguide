@@ -160,7 +160,7 @@ The simplest procedure is to use srun as follows:
 
 It is recommended to specify a small amount of resources for the interactive job, i.e a few
 cores and a few GB ram and maybe one gpu if needed. The following alias can be used to
-allocate one core and 2GB ram in the ``normal`` partition:
+allocate one core and 2GB ram in the ``normal`` partition for 30 minutes:
 
 .. code-block:: bash
 
@@ -170,11 +170,13 @@ This command is the alias for:
 
 .. code-block:: bash
 
-    $ srun --partition=normal --nodes=1 --ntasks-per-node=1 --cpus-per-task=1 --mem=2000 --pty /bin/bash
+    $ srun --partition=normal -N 1 --ntasks=1 --cpus-per-task=1 --mem=2000 --time=00:30:00 --pty /bin/bash
 
-.. note:: the alias does not set ``--time``, so the job inherits the default
-   time limit of the ``normal`` partition. For a shorter limit, run the
-   ``srun`` command above directly and add e.g. ``--time=00:30:00`` before ``--pty``.
+.. todo:: the ``serial_job`` alias definition shown above has not been verified
+   against the alias defined on the cluster. Check it on the head node from an
+   interactive login shell with ``bash -lic "alias serial_job"`` (aliases are not
+   defined for non-interactive ``ssh`` commands) and update the command and the
+   description above to match.
 
 To allocate a gpu node for interactive use, the following alias can be used:
 
