@@ -288,7 +288,6 @@ program from the checkpoint, otherwise run the program and create the checkpoint
      #SBATCH --time=0-01:00:00
 
      ## submit the dependency that will start after the current job finishes successfully
-     ## (a job that hits its time limit ends as TIMEOUT, so the chain will not continue)
      sbatch --dependency=afterok:${SLURM_JOBID} job.sh
      sleep 300
 
