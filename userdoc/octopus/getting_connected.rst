@@ -14,7 +14,6 @@ any of the following methods can be used to login to the head node of the cluste
     ssh my_user_name@octopus.aub.edu.lb   # preferred
     ssh my_user_name@ohead1.aub.edu.lb    # optional  (not recommended)
     ssh my_user_name@ohead2.aub.edu.lb    # optional  (not recommended)
-    ssh my_user_name@192.168.137.23       # last resort (if all of the above do not work)
 
 TIP: Passwordless login can be set up to avoid typing the password every time and
      is safer than saving the password in the ssh client or re-typing it.
