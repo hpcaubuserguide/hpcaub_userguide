@@ -78,7 +78,10 @@ myst_enable_extensions = [
     # other useful extensions: "deflist", "fieldlist", etc.
 ]
 myst_heading_anchors = 2
-todo_include_todos = True
+
+# Show TODOs when building locally, hide them on the published site.
+# Read the Docs sets READTHEDOCS=True in the build environment.
+todo_include_todos = os.environ.get("READTHEDOCS") != "True"
 
 html_theme_options = {
     "external_links": [
