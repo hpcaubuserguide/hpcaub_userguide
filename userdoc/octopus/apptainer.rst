@@ -4,17 +4,18 @@ Apptainer
 To request access to build apptainer images on octopus please email it.helpdesk@aub.edu.lb and
 mention your research computing project ID.
 
-Building Apprainer Images
+Building Apptainer Images
 -------------------------
 
-In-order to build apptainer images a dedicated partitions is available on Octopus named
-``container-build``. This partition allows users to build apptainer images with the necessary
-privileges. Note that once an apptainer image is built it can run on any of the compute nodes.
+In-order to build apptainer images a dedicated partition is available on Octopus named
+``builder`` (nodes ``onode07`` and ``onode27``, 4-hour time limit). This partition allows
+users to build apptainer images with the necessary privileges. Note that once an apptainer
+image is built it can run on any of the compute nodes.
 
 .. warning:: do not build apptainer images on the head node
 
 Apptainer will allow you to develop environments where you as a user will be able to run commands
-as root (e.g using sudo) insider the container while building it. The ``--fakeroot`` option of the
+as root (e.g using sudo) inside the container while building it. The ``--fakeroot`` option of the
 ``apptainer build`` command allows you to do that.  Once the image is built you will not need to use
 ``--fakeroot`` to run the container. It is recommended that as you develop your workflow make sure
 that at runtime, i.e when running the container, you do not need root privileges. If that is necessary
@@ -24,10 +25,8 @@ run a writable sandbox image instead (which is ok, but a bit less efficient).
 Developing Apptainer Images
 ---------------------------
 
-To build an appatainer image you need to create a definition file (usually with a ``.def``
+To build an apptainer image you need to create a definition file (usually with a ``.def``
 extension)
-
-.. todo:: add some references to good youtube videos or other tutorials for building apptainer images
 
 Below is a sample minimal definition file that users can use to build a basic apptainer images
 and customize it as needed.
@@ -62,7 +61,7 @@ Make a copy of this script and put it in your (e.g) home directory and call it m
 .. note::
 
    if you are confident about your .def file, you can build a .sif image directly. If you want to
-   develop your .def file we recommend building a writnable sandbox image first and put that
+   develop your .def file we recommend building a writable sandbox image first and put that
    sandbox in /dev/shm.
 
 To create a sandbox image in /dev/shm do the following:
