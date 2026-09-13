@@ -385,6 +385,10 @@ and a total of ?? (float??) operations are done.
 The total memory transfer from VRAM to the GPU is ?? GB at an average rate of
 ?? GB/s and a peak of ?? GB/s.
 
+.. todo:: the figures above are placeholders and have not been measured. Fill
+    them in from an actual benchmark run of the job script below on the
+    ``gpu`` partition rather than guessing.
+
 The job script is the following:
 
 .. code-block:: bash
