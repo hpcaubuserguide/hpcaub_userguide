@@ -115,3 +115,7 @@ To run the apptainer image in an interactive job session do the following:
 
 Running Apptainer containers via Slurm
 --------------------------------------
+
+Documentation for running Apptainer containers via Slurm is not yet available. If
+you need help running Apptainer containers via Slurm, please contact the HPC
+support team.
