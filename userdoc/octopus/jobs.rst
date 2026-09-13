@@ -133,7 +133,8 @@ Batch job submission and monitoring procedure
      $ sp
 
 - After the job is dispatched for executing (starts running), monitor the
-  output by checking the ``.o`` file.
+  output by checking the ``slurm-JOBID.out`` file that is written to the
+  directory from which the job was submitted (unless ``--output`` is set).
 
 For more information on using SLURM, please consult the ``man`` pages:
 
@@ -159,7 +160,7 @@ The simplest procedure is to use srun as follows:
 
 It is recommended to specify a small amount of resources for the interactive job, i.e a few
 cores and a few GB ram and maybe one gpu if needed. The following alias can be used to
-allocate one core and 2GB ram in the ``normal`` partition for 30 minutes:
+allocate one core and 2GB ram in the ``normal`` partition:
 
 .. code-block:: bash
 
@@ -169,7 +170,11 @@ This command is the alias for:
 
 .. code-block:: bash
 
-    $ srun --partition=normal -N 1 --ntasks=1 --cpus-per-task=1 --mem=2000 --time=00:30:00 --pty /bin/bash
+    $ srun --partition=normal --nodes=1 --ntasks-per-node=1 --cpus-per-task=1 --mem=2000 --pty /bin/bash
+
+.. note:: the alias does not set ``--time``, so the job gets the default time
+   limit of the ``normal`` partition (1 day). For a shorter limit, run the
+   ``srun`` command above directly and add e.g. ``--time=00:30:00`` before ``--pty``.
 
 To allocate a gpu node for interactive use, the following alias can be used:
 
@@ -181,7 +186,7 @@ This command is the alias for:
 
 .. code-block:: bash
 
-    $ srun --partition=gpu --nodes=1 --ntasks-per-node=1 --cpus-per-task=4 --gres=gpu:v100d32q:1 --mem=64000 --pty /bin/bash"
+    $ srun --partition=gpu --nodes=1 --ntasks-per-node=1 --cpus-per-task=4 --gres=gpu:v100d32q:1 --mem=64000 --pty /bin/bash
 
 Jobs time limits and checkpoints
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -233,7 +238,7 @@ that run for 1 day each. When the first job finishes, a checkpoint file
 
      # start executing the program,
      MY_CHECKPOINT_FILE=foo.chkp
-     if [ -z "${MY_CHECKPOINT_FILE}" ]; then
+     if [ ! -f "${MY_CHECKPOINT_FILE}" ]; then
          # checkpoint file is not found, execute this command
          python train_model_from_scratch.py
      else
@@ -281,7 +286,7 @@ program from the checkpoint, otherwise run the program and create the checkpoint
 
      # start executing the program,
      MY_CHECKPOINT_FILE=foo.chkp
-     if [ -z "${MY_CHECKPOINT_FILE}" ]; then
+     if [ ! -f "${MY_CHECKPOINT_FILE}" ]; then
          # checkpoint file is not found, execute this command
          python train_model_from_scratch.py
      else
