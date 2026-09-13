@@ -75,12 +75,10 @@ execute the following command in a terminal on your machine:
 .. note:: this same process can be done on windows also from the command line
  assuming that you already have openssh installed. (e.g using ``msys2``)
 
-The following screencast walks through the whole workflow end to end: generating an
-ed25519 key pair, copying the public key to the cluster with ``ssh-copy-id`` and
-logging in with the key.
-
-.. youtube:: m792_cUm088
-   :width: 100%
+.. todo:: add a screencast showing how to generate an ssh key pair on linux/mac
+   and log in for the first time. The previous SharePoint-hosted screencast has
+   expired and was removed. Replace it with the new "SSH keys and first login"
+   recording once it has been reviewed and hosted.
 
 on windows using mobaxterm
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
