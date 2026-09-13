@@ -37,7 +37,7 @@ Building Enzo from source
 external references
 ^^^^^^^^^^^^^^^^^^^
 
-http://enzo-project.org/BootCamp.html
+https://enzo-project.org/BootCamp.html
 https://grackle.readthedocs.io/en/latest/
 https://grackle.readthedocs.io/en/latest/Installation.html#downloading
 
@@ -62,9 +62,8 @@ All these dependencies/prerequisites can be loaded through
 
 .. code-block:: bash
 
-    $ wget https://bitbucket.org/enzo/enzo-dev/get/enzo-2.5.tar.gz
-    $ tar -xzvf enzo-2.5.tar.gz
-    $ cd enzo-enzo-dev-2984068d220f
+    $ git clone https://github.com/enzo-project/enzo-dev.git
+    $ cd enzo-dev
 
 - configure it
 
