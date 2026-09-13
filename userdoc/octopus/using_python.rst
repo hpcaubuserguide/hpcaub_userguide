@@ -40,9 +40,9 @@ Users who wish to extend/create custom python these environment can:
   - ``virtualenvs`` are by default created in the home directory ``~/.virtualenvs``.
     It might be also useful to use the package ``Virtualenvwrapper``.
 
-  - use ``pipenv`` that is a new and powerful way to creating and managing python
-    environments. The following is an excellent guide on getting started with
-    ``pipenv`` https://robots.thoughtbot.com/how-to-manage-your-python-projects-with-pipenv
+  - use ``pipenv`` for creating and managing python environments. The following is
+    an excellent guide on getting started with ``pipenv``
+    https://thoughtbot.com/blog/how-to-manage-your-python-projects-with-pipenv
 
   - install anaconda locally in their home directories
 
@@ -60,9 +60,9 @@ A jupyter lab server is run on a compute node to which a user can connect
 to using a browser on the local machine (i.e laptop/desktop/terminal).
 
 - submit the jupyter server script using ``sbatch`` (see below)
-- get the port number from jupyter-${MY_NEW_JOB_ID}.log after the job stars running
+- get the port number from jupyter-${SLURM_JOB_ID}.log after the job starts running
 - create the tunnel to Octopus
-- get the URL with the autnetication token from jupyter-${MY_NEW_JOB_ID}.log and
+- get the URL with the authentication token from jupyter-${SLURM_JOB_ID}.log and
   use that link (with the token) in your browser
 
 Jupyter notebook job on a compute node
@@ -83,7 +83,6 @@ The following job script can be used as a template to submit a job.
     #SBATCH --cpus-per-task=1
     #SBATCH --mem=8000
     #SBATCH --time=0-01:00:00
-    #SBATCH --account=foo_project
 
     source ~/.bashrc
 
@@ -107,8 +106,8 @@ web browser. To create the tunnel, execute (on your local terminal)
       $ ssh -L localhost:38888:localhost:38888 octopus.aub.edu.lb -N
 
 After creating the tunnel, you can access the server from your browser by
-typing in the url (with the token) found in ``jupyter.log`` (see previous
-section)
+typing in the url (with the token) found in ``jupyter-${SLURM_JOB_ID}.log`` (see
+previous section)
 
 The diagram for the steps involved is:
 
@@ -120,9 +119,9 @@ Running production jobs with Jupyter notebooks
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Using Jupyter notebooks through the browser as described above requires
-a contineous and stable connection to the HPC cluster (to keep the ssh tunnel alive).
+a continuous and stable connection to the HPC cluster (to keep the ssh tunnel alive).
 When connected from inside the campus network, such issues are minimal. However
-the connection might experience instability and could get disconected especially
+the connection might experience instability and could get disconnected especially
 when there are no user interactions with the notebook, e.g when running a
 production job when the user is away from the terminal.
 
