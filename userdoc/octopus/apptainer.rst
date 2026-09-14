@@ -79,7 +79,7 @@ than separate batch jobs:
 
 .. code-block:: bash
 
-   srun --partition=builder --time=02:00:00 --pty /bin/bash
+   srun --partition=builder --account=abc123 --time=02:00:00 --pty /bin/bash
    module load apptainer
 
    mkdir -p /dev/shm/${USER}/
@@ -107,6 +107,7 @@ the moment the job ends.
     #!/bin/bash
     #SBATCH --job-name=apptainer-build
     #SBATCH --partition=builder
+    #SBATCH --account=abc123
     #SBATCH --time=02:00:00
 
     module load apptainer
@@ -131,7 +132,7 @@ container, so it genuinely needs a terminal, unlike the batch build above:
 
 .. code-block:: bash
 
-   srun --partition=interactive --time=00:30:00 --pty /bin/bash
+   srun --partition=interactive --account=abc123 --time=00:30:00 --pty /bin/bash
    module load apptainer
    apptainer shell ~/myapptainer.sif                    # expected to work
    apptainer shell --fakeroot ~/myapptainer.sif         # not expected to work
