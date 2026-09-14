@@ -200,12 +200,20 @@ yet, so the request fails:
     $ curl http://localhost:8765
     curl: (7) Failed to connect to localhost port 8765: Connection refused
 
-Now open the tunnel from the same terminal and repeat the request. This time
-``curl`` prints the page served by the web server on the cluster:
+Now open the tunnel in a third terminal. It stays in the foreground and prints
+nothing at all while it is working:
 
 .. code-block:: bash
 
-    $ ssh -f -N -L 8765:localhost:8765 test02@octopus.aub.edu.lb
+    # terminal 3: on your machine
+    $ ssh -N -L 8765:localhost:8765 test02@octopus.aub.edu.lb
+
+Leave that terminal alone and go back to the second one. Repeating the request
+now prints the page served by the web server on the cluster:
+
+.. code-block:: bash
+
+    # terminal 2: on your machine
     $ curl http://localhost:8765
     Hello from Octopus
 
@@ -216,13 +224,18 @@ The options of the tunnel command are:
     i.e. the web server started in the first terminal. The general form is
     ``-L local_port:destination_host:destination_port``.
   - ``-N``: do not run a remote command, only forward the port.
-  - ``-f``: go to the background after logging in, so the terminal can still be used.
+
+.. note:: ``ssh`` also accepts ``-f``, which sends the tunnel to the background so
+    that the same terminal stays usable. We deliberately do not use it here. A
+    backgrounded tunnel can die without printing anything, and the only symptom is
+    that connections to the local port start failing again - which looks like a
+    problem with your job or with the cluster, when in fact the tunnel is simply
+    gone. Giving the tunnel its own terminal makes it obvious at a glance whether
+    it is still up.
 
 If port ``8765`` is already in use, pick another port number (on the cluster,
 ``random_unused_port`` prints a free one). When you are done, stop the web server
-with ``Ctrl+C`` in the first terminal and end the background ``ssh`` process that
-holds the tunnel, e.g. find its process id with ``ps aux | grep "ssh -f -N -L"``
-and ``kill`` it.
+with ``Ctrl+C`` in the first terminal and the tunnel with ``Ctrl+C`` in the third.
 
 The :ref:`Jupyter notebook <jupyter_notebook_job_octopus>` and
 :ref:`VNC / noVNC <create_vnc_tunnel>` instructions use the same pattern: they ask
