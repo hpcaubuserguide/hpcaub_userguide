@@ -130,6 +130,26 @@ To run the apptainer image in an interactive job session do the following:
    apptainer shell /dev/shm/${USER}/myapptainer.sif                               # expected to work
    apptainer shell --fakeroot /dev/shm/${USER}/myapptainer.sif                    # not expected to work
 
+.. todo:: the ``--fakeroot`` limitations above are a configuration gap on the build
+    nodes rather than something inherent to apptainer, and they should be revisited
+    once the nodes are fixed. Two things are missing (checked on ``onode27``):
+
+    - the ``fuse3`` package is not installed, so there is no ``fusermount3`` binary
+      (only ``fuse3-libs`` is present). This is what makes ``--fakeroot`` on a
+      *sandbox* fail with ``failed to exec fusermount3``.
+    - no user accounts have ranges in ``/etc/subuid`` and ``/etc/subgid``, so
+      apptainer reports ``User not listed in /etc/subuid, trying root-mapped
+      namespace`` and falls back to a weaker mode instead of real fakeroot. That
+      fallback is the likely reason the ``.sif`` mount then fails with
+      ``Operation not permitted``.
+
+    Unprivileged user namespaces are already enabled and ``/dev/fuse`` is readable
+    by the ``users`` group, so nothing else is in the way. Once ``fuse3`` is
+    installed and subuid/subgid ranges are added, re-test all four commands: the
+    ``--fakeroot`` forms are expected to start working, the last line will no longer
+    be accurate, and the ``--writable`` flag on the second line may no longer be
+    needed.
+
 
 Running Apptainer containers via Slurm
 --------------------------------------
