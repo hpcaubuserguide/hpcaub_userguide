@@ -125,10 +125,10 @@ To run the apptainer image in an interactive job session do the following:
 .. code-block:: bash
 
    module load apptainer
-   apptainer shell /dev/shm/${USER}/myapptainer-sandbox                # expected to work
-   apptainer shell --fakeroot /dev/shm/${USER}/myapptainer-sandbox     # expected to work
-   apptainer shell /dev/shm/${USER}/myapptainer.sif                    # expected to work
-   apptainer shell --fakeroot /dev/shm/${USER}/myapptainer.sif         # not expected to work
+   apptainer shell /dev/shm/${USER}/myapptainer-sandbox                           # expected to work
+   apptainer shell --fakeroot --writable /dev/shm/${USER}/myapptainer-sandbox     # expected to work
+   apptainer shell /dev/shm/${USER}/myapptainer.sif                               # expected to work
+   apptainer shell --fakeroot /dev/shm/${USER}/myapptainer.sif                    # not expected to work
 
 
 Running Apptainer containers via Slurm
