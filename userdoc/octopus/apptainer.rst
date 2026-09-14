@@ -63,61 +63,53 @@ Make a copy of this script and put it in your (e.g) home directory and call it m
 .. note::
 
    if you are confident about your .def file, you can build a .sif image directly. If you want to
-   develop your .def file we recommend building a writable sandbox image first.
+   develop your .def file we recommend building a writable sandbox image first and put that
+   sandbox in /dev/shm.
 
-The ``builder`` partition has a 4-hour maximum time limit; if you don't pass ``--time`` you get a
-2-hour job/session by default, so set ``--time`` explicitly (up to 4 hours) if a build is likely
-to take a while.
-
-**Iterating on your .def file (interactive):**
-
-While you're still developing the ``.def`` file, build a **sandbox** (a plain directory, not a
-single file) in ``/dev/shm`` and shell into it to check the result, repeating as you edit the
-file. Since both the rebuild and the shell session need to land on the *same* node, and you're
-going round the edit/rebuild/check loop repeatedly, do this in one interactive session rather
-than separate batch jobs:
+Before running the commands below, get an interactive session on the ``builder`` partition
+(see :ref:`interactive jobs <interactive_job_octopus_anchor>` for background on interactive
+jobs in general):
 
 .. code-block:: bash
 
    srun --partition=builder --account=abc123 --time=02:00:00 --pty /bin/bash
-   module load apptainer
+
+The ``builder`` partition has a 4-hour maximum time limit; if you don't pass ``--time`` you
+get a 2-hour session by default. Set ``--time`` explicitly (up to 4 hours) if your build is
+likely to take a while.
+
+To create a sandbox image in /dev/shm do the following:
+
+.. code-block:: bash
 
    mkdir -p /dev/shm/${USER}/
-   apptainer build --fakeroot --sandbox /dev/shm/${USER}/myapptainer-sandbox ~/myapptainer.def
-   apptainer shell /dev/shm/${USER}/myapptainer-sandbox
+   ls -l /dev/shm/${USER}/
 
-``/dev/shm`` is node-local RAM-backed storage, so builds land there much faster (~4 GB/s) than on
-shared storage - and since you're going to rebuild it again after the next edit anyway, it not
-surviving past the end of the session doesn't cost you anything. Once you're done, remove it:
+.. warning:: ``/dev/shm`` is node-local storage and is cleared when your job ends, so
+    anything built there is lost once the allocation finishes - this is still the right
+    place to build for the speed it gives you, just make sure to either finish the build
+    within a single interactive session or copy the result (sandbox or ``.sif``) to your
+    home directory or ``/scratch`` before the session ends.
 
-.. code-block:: bash
-
-   rm -rvf /dev/shm/${USER}/myapptainer-sandbox
-
-**Building the final image (batch):**
-
-Once the ``.def`` file is finalized and you no longer need to interactively poke at the result,
-build the ``.sif`` as a batch job instead - nothing about running ``apptainer build`` itself needs
-a terminal. Build it straight to somewhere **persistent**, your home directory or ``/scratch``,
-since that's the artifact you actually want to keep and reuse - not ``/dev/shm``, which disappears
-the moment the job ends.
+Load the apptainer module
 
 .. code-block:: bash
 
-    #!/bin/bash
-    #SBATCH --job-name=apptainer-build
-    #SBATCH --partition=builder
-    #SBATCH --account=abc123
-    #SBATCH --time=02:00:00
+   module load apptainer
+   apptainer --version
 
-    module load apptainer
-    apptainer build --fakeroot ~/myapptainer.sif ~/myapptainer.def
-
-Submit it with:
+To build the image as a sandbox in /dev/shm do the following:
 
 .. code-block:: bash
 
-    sbatch build_image.sh
+    apptainer build --fakeroot --sandbox /dev/shm/${USER}/myapptainer-sandbox myapptainer.def
+
+
+To build the image as a .sif file in /dev/shm do the following:
+
+.. code-block:: bash
+
+    apptainer build --fakeroot /dev/shm/${USER}/myapptainer.sif myapptainer.def
 
 .. note:: you can also build the image on your computer or somewhere else and copy the .sif file
     to octopus and run it.
@@ -125,17 +117,18 @@ Submit it with:
 Running Apptainer Containers
 ----------------------------
 
-Once you have a ``.sif`` file, use it in an interactive job to check it runs as expected before
-using it in production - the image itself can run on any compute node, not just ``builder``.
-This needs ``--pty`` too - ``apptainer shell`` gives you an interactive shell prompt inside the
-container, so it genuinely needs a terminal, unlike the batch build above:
+Once you are happy with the image that you developed you can test running it first on a build node
+or an interactive job session.
+
+To run the apptainer image in an interactive job session do the following:
 
 .. code-block:: bash
 
-   srun --partition=interactive --account=abc123 --time=00:30:00 --pty /bin/bash
    module load apptainer
-   apptainer shell ~/myapptainer.sif                    # expected to work
-   apptainer shell --fakeroot ~/myapptainer.sif         # not expected to work
+   apptainer shell /dev/shm/${USER}/myapptainer-sandbox                # expected to work
+   apptainer shell --fakeroot /dev/shm/${USER}/myapptainer-sandbox     # expected to work
+   apptainer shell /dev/shm/${USER}/myapptainer.sif                    # expected to work
+   apptainer shell --fakeroot /dev/shm/${USER}/myapptainer.sif         # not expected to work
 
 
 Running Apptainer containers via Slurm
