@@ -487,18 +487,29 @@ Evaluate the quantized model on a GPU
 .. code-block:: bash
 
     module load llama.cpp/b3943
-    rsync -PrlHvtpog /scratch/shared/ai/models/llms/mistralai/Mistral-7B-v0.1/mistral-7b-v0.1.Q4_K_M /dev/shm/
+    rsync -PrlHvtpog /scratch/shared/ai/models/llms/hugging_face/mistralai/Mistral-7B-v0.1/mistral-7b-v0.1.Q4_K_M /dev/shm/
     llama-cli -ngl 24 --color --temp 0.7 -n 1 -m /dev/shm/mistral-7b-v0.1.Q4_K_M/mistral-7b-v0.1.Q4_K_M.gguf -p "Building a website can be done in 10 simple steps:\nStep 1:" -n 400 -e
+
+.. note:: ``mistralai`` (used above), ``meta-llama`` and ``inceptionai`` are license-gated
+    namespaces: the directories are only readable by members of a corresponding Unix group
+    (``mistral``, ``llama``, ``inceptionai``). If you are not in the group the ``rsync``
+    above fails with a plain "Permission denied" and no further explanation. Request
+    membership from ``it.helpdesk@aub.edu.lb``.
 
 Use ``-ngl 0`` to keep all layers on the CPU (the process still needs to run on a node
 with the CUDA driver present, since the binary is linked against it) or a higher value
 to offload layers to the GPU; see ``llama-cli --help`` (run on a GPU node) for the full
 list of flags.
 
-.. note:: Multi-host/MPI and per-GPU-model (e.g. separate V100/K20) llama.cpp builds are
-    not currently provided on the cluster; only the single CUDA-enabled ``b3943`` build
-    above is available. If you need a CPU-only or MPI build, please contact
-    ``it.helpdesk@aub.edu.lb``.
+.. note:: The ``llama.cpp/b3943`` module above is the simplest route and covers the common
+    CUDA/GPU case. It is not the only build available: CPU-only and per-GPU-model
+    (e.g. separate V100/K20) builds also exist on the cluster as direct-path binaries
+    under ``/apps/sw/llama.cpp/`` (``amd-avx2``, ``amd-v100-cublas-12``, ``intel-axv``,
+    ``intel-axv-k20-cuda-11``), rather than as Lmod modules. Running one of these directly
+    (e.g. ``/apps/sw/llama.cpp/amd-avx2/bin/main``) typically fails with a
+    ``GLIBCXX_3.4.2x not found`` error unless you first run ``module load gcc/12``. If you
+    need a CPU-only or specific-GPU build, use one of these directly, or contact
+    ``it.helpdesk@aub.edu.lb`` if you are unsure which one fits your case.
 
 Benchmark the quantized model
 """""""""""""""""""""""""""""
