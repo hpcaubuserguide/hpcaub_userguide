@@ -267,31 +267,37 @@ For tensorflow, when the following snippet is executed:
      with tf.Session() as sess:
         devices = sess.list_devices()
 
-the GPU(s) should be displayed in the output (search for ``StreamExecutor device (0): GRID V100D-32Q, Compute Capability 7.0``)
+the GPU(s) should be displayed in the output. Search for a line like
+``StreamExecutor device (0): Tesla V100-PCIE-32GB, Compute Capability 7.0``; the card
+name is whatever ``nvidia-smi -L`` reports on the node you landed on.
 
-The snippet below is trimmed output from an older TensorFlow release (using the
-``tf.Session()`` / ``list_devices()`` API shown above). Newer TensorFlow releases log
-GPU detection differently, so do not worry if your own output does not match this
-line-for-line — the important part is that a GPU with a name like ``GRID V100D-32Q``
-shows up.
+TensorFlow is chatty on start-up - it logs every CUDA library it opens and repeats a
+harmless NUMA warning per device. The output below is trimmed to the lines that matter,
+captured on ``onode11`` with ``python/tensorflow`` (TensorFlow 1.14.0):
 
 .. code-block:: bash
 
-    2019-12-08 01:01:44.211101: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcuda.so.1
-    2019-12-08 01:01:44.247114: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties:
-    name: GRID V100D-32Q major: 7 minor: 0 memoryClockRate(GHz): 1.38
-    2019-12-08 01:01:44.254377: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.1
-    2019-12-08 01:01:44.288733: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10
+    2026-09-15 15:13:32.895976: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties:
+    name: Tesla V100-PCIE-32GB major: 7 minor: 0 memoryClockRate(GHz): 1.38
+    pciBusID: 0000:04:00.0
+    2026-09-15 15:13:32.896326: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 1 with properties:
+    name: Tesla V100-PCIE-32GB major: 7 minor: 0 memoryClockRate(GHz): 1.38
+    pciBusID: 0000:1b:00.0
     ...
-    2019-12-08 01:01:44.734353: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): GRID V100D-32Q, Compute Capability 7.0
+    2026-09-15 15:13:33.571370: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0, 1
+    ...
+    2026-09-15 15:13:33.577946: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): Tesla V100-PCIE-32GB, Compute Capability 7.0
+    2026-09-15 15:13:33.577954: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (1): Tesla V100-PCIE-32GB, Compute Capability 7.0
 
-.. todo:: this snippet (command and output) needs a fresh capture on a current GPU
-    node - it could not be re-run for this pass since no V100 node was free at the
-    time (the ``gpu``/``interactive-gpu`` queues were fully occupied). It is also
-    worth checking whether ``GRID V100D-32Q`` is still the right string to search
-    for: as shown in the ``nvidia-smi`` output above, the cards themselves report
-    as ``Tesla V100-PCIE-32GB``, not ``GRID V100D-32Q`` - that older vGPU-style name
-    may no longer be what TensorFlow logs on this cluster.
+.. note:: the ``Created TensorFlow device ... with N MB memory`` lines report what was
+    still free on the card at that moment, not the card's size. If that number looks
+    small, another job is already using the GPU - check with ``nvidia-smi``.
+
+.. note:: ``module load python/tensorflow`` currently provides TensorFlow 1.14, where
+    ``tf.Session()`` and ``sess.list_devices()`` are the right API. Newer TensorFlow
+    modules are also installed (``python/tensorflow-2.9.1``, ``python/ai-tensorflow-latest``);
+    on those, ``tf.Session()`` no longer exists and the equivalent check is
+    ``tf.config.list_physical_devices('GPU')``.
 
 This snippet can be included at the top of the notebook or python script.
 
