@@ -247,6 +247,14 @@ whatever else is running on the node at the time)
     |                                         |                      |                  N/A |
     +-----------------------------------------+----------------------+----------------------+
 
+    +---------------------------------------------------------------------------------------+
+    | Processes:                                                                            |
+    |  GPU   GI   CI        PID   Type   Process name                            GPU Memory |
+    |        ID   ID                                                             Usage      |
+    |=======================================================================================|
+    |  No running processes found                                                           |
+    +---------------------------------------------------------------------------------------+
+
 This snippet can be included in the job script
 
 **check the deep learning framework backend**
