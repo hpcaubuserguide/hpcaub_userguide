@@ -85,11 +85,12 @@ To create a sandbox image in /dev/shm do the following:
    mkdir -p /dev/shm/${USER}/
    ls -l /dev/shm/${USER}/
 
-.. warning:: ``/dev/shm`` is node-local storage and is cleared when your job ends, so
-    anything built there is lost once the allocation finishes - this is still the right
-    place to build for the speed it gives you, just make sure to either finish the build
-    within a single interactive session or copy the result (sandbox or ``.sif``) to your
-    home directory or ``/scratch`` before the session ends.
+.. warning:: ``/dev/shm`` is RAM (node-local memory-backed storage, not disk) and is
+    cleared when your job ends, so anything built there is lost once the allocation
+    finishes - this is still the right place to build for the speed it gives you (it is
+    RAM, after all), just make sure to either finish the build within a single
+    interactive session or copy the result (sandbox or ``.sif``) to your home directory
+    or ``/scratch`` before the session ends.
 
 Load the apptainer module
 
@@ -157,3 +158,5 @@ Running Apptainer containers via Slurm
 Documentation for running Apptainer containers via Slurm is not yet available. If
 you need help running Apptainer containers via Slurm, please contact the HPC
 support team.
+
+.. todo:: write this section.

@@ -89,7 +89,7 @@ The following job script can be used as a template to submit a job.
 
     #SBATCH --job-name=jupyter-server
     #SBATCH --partition=normal
-    #SBATCH --account=my_account
+    #SBATCH --account=test02
 
     #SBATCH --nodes=1
     #SBATCH --ntasks-per-node=1
