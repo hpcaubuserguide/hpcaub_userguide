@@ -69,6 +69,16 @@ Currently the HPC service provides two main repositories for large language mode
   - hugging face models: ``/scratch/shared/ai/models/llms/hugging_face``
   - ollama models: ``/scratch/shared/ai/models/llms/ollama``
 
+.. note:: some model namespaces are **license-gated** and are not world-readable:
+    ``hugging_face/mistralai``, ``hugging_face/meta-llama`` and
+    ``hugging_face/inceptionai`` are restricted to the Unix groups ``mistral``,
+    ``llama`` and ``inceptionai`` respectively. If you are not in the relevant group,
+    commands that read from these directories fail with ``Permission denied`` and
+    nothing else — the path is correct, you simply do not have access yet. Request
+    membership from ``it.helpdesk@aub.edu.lb``, mentioning which model you need and
+    that you have accepted its upstream licence. Every other namespace (``Qwen``,
+    ``google``, ``tiiaue``, ``CohereForAI``, ``unsloth``, ...) is readable by everyone.
+
 In total 32 Hugging Face models are available in the model library, totalling 2.2 TB, plus
 around 1020 GB of ollama models (44 model:tag combinations).
 
@@ -483,7 +493,7 @@ Evaluate the quantized model on a CPU - non optimized
 .. code-block:: bash
 
     module load gcc/12
-    rsync -PrlHvtpog /scratch/shared/ai/models/llms/mistralai/Mistral-7B-v0.1/mistral-7b-v0.1.Q4_K_M /dev/shm/
+    rsync -PrlHvtpog /scratch/shared/ai/models/llms/hugging_face/mistralai/Mistral-7B-v0.1/mistral-7b-v0.1.Q4_K_M /dev/shm/
     /apps/sw/llama.cpp/amd-avx2/bin/main -t 16 -ngl 24 --color --temp 0.7 -n 1 -m /dev/shm/mistral-7b-v0.1.Q4_K_M/mistral-7b-v0.1.Q4_K_M.gguf -p "Building a website can be done in 10 simple steps:\nStep 1:" -n 400 -e
 
 Evaluate the quantized model on a CPU (optimized)
@@ -493,7 +503,7 @@ Evaluate the quantized model on a CPU (optimized)
 
     module load gcc/12
     module load cuda/12
-    rsync -PrlHvtpog /scratch/shared/ai/models/llms/mistralai/Mistral-7B-v0.1/mistral-7b-v0.1.Q4_K_M /dev/shm/
+    rsync -PrlHvtpog /scratch/shared/ai/models/llms/hugging_face/mistralai/Mistral-7B-v0.1/mistral-7b-v0.1.Q4_K_M /dev/shm/
     /apps/sw/llama.cpp/amd-v100-cublas-12/bin/main -t 8 -ngl 24 --color --temp 0.7 -n 1 -m /dev/shm/mistral-7b-v0.1.Q4_K_M/mistral-7b-v0.1.Q4_K_M.gguf -p "Building a website can be done in 10 simple steps:\nStep 1:" -n 400 -e
 
 Evaluate the quantized model on a CPU across multiple hosts
@@ -706,6 +716,13 @@ steps are done:
 2. Clone and install the llama-recipes repo
 3. Cache the model to ``/dev/shm`` to speed up the loading of the model
 4. Run the fine tuning script
+
+.. todo:: the ``llama-2-7b-hf`` rsync below points at
+    ``/scratch/shared/ai/models/llms/llama/``, which does not exist - the only
+    directories under ``llms/`` are ``hugging_face`` and ``ollama``. The model has most
+    likely moved under ``hugging_face/meta-llama/``, but that namespace is license-gated
+    so the exact directory name could not be confirmed from an account outside the
+    ``llama`` group. Someone with access should correct the path.
 
 .. code-block:: bash
 
