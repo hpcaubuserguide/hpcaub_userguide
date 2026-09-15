@@ -224,28 +224,28 @@ that executes a notebook or a command that runs the training for example:
 
 the expected output should be similar to the following where the Nvidia driver
 version is mentioned in addition to the CUDA toolkit version and some other
-specs of the GPU(s) and the list of GPU processes at the end (in this case none)
+specs of the GPU(s) (memory usage below is trimmed since it will depend on
+whatever else is running on the node at the time)
 
 .. code-block:: bash
 
-    [test02@onode12 ~]$ nvidia-smi
-    Sun Dec  8 00:41:27 2019
-    +-----------------------------------------------------------------------------+
-    | NVIDIA-SMI 430.30       Driver Version: 430.30       CUDA Version: 10.2     |
-    |-------------------------------+----------------------+----------------------+
-    | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
-    | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
-    |===============================+======================+======================|
-    |   0  GRID V100D-32Q      On   | 00000000:02:02.0 Off |                    0 |
-    | N/A   N/A    P0    N/A /  N/A |  31657MiB / 32638MiB |     13%      Default |
-    +-------------------------------+----------------------+----------------------+
-
-    +-----------------------------------------------------------------------------+
-    | Processes:                                                       GPU Memory |
-    |  GPU       PID   Type   Process name                             Usage      |
-    |=============================================================================|
-    |   No running processes found                                                |
-    +-----------------------------------------------------------------------------+
+    [test02@onode11 ~]$ nvidia-smi
+    Tue Sep 15 14:34:44 2026
+    +---------------------------------------------------------------------------------------+
+    | NVIDIA-SMI 535.104.05             Driver Version: 535.104.05   CUDA Version: 12.2     |
+    |-----------------------------------------+----------------------+----------------------+
+    | GPU  Name                 Persistence-M | Bus-Id        Disp.A | Volatile Uncorr. ECC |
+    | Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |
+    |                                         |                      |               MIG M. |
+    |=========================================+======================+======================|
+    |   0  Tesla V100-PCIE-32GB           Off | 00000000:04:00.0 Off |                  Off |
+    | N/A   46C    P0              39W / 250W |      0MiB / 32768MiB |      0%      Default |
+    |                                         |                      |                  N/A |
+    +-----------------------------------------+----------------------+----------------------+
+    |   1  Tesla V100-PCIE-32GB           Off | 00000000:1B:00.0 Off |                  Off |
+    | N/A   44C    P0              37W / 250W |      0MiB / 32768MiB |      0%      Default |
+    |                                         |                      |                  N/A |
+    +-----------------------------------------+----------------------+----------------------+
 
 This snippet can be included in the job script
 
@@ -276,6 +276,14 @@ shows up.
     2019-12-08 01:01:44.288733: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10
     ...
     2019-12-08 01:01:44.734353: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): GRID V100D-32Q, Compute Capability 7.0
+
+.. todo:: this snippet (command and output) needs a fresh capture on a current GPU
+    node - it could not be re-run for this pass since no V100 node was free at the
+    time (the ``gpu``/``interactive-gpu`` queues were fully occupied). It is also
+    worth checking whether ``GRID V100D-32Q`` is still the right string to search
+    for: as shown in the ``nvidia-smi`` output above, the cards themselves report
+    as ``Tesla V100-PCIE-32GB``, not ``GRID V100D-32Q`` - that older vGPU-style name
+    may no longer be what TensorFlow logs on this cluster.
 
 This snippet can be included at the top of the notebook or python script.
 
