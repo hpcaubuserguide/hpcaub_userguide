@@ -25,7 +25,14 @@ terminal:
 .. code-block:: bash
 
     module load abaqus
-    abaqus cae
+    abaqus cae -mesa
+
+.. note:: pass ``-mesa`` when you are working over VNC or noVNC. Without it ``CAE``
+    still opens, but it cannot create an OpenGL drawable on the remote display and
+    floods the terminal with ``failed to create drawable`` while the 3D viewport
+    stays unusable. ``-mesa`` selects software rendering, which works. Note also
+    that ``Ctrl+C`` does not close ``CAE`` and does not release its licence - use
+    **File > Exit**, otherwise the seat stays checked out.
 
 
 Template Abaqus job (batch mode)
