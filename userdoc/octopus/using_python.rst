@@ -68,6 +68,16 @@ to using a browser on the local machine (i.e laptop/desktop/terminal).
 - get the URL with the authentication token from jupyter-${SLURM_JOB_ID}.log and
   use that link (with the token) in your browser
 
+.. todo:: document the hosted JupyterHub at https://jupyterhub.aub.edu.lb and record a
+    short screencast for it. The service works and is linked from this guide's navigation
+    bar (see ``html_theme_options`` in ``conf.py``), but it is described nowhere in the
+    guide, so a reader has no way to know what it is, who may use it, or how it relates to
+    the ``sbatch`` + tunnel workflow documented below. At minimum the new section should
+    cover: that it is reachable only from on campus or over the VPN, how to log in, what
+    resources a hub session gets and how those compare with a job on a compute node, and
+    when to prefer it over the workflow on this page. This is new material rather than a
+    correction, so it belongs in its own branch, pull request and ticket.
+
 Jupyter notebook job on a compute node
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
