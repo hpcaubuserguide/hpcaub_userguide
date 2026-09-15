@@ -15,7 +15,7 @@ commonly used flags. For working example see the :ref:`job scripts examples <oct
 
 - ``#SBATCH --job-name=my_job_name``: Set the name of the job. This will appear
   e.g. when the command ``squeue`` is executed to query the queued or running jobs.
-- ``#SBATCH --account=abc123``: Specify the ID of the project. This number should
+- ``#SBATCH --account=test02``: Specify the ID of the project. This number should
   correspond to the project ID of the service request. Jobs without this flag
   will be rejected.
 - ``#SBATCH --partition=normal``: The name of the partition, a.k.a queue to which
@@ -229,7 +229,7 @@ that run for 1 day each. When the first job finishes, a checkpoint file
      #!/bin/bash
 
      #SBATCH --job-name=my_job_name
-     #SBATCH --account=abc123
+     #SBATCH --account=test02
 
      ## specify the required resources
      #SBATCH --partition=normal
@@ -277,7 +277,7 @@ program from the checkpoint, otherwise run the program and create the checkpoint
      #!/bin/bash
 
      #SBATCH --job-name=my_job_name
-     #SBATCH --account=abc123
+     #SBATCH --account=test02
 
      ## specify the required resources
      #SBATCH --partition=normal

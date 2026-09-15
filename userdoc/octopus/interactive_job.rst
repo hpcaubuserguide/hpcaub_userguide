@@ -90,7 +90,7 @@ job script is also available in ``/home/shared/sample_scripts/slurm_vnc_job/``. 
 
         ## specify the job and project name
         #SBATCH --job-name=my_job_name
-        #SBATCH --account=abc123
+        #SBATCH --account=test02
 
         ## specify the required resources
         #SBATCH --partition=normal
@@ -227,7 +227,7 @@ job script is also available in ``/home/shared/sample_scripts/slurm_vnc_job/``. 
       #!/bin/bash
 
       #SBATCH --job-name=novnc
-      #SBATCH --account=abc123
+      #SBATCH --account=test02
 
       ## specify the required resources
       #SBATCH --partition=normal
