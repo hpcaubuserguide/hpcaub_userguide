@@ -94,7 +94,7 @@ script is also included in ~/.vnc folder. After submitting the job, the
 
         ## specify the job and project name
         #SBATCH --job-name=my_job_name
-        #SBATCH --account=test02
+        #SBATCH --account=abc123
 
         ## specify the required resources
         #SBATCH --partition=normal
@@ -229,7 +229,7 @@ script is also included in ~/.vnc folder. After submitting the job, the
       #!/bin/bash
 
       #SBATCH --job-name=novnc
-      #SBATCH --account=test02
+      #SBATCH --account=abc123
 
       ## specify the required resources
       #SBATCH --partition=normal
