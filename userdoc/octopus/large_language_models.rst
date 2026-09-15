@@ -469,58 +469,68 @@ quantized models are good enough and they outperform the llama7B model)
 Using llama.cpp
 """""""""""""""
 
-This section explains the basics of quantization and how to evaluate such models on a
-GPU using ``llama.cpp``.
+In this section I will explain the basics of quantization and how to evaluate
+such models without any optimization on a CPU. Later in this section I will
+describe and demonstrate how to scale the model evaluation using a single GPU
+and multiple GPUs across several hosts or across multiple mosts using only CPUs
+and compare the performance.
 
 
-.. note:: As of 2026-09-13 only a single llama.cpp build is provided on the cluster:
-    ``llama.cpp/b3943``. It is built with CUDA/cuBLAS support, so it must be run on a
-    GPU node (e.g. via ``srun``/``sbatch`` on the ``gpu`` partition); running it on the
-    head node or a CPU-only node fails with ``error while loading shared libraries:
-    libcuda.so.1``. Loading the module also automatically loads ``gcc/12`` and ``cuda/12``,
-    so those do not need to be loaded separately. The binary formerly called ``main`` in
-    older llama.cpp releases is now called ``llama-cli``.
+Evaluate the quantized model on a CPU - non optimized
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+.. code-block:: bash
+
+    module load gcc/12
+    rsync -PrlHvtpog /scratch/shared/ai/models/llms/mistralai/Mistral-7B-v0.1/mistral-7b-v0.1.Q4_K_M /dev/shm/
+    /apps/sw/llama.cpp/amd-avx2/bin/main -t 16 -ngl 24 --color --temp 0.7 -n 1 -m /dev/shm/mistral-7b-v0.1.Q4_K_M/mistral-7b-v0.1.Q4_K_M.gguf -p "Building a website can be done in 10 simple steps:\nStep 1:" -n 400 -e
+
+Evaluate the quantized model on a CPU (optimized)
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. code-block:: bash
+
+    module load gcc/12
+    module load cuda/12
+    rsync -PrlHvtpog /scratch/shared/ai/models/llms/mistralai/Mistral-7B-v0.1/mistral-7b-v0.1.Q4_K_M /dev/shm/
+    /apps/sw/llama.cpp/amd-v100-cublas-12/bin/main -t 8 -ngl 24 --color --temp 0.7 -n 1 -m /dev/shm/mistral-7b-v0.1.Q4_K_M/mistral-7b-v0.1.Q4_K_M.gguf -p "Building a website can be done in 10 simple steps:\nStep 1:" -n 400 -e
+
+Evaluate the quantized model on a CPU across multiple hosts
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+.. code-block:: bash
+
+    module load llama.cpp/mpi
 
 Evaluate the quantized model on a GPU
 """""""""""""""""""""""""""""""""""""
 
 .. code-block:: bash
 
-    module load llama.cpp/b3943
-    rsync -PrlHvtpog /scratch/shared/ai/models/llms/hugging_face/mistralai/Mistral-7B-v0.1/mistral-7b-v0.1.Q4_K_M /dev/shm/
-    llama-cli -ngl 24 --color --temp 0.7 -n 1 -m /dev/shm/mistral-7b-v0.1.Q4_K_M/mistral-7b-v0.1.Q4_K_M.gguf -p "Building a website can be done in 10 simple steps:\nStep 1:" -n 400 -e
+    module load llama.cpp/gpu-v100
+    ...
 
-.. note:: ``mistralai`` (used above), ``meta-llama`` and ``inceptionai`` are license-gated
-    namespaces: the directories are only readable by members of a corresponding Unix group
-    (``mistral``, ``llama``, ``inceptionai``). If you are not in the group the ``rsync``
-    above fails with a plain "Permission denied" and no further explanation. Request
-    membership from ``it.helpdesk@aub.edu.lb``.
+    module load llama.cpp/gpu-k20
+    ...
 
-Use ``-ngl 0`` to keep all layers on the CPU (the process still needs to run on a node
-with the CUDA driver present, since the binary is linked against it) or a higher value
-to offload layers to the GPU; see ``llama-cli --help`` (run on a GPU node) for the full
-list of flags.
+Evaluate the quantized model across multiple GPUs
+"""""""""""""""""""""""""""""""""""""""""""""""""
 
-.. note:: The ``llama.cpp/b3943`` module above is the simplest route and covers the common
-    CUDA/GPU case. It is not the only build available: CPU-only and per-GPU-model
-    (e.g. separate V100/K20) builds also exist on the cluster as direct-path binaries
-    under ``/apps/sw/llama.cpp/`` (``amd-avx2``, ``amd-v100-cublas-12``, ``intel-axv``,
-    ``intel-axv-k20-cuda-11``), rather than as Lmod modules. Running one of these directly
-    (e.g. ``/apps/sw/llama.cpp/amd-avx2/bin/main``) typically fails with a
-    ``GLIBCXX_3.4.2x not found`` error unless you first run ``module load gcc/12``. If you
-    need a CPU-only or specific-GPU build, use one of these directly, or contact
-    ``it.helpdesk@aub.edu.lb`` if you are unsure which one fits your case.
+.. code-block:: bash
+
+    module load llama.cpp/gpu-v100-mpi
+    ...
+
+    module load llama.cpp/gpu-k20-mpi
+    ...
 
 Benchmark the quantized model
 """""""""""""""""""""""""""""
 
-After ``module load llama.cpp/b3943`` (on a GPU node), ``llama-bench`` is available on the
-``PATH``. The example transcript below is from an older llama.cpp release and is kept for
-illustration; exact log lines (e.g. the CUDA init banner) may differ with ``b3943``.
-
 .. code-block:: bash
 
-    [test01@onode12 work]$ llama-bench -m /dev/shm/mistral-7b-v0.1.Q4_K_M/mistral-7b-v0.1.Q4_K_M.gguf
+    [test01@onode12 work]$ /apps/sw/llama.cpp/amd-v100-cublas-12/bin/llama-bench -m /dev/shm/mistral-7b-v0.1.Q4_K_M/mistral-7b-v0.1.Q4_K_M.gguf
     ggml_init_cublas: GGML_CUDA_FORCE_MMQ:   no
     ggml_init_cublas: CUDA_USE_TENSOR_CORES: yes
     ggml_init_cublas: found 1 CUDA devices:
@@ -568,7 +578,7 @@ It is possible to fine tune quantized models using unsloth up to 70B using two V
 Smaller models can be executed on one V100 GPU.
 In order to use unsloth a singularity container has been prepared and it works out of the box.
 
-The official unsloth documentation can be found here: https://unsloth.ai/docs
+The official unsloth documentation can be found here: https://docs.unsloth.ai/
 
 The procudure of running the fine tuning is as follows:
 
@@ -643,7 +653,7 @@ The expected output should look something like this (the output below is trimmed
        \\   /|    Tesla V100-PCIE-32GB. Num GPUs = 2. Max memory: 31.739 GB. Platform: Linux.
     O^O/ \_/ \    Torch: 2.6.0+cu124. CUDA: 7.0. CUDA Toolkit: 12.4. Triton: 3.2.0
     \        /    Bfloat16 = FALSE. FA [Xformers = 0.0.29.post3. FA2 = False]
-     "-____-"     Free license: https://github.com/unslothai/unsloth
+     "-____-"     Free license: http://github.com/unslothai/unsloth
     Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
     Loading checkpoint shards: 100%|██████████| 6/6 [00:17<00:00,  2.95s/it]
     Unsloth 2025.3.9 patched 80 layers with 80 QKV layers, 80 O layers and 80 MLP layers.
@@ -682,7 +692,7 @@ The following pre-requisites are required to fine tune the llama2 7B model:
 
 - The facebook llama-recipes repo (already installed on ``octopus``)
 - The LLaMA 7B HF model (email it.helpdesk@aub.edu.lb to request access by
-  presenting a copy of your signed agreement https://www.llama.com/llama-downloads/
+  presenting a copy of your signed agreement https://llama.meta.com/llama-downloads/
   or place your own copy in the right location - see below).
 - A python environment with the right requirements (already installed on
   ``octopus``)
@@ -949,3 +959,9 @@ Quantizing models
 -----------------
 
 .. todo:: add notes here
+
+.. todo:: this section ("Using llama.cpp" onward - quantization, evaluation,
+    benchmarking, fine-tuning) was reverted to the version on ``main`` and needs to
+    be brought up to date: verified module names/paths, the license-gating note,
+    and the fixed llama.cpp build note that were previously here should be
+    reapplied once this section is rewritten properly.
