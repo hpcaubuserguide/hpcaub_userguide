@@ -24,10 +24,7 @@ and shown in the matlab workspace on the client. For this use case, the user
 does not have to login (or interact) with the HPC cluster.
 
 .. note:: this section of the guide has been tested with Matlab 2019b
- make sure you have the same version on the client machine. ``matlab/2020b`` and
- ``matlab/2021b`` are also available on the cluster if you need a newer version, but
- the client-side setup below (settings bundle, screenshots) has only been verified
- against 2019b.
+ make sure you have the same version on the client machine.
 
 .. note:: The Slurm integration plugin below is now obtained directly from MathWorks
  upstream (see Pre-requisites). Its folder layout differs from an older bundled
@@ -37,6 +34,15 @@ does not have to login (or interact) with the HPC cluster.
 
 .. note:: Multiple such parallel configuration can co-exist and can be selected
  at runtime.
+
+.. todo:: this page was reverted to the version on ``main`` except for the
+    Slurm-plugin note and setup steps above. It needs another pass: the compute-node
+    job scripts further down still load ``matlab/2018b`` even though this page's
+    tested/documented client setup is 2019b (also the cluster's current default);
+    ``matlab/2020b`` and ``matlab/2021b`` are also available and worth mentioning;
+    and a command-line alternative to the Cluster Profile Manager dialogs
+    (``parallel.cluster.Generic`` set up directly) is worth adding back, since some
+    of the Cluster Profile Manager screenshots on this page are hard to reproduce.
  
 Setting up a Matlab 2019b client
 ++++++++++++++++++++++++++++++++
@@ -104,55 +110,9 @@ Pre-requisites:
 
   .. figure:: imgs/matlab/2019b/screenshots/matlab_screenshot_validation.png
      :width: 1204px
-     :height: 360px
+     :height: 360px 
      :scale: 100 %
      :alt:
-
-Configuring the cluster profile from the command line
-+++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-Everything above can also be done without the dialogs, by creating and configuring the
-``Generic`` cluster object directly in the MATLAB command window. This is equivalent to
-importing and editing ``octopus.mlsettings`` through the GUI — it is not a different setup,
-just a different way to reach the same profile — and has the advantage that the commands
-below stay valid across MATLAB releases even if the Cluster Profile Manager dialogs change.
-
-.. code-block:: matlab
-
-    c = parallel.cluster.Generic( ...
-        'JobStorageLocation', 'C:\MatlabJobs', ...
-        'ClusterMatlabRoot', '/apps/sw/matlab/matlab2019b', ...
-        'OperatingSystem', 'unix', ...
-        'HasSharedFilesystem', false, ...
-        'PluginScriptsLocation', 'C:\Users\<user>\Documents\MATLAB\matlab-parallel-slurm-plugin');
-
-    c.AdditionalProperties.ClusterHost = 'octopus.aub.edu.lb';
-    c.AdditionalProperties.RemoteJobStorageLocation = '/home/<user>';
-    c.AdditionalProperties.AdditionalSubmitArgs = '--partition=normal';
-
-    saveAsProfile(c, 'octopus');
-
-``ClusterMatlabRoot`` above is the real path to the MATLAB 2019b install on Octopus, not a
-placeholder. Replace ``<user>`` with your own HPC username in both
-``PluginScriptsLocation`` and ``RemoteJobStorageLocation``, and point
-``JobStorageLocation``/``PluginScriptsLocation`` at wherever those exist on your own client
-machine.
-
-.. note:: The number of workers a job can use (``c.NumWorkers``) depends on what your MATLAB
-    license allows — this could not be established from the cluster side, so no value is set
-    here. Check your own license, or set it once you know, rather than copying a number from
-    this page.
-
-.. note:: If the folder you use for ``JobStorageLocation`` happens to sit on a network share
-    that is also visible from the cluster side (not the case for the SFTP-based
-    ``RemoteJobStorageLocation`` setup above, but relevant if your own setup differs),
-    upstream documents specifying it as a structure instead of a plain path, e.g. if your
-    Windows ``M:`` drive maps to ``\\organization\matlabjobs``:
-
-    .. code-block:: matlab
-
-        c.JobStorageLocation = struct('windows', 'M:\jobstorage', ...
-                                       'unix', '/organization/matlabjobs/jobstorage');
 
 Client batch job example
 ++++++++++++++++++++++++
@@ -237,7 +197,7 @@ running the matlab script ``my_serial_script.m``.
      #SBATCH --mem=16000
      #SBATCH --time=0-01:00:00
 
-     module load matlab/2019b
+     module load matlab/2018b
 
      matlab -nodisplay -r "run('my_smp_script.m'); exit" > matlab_${SLURM_JOBID}.out
 
@@ -296,7 +256,7 @@ running the matlab script ``my_smp_script.m``.
      #SBATCH --mem=16000
      #SBATCH --time=0-01:00:00
 
-     module load matlab/2019b
+     module load matlab/2018b
 
      matlab -nodisplay -r "run('my_smp_script.m'); exit" > matlab_${SLURM_JOBID}.out
 
