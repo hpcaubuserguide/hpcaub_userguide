@@ -397,7 +397,7 @@ The job script is the following:
     #!/bin/bash
 
     #SBATCH --job-name=eval-mistral
-    #SBATCH --account=abc123
+    #SBATCH --account=test02
 
     #SBATCH --partition=gpu
     #SBATCH --nodes=1
@@ -806,7 +806,7 @@ home directory and executed as follows (change test04 with your username):
     #!/bin/bash
 
     #SBATCH --job-name=llama7b-finetune
-    #SBATCH --account=test04
+    #SBATCH --account=test02
 
     #SBATCH --partition=msfea-ai
     #SBATCH --nodes=1

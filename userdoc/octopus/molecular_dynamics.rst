@@ -16,7 +16,7 @@ LAMMPS
     #SBATCH --cpus-per-task=1
     #SBATCH --mem=8000
     #SBATCH --time=0-01:00:00
-    #SBATCH --account=foo_project
+    #SBATCH --account=test02
 
     ## load modules here
 
@@ -38,7 +38,7 @@ GROMACS
     #SBATCH --cpus-per-task=1
     #SBATCH --mem=8000
     #SBATCH --time=0-01:00:00
-    #SBATCH --account=foo_project
+    #SBATCH --account=test02
 
     ## load modules here
 
@@ -60,7 +60,7 @@ HOOMD
     #SBATCH --cpus-per-task=1
     #SBATCH --mem=8000
     #SBATCH --time=0-01:00:00
-    #SBATCH --account=foo_project
+    #SBATCH --account=test02
 
     ## load modules here
 

@@ -160,7 +160,7 @@ are saved and no resources or gpu would be needed to view the results.
     #SBATCH --cpus-per-task=1
     #SBATCH --mem=8000
     #SBATCH --time=0-01:00:00
-    #SBATCH --account=foo_project
+    #SBATCH --account=test02
 
     ## load modules here
     module load python/3

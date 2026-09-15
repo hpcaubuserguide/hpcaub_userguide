@@ -47,7 +47,7 @@ one compute node.
 
    ## specify the job and project name
    #SBATCH --job-name=abaqus
-   #SBATCH --account=ab123
+   #SBATCH --account=test02
 
    ## specify the required resources
    #SBATCH --partition=normal
@@ -95,7 +95,7 @@ After the job is executed ``MPI`` must be selected in the the ``ABAQUS`` job in 
 
    ## specify the job and project name
    #SBATCH --job-name=abaqus
-   #SBATCH --account=ab123
+   #SBATCH --account=test02
 
    ## specify the required resources
    #SBATCH --partition=large

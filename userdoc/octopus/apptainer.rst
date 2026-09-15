@@ -72,7 +72,7 @@ jobs in general):
 
 .. code-block:: bash
 
-   srun --partition=builder --account=abc123 --time=02:00:00 --pty /bin/bash
+   srun --partition=builder --account=test02 --time=02:00:00 --pty /bin/bash
 
 The ``builder`` partition has a 4-hour maximum time limit; if you don't pass ``--time`` you
 get a 2-hour session by default. Set ``--time`` explicitly (up to 4 hours) if your build is
