@@ -23,6 +23,14 @@ Useful ``module`` commands
   - ``module rm foo``: to unload the package ``foo`` 
   - ``module purge``: to unload all the loaded packages
 
+The following screencast contrasts the two ways of searching - ``module avail
+<pattern>``, which matches anywhere in a name, against ``module spider <name>``, which
+lists one package's versions - then loads a module, verifies it took with ``which``, and
+unloads it again.
+
+.. youtube:: Im7zT9FwFEg
+   :width: 100%
+
 For detailed information on the usage of ``module`` check the man pages
 
 .. code-block:: bash

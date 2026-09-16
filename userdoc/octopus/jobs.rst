@@ -96,6 +96,20 @@ multi-host GPU job
 Batch job submission and monitoring procedure
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+The following screencast follows a job from submission to completion: ``sbatch``, then
+watching it in the queue with ``squeue`` as it moves from pending to running, and
+reading its output file as the job writes to it.
+
+.. youtube:: OS0Ntmhipds
+   :width: 100%
+
+The following screencast walks through a first job end to end: logging in, writing a job
+script, submitting it with ``sbatch``, watching it in the queue with ``squeue`` and
+reading its output file.
+
+.. youtube:: MdsASV5Wnkw
+   :width: 100%
+
 - submit the job script using SLURM
 
   .. code-block:: bash

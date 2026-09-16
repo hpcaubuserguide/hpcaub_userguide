@@ -79,7 +79,12 @@ execute the following command in a terminal on you machine:
 .. note:: this same process can be done on windows also from the command line
  assuming that you already have openssh installed. (e.g using ``msys2``)
 
-<`screencast <https://mailaub-my.sharepoint.com/:v:/g/personal/mk250_aub_edu_lb/EWg5ybylXRpHhMCuMk6w8i4BaqSskOoZPl_CvQ4xbFs5yA?e=KaKaX8>`_>
+The following screencast walks through the whole workflow end to end: generating an
+ed25519 key pair, copying the public key to the cluster with ``ssh-copy-id`` and logging
+in with the key.
+
+.. youtube:: tNJReTNMiy0
+   :width: 100%
 
 on windwows using mobaxterm
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -163,3 +168,10 @@ will be using them in what follows:
         + https://blog.mobatek.net/post/ssh-tunnels-and-port-forwarding/
         + https://mobaxterm.mobatek.net/documentation.html#2_1_5
   - contact it.helpdesk and mention ``HPC getting connected``
+
+The following screencast walks through a local port forward end to end: serving a page on
+the head node, failing to reach it from your machine, opening the tunnel with ``ssh -L``
+and reaching the page through it.
+
+.. youtube:: p06j42LLfQo
+   :width: 100%

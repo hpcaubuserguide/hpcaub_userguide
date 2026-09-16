@@ -112,6 +112,13 @@ the local machine and the HPC cluster. It is a free tool that can be downloaded 
 the `here <https://filezilla-project.org/>`_. The portable version that does not require administrator
 right for windows is available `here <https://portableapps.com/apps/internet/filezilla_portable>`_.
 
+The following screencast walks through a transfer end to end: connecting to Octopus over
+``sftp://``, uploading a file by dragging it to the remote side and downloading a file
+back to the local machine.
+
+.. youtube:: 958J7yNNYaE
+   :width: 100%
+
 mobaxterm
 +++++++++
 .. _mobaxterm
