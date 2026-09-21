@@ -90,6 +90,11 @@ Users are further advised to:
   and footer above give the total for a run; a per-step breakdown shows which
   step dominates, that is the step worth optimising and the number that should
   drive ``--time``.
+- before committing to a large run, build a minimal test case that exercises
+  the whole workflow on small or even deliberately wrong input. It does not
+  have to produce correct results; it has to prove that every step runs and
+  hands off to the next one. A job that fails on its last step after two days
+  is an expensive way to discover a typo.
 
 Job scripts examples
 ^^^^^^^^^^^^^^^^^^^^
