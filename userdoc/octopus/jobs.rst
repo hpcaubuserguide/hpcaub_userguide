@@ -37,6 +37,49 @@ commontly used flags. For working example see the :ref:`job scripts examples <oc
 - ``#SBATCH --mail-user=abc123@aub.edu.lb``: The email address to which the job
   notification emails are sent.
 
+.. _octopus_job_script_conventions:
+
+Job script conventions
+^^^^^^^^^^^^^^^^^^^^^^
+
+Job scripts should be saved as ``.sh`` files and based on the template job
+script above or one of the :ref:`job scripts examples <octopus_jobs_examples>`
+below. Every job script should also include a short header and footer around
+the actual commands of the job:
+
+- **header**: placed right after the ``#SBATCH`` flags, it logs the date and
+  time the job started and runs ``srun hostname`` to log the name of the
+  node(s) the job landed on (one line per task).
+- **footer**: placed at the very end of the script, it logs the date and time
+  the job ended.
+
+.. code-block:: bash
+
+    ## header: log the start date and the node(s) the job landed on
+    echo "job started on: $(date)"
+    srun hostname
+
+    #
+    # add your command here
+    #
+
+    ## footer: log the end date
+    echo "job ended on: $(date)"
+
+All of these lines are written to the output file of the job (e.g
+``slurm-<jobid>.out``), right next to the output of the program. This matters
+because:
+
+- when a job fails or behaves unexpectedly, you and the support team can tell
+  from the output file alone which node(s) the job ran on, which helps to
+  spot a problem that is specific to a node.
+- the start and end dates show how long each run actually took, which helps
+  to debug slow runs and to size the ``--time`` (and other resources) of
+  future jobs instead of guessing.
+
+Please keep the header and footer in your job scripts and include the output
+file of the job when contacting it.helpdesk@aub.edu.lb about a job.
+
 Job scripts examples
 ^^^^^^^^^^^^^^^^^^^^
 

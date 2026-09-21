@@ -15,7 +15,14 @@
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=abc123@mail.aub.edu
 
+## header: log the start date and the node(s) the job landed on
+echo "job started on: $(date)"
+srun hostname
+
 #
 # add your command here, e.g
 #
 echo "hello world"
+
+## footer: log the end date
+echo "job ended on: $(date)"
