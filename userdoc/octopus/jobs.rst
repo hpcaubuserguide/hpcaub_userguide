@@ -80,6 +80,17 @@ because:
 Please keep the header and footer in your job scripts and include the output
 file of the job when contacting it.helpdesk@aub.edu.lb about a job.
 
+Users are further advised to:
+
+- estimate or measure the size of the intermediate files produced by a single
+  run, and multiply by the number of runs planned. This is what decides whether
+  the work fits in ``/home`` (25 GB) or needs ``/scratch`` (1 TB, and at most
+  1,000,000 files per user).
+- time each step of the workflow and plot the time spent per step. The header
+  and footer above give the total for a run; a per-step breakdown shows which
+  step dominates, that is the step worth optimising and the number that should
+  drive ``--time``.
+
 Job scripts examples
 ^^^^^^^^^^^^^^^^^^^^
 
