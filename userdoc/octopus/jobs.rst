@@ -1,9 +1,9 @@
 Job scripts
 -----------
 
-The following script can be used as a template to exectute some bash commands
+The following script can be used as a template to execute some bash commands
 for a serial or parallel program. This is just a template that has the most
-commontly used flags. For working example see the :ref:`job scripts examples <octopus_jobs_examples>`.
+commonly used flags. For working example see the :ref:`job scripts examples <octopus_jobs_examples>`.
 
 **template job script**
 
@@ -15,7 +15,7 @@ commontly used flags. For working example see the :ref:`job scripts examples <oc
 
 - ``#SBATCH --job-name=my_job_name``: Set the name of the job. This will appear
   e.g. when the command ``squeue`` is executed to query the queued or running jobs.
-- ``#SBATCH --account=abc123``: Specify the ID of the project. This number should
+- ``#SBATCH --account=test02``: Specify the ID of the project. This number should
   correspond to the project ID of the service request. Jobs without this flag
   will be rejected.
 - ``#SBATCH --partition=normal``: The name of the partition, a.k.a queue to which
@@ -32,9 +32,9 @@ commontly used flags. For working example see the :ref:`job scripts examples <oc
 - ``#SBATCH --time=1-00:00:00``: The time limit of the job. When the limit is
   reached, the job is killed by the scheduler. Jobs that do not specify this
   flag will be rejected.
-- ``#SBATCH --mail-type=ALL``: recieve email notification for all stages of a job,
+- ``#SBATCH --mail-type=ALL``: receive email notification for all stages of a job,
   e.g when the job starts and terminates.
-- ``#SBATCH --mail-user=abc123@aub.edu.lb``: The email address to which the job
+- ``#SBATCH --mail-user=abc123@mail.aub.edu``: The email address to which the job
   notification emails are sent.
 
 Job scripts examples
@@ -133,7 +133,8 @@ Batch job submission and monitoring procedure
      $ sp
 
 - After the job is dispatched for executing (starts running), monitor the
-  output by checking the ``.o`` file.
+  output by checking the ``slurm-JOBID.out`` file that is written to the
+  directory from which the job was submitted (unless ``--output`` is set).
 
 For more information on using SLURM, please consult the ``man`` pages:
 
@@ -149,7 +150,7 @@ Interactive terminal jobs
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 For light weight testing and development or debugging jobs it is possible to obtain a
-terminal session on a compute node using an interactive job thruough srun.
+terminal session on a compute node using an interactive job through srun.
 
 The simplest procedure is to use srun as follows:
 
@@ -171,6 +172,12 @@ This command is the alias for:
 
     $ srun --partition=normal -N 1 --ntasks=1 --cpus-per-task=1 --mem=2000 --time=00:30:00 --pty /bin/bash
 
+.. todo:: the ``serial_job`` alias definition shown above has not been verified
+   against the alias defined on the cluster. Check it on the head node from an
+   interactive login shell with ``bash -lic "alias serial_job"`` (aliases are not
+   defined for non-interactive ``ssh`` commands) and update the command and the
+   description above to match.
+
 To allocate a gpu node for interactive use, the following alias can be used:
 
 .. code-block:: bash
@@ -181,7 +188,7 @@ This command is the alias for:
 
 .. code-block:: bash
 
-    $ srun --partition=gpu --nodes=1 --ntasks-per-node=1 --cpus-per-task=4 --gres=gpu:v100d32q:1 --mem=64000 --pty /bin/bash"
+    $ srun --partition=gpu --nodes=1 --ntasks-per-node=1 --cpus-per-task=4 --gres=gpu:v100d32q:1 --mem=64000 --pty /bin/bash
 
 Jobs time limits and checkpoints
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -190,22 +197,27 @@ Jobs time limits and checkpoints
 
 In-order to have fair usage of the resources and the partitions (queues), different
 partitions have different time limits. The maximum time limit for jobs is 3 days.
-Also paritions have different priorities that are necessary for fair usage, for
+Also partitions have different priorities that are necessary for fair usage, for
 example, short jobs have higher priorities than long jobs. When a job reaches
 the time limit that is specified in the job script or the time limit of the
-partition, it is automatically killed and removed the the queue. It is the
+partition, it is automatically killed and removed from the queue. It is the
 responsibility of the user to set the job parameters based on the requirements
 of the job and the available resources.
 
-in all the examples below it is the responsibily of the user to manage writing
+.. todo:: the maximum time limit stated above has not been verified against
+   the current cluster. On the head node, run ``scontrol show partition`` and
+   take the largest ``MaxTime`` among the partitions users can submit to
+   (ignore partitions whose ``AllowGroups`` only allows the ``admin`` group).
+
+in all the examples below it is the responsibility of the user to manage writing
 the checkpoint file and loading it.
 
 Resubmit a job automatically using job arrays
-=============================================
+"""""""""""""""""""""""""""""""""""""""""""""
 
 In the following example, a job array (``#SBATCH --array=1-30%1``) is used to
 indicate that the job should be run as a chain of 30 jobs back to back. Using
-this flow a job can be run for arbitarily long periods, in this case and for
+this flow a job can be run for arbitrarily long periods, in this case and for
 the sake of demonstration, this job runs for 30 days using individual jobs
 that run for 1 day each. When the first job finishes, a checkpoint file
 ``foo.chkp`` is written to the disk and the execution of the next job starts where
@@ -217,7 +229,7 @@ that run for 1 day each. When the first job finishes, a checkpoint file
      #!/bin/bash
 
      #SBATCH --job-name=my_job_name
-     #SBATCH --account=abc123
+     #SBATCH --account=test02
 
      ## specify the required resources
      #SBATCH --partition=normal
@@ -225,7 +237,7 @@ that run for 1 day each. When the first job finishes, a checkpoint file
      #SBATCH --ntasks-per-node=8
      #SBATCH --cpus-per-task=2
      #SBATCH --mem=12000
-     #SBATCH --time=0-01:00:00
+     #SBATCH --time=1-00:00:00
      #SBATCH --array=1-30%1
 
      ## load some modules
@@ -233,7 +245,7 @@ that run for 1 day each. When the first job finishes, a checkpoint file
 
      # start executing the program,
      MY_CHECKPOINT_FILE=foo.chkp
-     if [ -z "${MY_CHECKPOINT_FILE}" ]; then
+     if [ ! -f "${MY_CHECKPOINT_FILE}" ]; then
          # checkpoint file is not found, execute this command
          python train_model_from_scratch.py
      else
@@ -242,16 +254,16 @@ that run for 1 day each. When the first job finishes, a checkpoint file
      fi
 
 Each job in the job array will have its own ``.out`` file suffixed with the job
-array index, e.g ``my_slurm_30.out``.
+array index, e.g ``slurm-123456_30.out``.
 
 resubmit a job automatically using job dependencies
-===================================================
+"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 The main difference between using job dependencies and job array is that
-using dependencies the job will be resubmitted infinit times until the user
+using dependencies the job will be resubmitted infinite times until the user
 decides to cancel the automatic re-submission.
 
-.. warning:: It is important to include a wait time of a few minuites (e.g 5 min)
+.. warning:: It is important to include a wait time of a few minutes (e.g 5 min)
  so that the scheduler will not be overloaded by the recursive resubmission of
  jobs in case something goes wrong.
 
@@ -265,7 +277,7 @@ program from the checkpoint, otherwise run the program and create the checkpoint
      #!/bin/bash
 
      #SBATCH --job-name=my_job_name
-     #SBATCH --account=abc123
+     #SBATCH --account=test02
 
      ## specify the required resources
      #SBATCH --partition=normal
@@ -275,13 +287,13 @@ program from the checkpoint, otherwise run the program and create the checkpoint
      #SBATCH --mem=12000
      #SBATCH --time=0-01:00:00
 
-     ## submit the dependency that will start after the current job finishes
+     ## submit the dependency that will start after the current job finishes successfully
      sbatch --dependency=afterok:${SLURM_JOBID} job.sh
      sleep 300
 
      # start executing the program,
      MY_CHECKPOINT_FILE=foo.chkp
-     if [ -z "${MY_CHECKPOINT_FILE}" ]; then
+     if [ ! -f "${MY_CHECKPOINT_FILE}" ]; then
          # checkpoint file is not found, execute this command
          python train_model_from_scratch.py
      else
