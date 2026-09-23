@@ -37,6 +37,65 @@ commonly used flags. For working example see the :ref:`job scripts examples <oct
 - ``#SBATCH --mail-user=abc123@mail.aub.edu``: The email address to which the job
   notification emails are sent.
 
+.. _octopus_job_script_conventions:
+
+Job script conventions
+^^^^^^^^^^^^^^^^^^^^^^
+
+Job scripts should be saved as ``.sh`` files and based on the template job
+script above or one of the :ref:`job scripts examples <octopus_jobs_examples>`
+below. Every job script should also include a short header and footer around
+the actual commands of the job:
+
+- **header**: placed right after the ``#SBATCH`` flags, it logs the date and
+  time the job started and runs ``srun hostname`` to log the name of the
+  node(s) the job landed on (one line per task).
+- **footer**: placed at the very end of the script, it logs the date and time
+  the job ended.
+
+.. code-block:: bash
+
+    ## header: log the start date and the node(s) the job landed on
+    echo "job started on: $(date)"
+    srun hostname
+
+    #
+    # add your command here
+    #
+
+    ## footer: log the end date
+    echo "job ended on: $(date)"
+
+All of these lines are written to the output file of the job (e.g
+``slurm-<jobid>.out``), right next to the output of the program. This matters
+because:
+
+- when a job fails or behaves unexpectedly, you and the support team can tell
+  from the output file alone which node(s) the job ran on, which helps to
+  spot a problem that is specific to a node.
+- the start and end dates show how long each run actually took, which helps
+  to debug slow runs and to size the ``--time`` (and other resources) of
+  future jobs instead of guessing.
+
+Please keep the header and footer in your job scripts and include the output
+file of the job when contacting it.helpdesk@aub.edu.lb about a job.
+
+Users are further advised to:
+
+- estimate or measure the size of the intermediate files produced by a single
+  run, and multiply by the number of runs planned. This is what decides whether
+  the work fits in ``/home`` (25 GB) or needs ``/scratch`` (1 TB, and at most
+  1,000,000 files per user).
+- time each step of the workflow and plot the time spent per step. The header
+  and footer above give the total for a run; a per-step breakdown shows which
+  step dominates, that is the step worth optimising and the number that should
+  drive ``--time``.
+- before committing to a large run, build a minimal test case that exercises
+  the whole workflow on small or even deliberately wrong input. It does not
+  have to produce correct results; it has to prove that every step runs and
+  hands off to the next one. A job that fails on its last step after two days
+  is an expensive way to discover a typo.
+
 Job scripts examples
 ^^^^^^^^^^^^^^^^^^^^
 
