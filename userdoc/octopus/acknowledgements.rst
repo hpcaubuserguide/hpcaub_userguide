@@ -7,5 +7,6 @@ following acknowledgment:
 
 .. code-block:: text
 
-    This project has been supported by AUB's IT's Research computing team where
-    the simulations were run on the HPC cluster Octopus.
+    This project has been supported by AUB's Research Computing Center (RCC),
+    under the School of Computing and Data Science (SCDS), where the simulations
+    were run on the HPC cluster Octopus.
