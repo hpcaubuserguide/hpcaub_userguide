@@ -67,7 +67,7 @@ execute the following command in a terminal on your machine:
    my machine> chmod 700 ~/.ssh
 
    # generate an ed25519 key pair
-   my machine> ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519
+   my machine> ssh-keygen -t ed25519 -a 100 -f ~/.ssh/id_ed25519
 
 .. warning:: this will overwrite any keys that already exist. You can specify
  a new identity name using the ``-f my_output_keyfile``
