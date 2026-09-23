@@ -8,7 +8,7 @@ CST GUI:
 
 .. code-block:: bash
 
-     module load cst/2019
+     module load cst/2022
      cst_design_environment_gui
 
 The license server is:
