@@ -18,6 +18,12 @@ Useful ``module`` commands
 ==========================
 
   - ``module avail``: display the available packages that can be loaded
+  - ``module avail foo``: filter that listing to packages whose name contains ``foo``
+    (e.g. ``module avail cuda`` also matches ``cudnn``, ``nvshmem``, etc. - anything
+    with ``cuda`` in the name, not just the ``cuda`` package itself)
+  - ``module spider foo``: search for a specific package by name and list its
+    available versions (e.g. ``module spider gcc``); more targeted than
+    ``module avail foo``, which matches the pattern anywhere in the name
   - ``module list``: lists the loaded packages
   - ``module load foo``: to load the package ``foo``
   - ``module rm foo``: to unload the package ``foo`` 

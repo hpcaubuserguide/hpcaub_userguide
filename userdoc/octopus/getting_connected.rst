@@ -6,7 +6,7 @@ Connecting to a terminal
 ========================
 
 When on the AUB network (also valid when connected through the VPN service
-https://servicedesk.aub.edu.lb/TDClient/Requests/ServiceDet?ID=29740 ),
+https://servicedesk.aub.edu.lb/TDClient/1398/Portal/Requests/Service/29740/Secure-Socket-Layer-Virtual-Private-Network-SSL-VPN ),
 any of the following methods can be used to login to the head node of the cluster.
 
 .. code-block:: bash
@@ -14,9 +14,8 @@ any of the following methods can be used to login to the head node of the cluste
     ssh my_user_name@octopus.aub.edu.lb   # preferred
     ssh my_user_name@ohead1.aub.edu.lb    # optional  (not recommended)
     ssh my_user_name@ohead2.aub.edu.lb    # optional  (not recommended)
-    ssh my_user_name@192.168.137.23       # last resort (if all of the above do not work)
 
-TIP: Passwordless login can be set up to avoid typing the password everytime and
+TIP: Passwordless login can be set up to avoid typing the password every time and
      is safer than saving the password in the ssh client or re-typing it.
 
 .. warning:: SECURITY: make sure to change your account password after the
@@ -32,7 +31,7 @@ Any of the following can be used to connect to Octopus:
 
    - native ssh on linux or mac (recommended)
    - `msys2 <https://www.msys2.org>`_ (recommended on windows) [execute ``pacman -S openssh rsync``]
-   - `mobaxterm <https://mobaxterm.mobatek.net>`_ (most user freindly) [install the portable version]
+   - `mobaxterm <https://mobaxterm.mobatek.net>`_ (most user friendly) [install the portable version]
    - winscp: https://winscp.net/eng/index.php
    - putty: https://putty.org/
 
@@ -42,7 +41,7 @@ Generating a ssh private-public key pair
 
 SSH keys can be used to authenticate yourself to login to the cluster. This is
 the recommended method and is more secure than typing in password or saving
-the passowrd in the ssh client (e.g putty). The generated key pair will allow
+the password in the ssh client (e.g putty). The generated key pair will allow
 you to login to the cluster from your local machine.
 
 
@@ -54,15 +53,12 @@ you to login to the cluster from your local machine.
 on linux and mac
 ^^^^^^^^^^^^^^^^
 
-To generate the key files:
+The key pair consists of two files:
 
-.. code-block:: bash
+   - public key : ``~/.ssh/id_ed25519.pub``
+   - private key: ``~/.ssh/id_ed25519``
 
-
-   - public key : ``~/.ssh/id_rsa.pub``
-   - private key: ``~/.ssh/id_rsa``
-
-execute the following command in a terminal on you machine:
+execute the following command in a terminal on your machine:
 
 .. code-block:: bash
 
@@ -70,11 +66,11 @@ execute the following command in a terminal on you machine:
    my machine> mkdir -p ~/.ssh
    my machine> chmod 700 ~/.ssh
 
-    # first generate an ssh key on A
-    my machine> ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa
+   # generate an ed25519 key pair
+   my machine> ssh-keygen -t ed25519 -a 100 -f ~/.ssh/id_ed25519
 
 .. warning:: this will overwrite any keys that already exist. You can specify
- a new identity name using the ``-f my_ouptut_keyfie``
+ a new identity name using the ``-f my_output_keyfile``
 
 .. note:: this same process can be done on windows also from the command line
  assuming that you already have openssh installed. (e.g using ``msys2``)
@@ -86,11 +82,15 @@ in with the key.
 .. youtube:: tNJReTNMiy0
    :width: 100%
 
-on windwows using mobaxterm
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+on windows using mobaxterm
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ``Mobaxterm`` can be used to generate a ssh private-public key pair.
-<`screencast <http://website.aub.edu.lb/it/hpc/SiteAssets/Pages/faq/generate_ssh_public_private_key_pair_mobaxterm_windows_and_enable_passwordless_login.mp4>`_>
+`screencast <http://website.aub.edu.lb/it/hpc/SiteAssets/Pages/faq/generate_ssh_public_private_key_pair_mobaxterm_windows_and_enable_passwordless_login.mp4>`__
+
+.. todo:: review this MobaXterm screencast (it is also linked in the login
+   section below) and update or re-record it if it no longer matches the
+   current MobaXterm version or the steps on this page.
 
 Login to the HPC cluster using a ssh public key
 ===============================================
@@ -106,18 +106,22 @@ used.
 
 .. code-block:: bash
 
-    $ ssh-copy-id -i id_rsa john@octopus.aub.edu.lb
+    $ ssh-copy-id -i ~/.ssh/id_ed25519.pub test02@octopus.aub.edu.lb
 
 To test if the key has been added correctly:
 
 .. code-block:: bash
 
-    $ ssh -i ~/.ssh/id_rsa john@octopus.aub.edu.lb
+    $ ssh -i ~/.ssh/id_ed25519 test02@octopus.aub.edu.lb
 
-<`screencast <http://website.aub.edu.lb/it/hpc/SiteAssets/Pages/faq/login_with_ssh_key_linux.mp4>`_>
+`screencast <http://website.aub.edu.lb/it/hpc/SiteAssets/Pages/faq/login_with_ssh_key_linux.mp4>`__
 
-on windows using mobaxterm
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. todo:: review this screencast of logging in with an ssh key on linux and
+   re-record it if it no longer matches the steps above (ed25519 key,
+   ``ssh-copy-id -i ~/.ssh/id_ed25519.pub``).
+
+on windows with mobaxterm
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The second part of the following `screencast <http://website.aub.edu.lb/it/hpc/SiteAssets/Pages/faq/generate_ssh_public_private_key_pair_mobaxterm_windows_and_enable_passwordless_login.mp4>`_ covers using mobaxterm and a ssh
 identity to log in without a password.
@@ -134,12 +138,12 @@ In this section the procedure for creating a VNC session on the head node is des
 .. note::
 
    VNC session on the head node should be restricted for non-compute or memory or input/output
-   intensive tasks. For demanding interative work with a desktop environment use the job script
+   intensive tasks. For demanding interactive work with a desktop environment use the job script
    for running a VNC server on a :ref:`compute node <interactive_job_octopus_anchor>` that has
-   signifincantly more resources than the head node and significantly more rendering power on
+   significantly more resources than the head node and significantly more rendering power on
    the GPU nodes.
 
-VNC session are not needed for command line work or for running batch batch.
+VNC session are not needed for command line work or for running batch jobs.
 
 VNC clients
 ^^^^^^^^^^^
@@ -151,7 +155,7 @@ are several flavours and clients of VNC. We recommend the following:
    - TigerVNC: https://wiki.archlinux.org/title/TigerVNC                 (easy-advanced)
 
 TigerVNC can be easily installed on most linux operating systems. RealVNC
-is more user freindly and is available for most common operating systems.
+is more user friendly and is available for most common operating systems.
 
 Creating SSH tunnels
 ====================
@@ -175,3 +179,74 @@ and reaching the page through it.
 
 .. youtube:: p06j42LLfQo
    :width: 100%
+
+Example: reaching a port on the cluster from your machine
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The following example uses two terminals. In the first one, log in to the
+cluster and start a small web server on port ``8765``. Binding it to
+``127.0.0.1`` means it only accepts connections from the head node itself, so it
+cannot be reached directly from your machine. The server exposes every file in the
+directory it is started in to anyone who can connect, including other users logged
+in to the head node, so start it in a directory created just for this demo (with
+``cd``, because the Python 3.6 on the head node has no ``--directory`` option).
+The ``index.html`` file gives the server something recognisable to return:
+
+.. code-block:: bash
+
+    # terminal 1: log in to the cluster, then start the web server there
+    $ ssh test02@octopus.aub.edu.lb
+    $ mkdir -p ~/tunnel-demo && cd ~/tunnel-demo
+    $ echo "Hello from Octopus" > index.html
+    $ python3 -m http.server 8765 --bind 127.0.0.1
+
+In a second terminal on your own machine, nothing is listening on port ``8765``
+yet, so the request fails:
+
+.. code-block:: bash
+
+    # terminal 2: on your machine
+    $ curl http://localhost:8765
+    curl: (7) Failed to connect to localhost port 8765: Connection refused
+
+Now open the tunnel in a third terminal. It stays in the foreground and prints
+nothing at all while it is working:
+
+.. code-block:: bash
+
+    # terminal 3: on your machine
+    $ ssh -N -L 8765:localhost:8765 test02@octopus.aub.edu.lb
+
+Leave that terminal alone and go back to the second one. Repeating the request
+now prints the page served by the web server on the cluster:
+
+.. code-block:: bash
+
+    # terminal 2: on your machine
+    $ curl http://localhost:8765
+    Hello from Octopus
+
+The options of the tunnel command are:
+
+  - ``-L 8765:localhost:8765``: listen on port ``8765`` of your machine and
+    forward everything sent to it to ``localhost:8765`` as seen from the cluster,
+    i.e. the web server started in the first terminal. The general form is
+    ``-L local_port:destination_host:destination_port``.
+  - ``-N``: do not run a remote command, only forward the port.
+
+.. note:: ``ssh`` also accepts ``-f``, which sends the tunnel to the background so
+    that the same terminal stays usable. We deliberately do not use it here. A
+    backgrounded tunnel can die without printing anything, and the only symptom is
+    that connections to the local port start failing again - which looks like a
+    problem with your job or with the cluster, when in fact the tunnel is simply
+    gone. Giving the tunnel its own terminal makes it obvious at a glance whether
+    it is still up.
+
+If port ``8765`` is already in use, pick another port number (on the cluster,
+``random_unused_port`` prints a free one). When you are done, stop the web server
+with ``Ctrl+C`` in the first terminal and the tunnel with ``Ctrl+C`` in the third.
+
+The :ref:`Jupyter notebook <jupyter_notebook_job_octopus>` and
+:ref:`VNC / noVNC <create_vnc_tunnel>` instructions use the same pattern: they ask
+you to run an ``ssh -L`` command on your machine and then connect to ``localhost``
+on the forwarded port.

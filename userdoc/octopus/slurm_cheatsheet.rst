@@ -4,15 +4,14 @@ SLURM cheatsheet help
 ---------------------
 
 This page is dedicated to commonly used SLURM commands with short tips and howto
-quickies. You can find more details at (first two hits on google search):
+quickies. You can find more details in the official SLURM command summary:
 
    - https://slurm.schedmd.com/pdfs/summary.pdf
-   - https://www.chpc.utah.edu/presentations/SlurmCheatsheet.pdf
 
 Submitting a job
 ================
 In order to submit a job, a script compatible with the scheduler directives
-should be passed to ``sbatch`
+should be passed to ``sbatch``
 
 .. code-block:: bash
 
@@ -27,10 +26,10 @@ To submit an interactive for testing and/or debugging/development the
     $ srun --pty /bin/bash
 
     # allocate a cpu only job (specify resources details)
-    $ srun --partition=normal --nodes=1 --ntasks-per-node=4 --cpus-per-task=1 --mem=8000 --account=my_project --time=0-01:00:00 --pty /bin/bash
+    $ srun --partition=normal --nodes=1 --ntasks-per-node=4 --cpus-per-task=1 --mem=8000 --account=test02 --time=0-01:00:00 --pty /bin/bash
 
     # allocate a gpu job
-    $ srun --partition=gpu --nodes=1 --ntasks-per-node=1 --cpus-per-task=1 --mem=8000 --gres=gpu --account=my_project --time=0-01:00:00 --pty /bin/bash
+    $ srun --partition=gpu --nodes=1 --ntasks-per-node=1 --cpus-per-task=1 --mem=8000 --gres=gpu --account=test02 --time=0-01:00:00 --pty /bin/bash
 
 List of running jobs
 ====================
@@ -42,7 +41,7 @@ running
 
     $ squeue
 
-The list of jobs running or queueud on the cluster
+The list of jobs running or queued on the cluster
 
 .. code-block:: bash
 
@@ -59,7 +58,7 @@ Remove a job from the queue
 
 Use ``squeue`` to query the running jobs and get the ``JOBID``. Once the
 job id (that is an integer in the first column of the output of ``squeue``)
-of the job to be killed is know, execute:
+of the job to be killed is known, execute:
 
 .. code-block:: bash
 
@@ -73,6 +72,13 @@ List of hosts and queues/partitions on the cluster
 .. code-block:: bash
 
     $ sinfo
+
+.. todo:: the ``sinfo_all`` and ``sinfo_partitions`` sample outputs below are
+   an old snapshot and have not been verified against the current cluster.
+   Regenerate both on the head node from an interactive login shell (the
+   aliases are not defined for non-interactive ``ssh`` commands, so use e.g.
+   ``bash -lic "sinfo_all; sinfo_partitions"``) and replace the two blocks,
+   leaving out partitions that only accept the ``admin`` group.
 
 To see the details of the compute nodes with their respective specs
 

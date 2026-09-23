@@ -103,15 +103,15 @@ possible workflows for jobs with checkpoints can be found in the
 :ref:`slurm jobs guide <octopus_jobs_checkpoints_resume>`
 
 
-Distribued training and inference with torch
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Distributed training and inference with torch
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Please follow the official documentation for distributed training and inference
 with torch:
 
-   - `torch run <https://pytorch.org/docs/stable/elastic/run.html>`_
-   - `torch.nn.DistributedDataParalle <https://pytorch.org/docs/stable/generated/torch.nn.parallel.DistributedDataParallel.html>`_
-   - `torch rpc parallel <https://pytorch.org/docs/stable/rpc.html>`_
+   - `torch run <https://docs.pytorch.org/docs/stable/elastic/run.html>`_
+   - `torch.nn.DistributedDataParalle <https://docs.pytorch.org/docs/stable/generated/torch.nn.parallel.DistributedDataParallel.html>`_
+   - `torch rpc parallel <https://docs.pytorch.org/docs/stable/rpc.html>`_
 
 Job sript for octopus using GPUs
 """"""""""""""""""""""""""""""""
@@ -136,8 +136,8 @@ salve(s)
     torchrun --nproc-per-node=1 --nnodes=4 --node-rank=3 --master-addr=<COMPUTE_HOST> --master-port=4444 \
        $PWD/my_torch_script.py baz --arg1=foo --arg2=bar
 
-Distribued training with tensorflow and keras
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Distributed training with tensorflow and keras
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Please follow the official documentation for distributed tensorflow training:
 
@@ -203,34 +203,42 @@ that executes a notebook or a command that runs the training for example:
 
 the expected output should be similar to the following where the Nvidia driver
 version is mentioned in addition to the CUDA toolkit version and some other
-specs of the GPU(s) and the list of GPU processes at the end (in this case none)
+specs of the GPU(s) (memory usage below is trimmed since it will depend on
+whatever else is running on the node at the time)
 
 .. code-block:: bash
 
-    [john@onode12 ~]$ nvidia-smi
-    Sun Dec  8 00:41:27 2019
-    +-----------------------------------------------------------------------------+
-    | NVIDIA-SMI 430.30       Driver Version: 430.30       CUDA Version: 10.2     |
-    |-------------------------------+----------------------+----------------------+
-    | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
-    | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
-    |===============================+======================+======================|
-    |   0  GRID V100D-32Q      On   | 00000000:02:02.0 Off |                    0 |
-    | N/A   N/A    P0    N/A /  N/A |  31657MiB / 32638MiB |     13%      Default |
-    +-------------------------------+----------------------+----------------------+
+    [test02@onode11 ~]$ nvidia-smi
+    Tue Sep 15 14:34:44 2026
+    +---------------------------------------------------------------------------------------+
+    | NVIDIA-SMI 535.104.05             Driver Version: 535.104.05   CUDA Version: 12.2     |
+    |-----------------------------------------+----------------------+----------------------+
+    | GPU  Name                 Persistence-M | Bus-Id        Disp.A | Volatile Uncorr. ECC |
+    | Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |
+    |                                         |                      |               MIG M. |
+    |=========================================+======================+======================|
+    |   0  Tesla V100-PCIE-32GB           Off | 00000000:04:00.0 Off |                  Off |
+    | N/A   46C    P0              39W / 250W |      0MiB / 32768MiB |      0%      Default |
+    |                                         |                      |                  N/A |
+    +-----------------------------------------+----------------------+----------------------+
+    |   1  Tesla V100-PCIE-32GB           Off | 00000000:1B:00.0 Off |                  Off |
+    | N/A   44C    P0              37W / 250W |      0MiB / 32768MiB |      0%      Default |
+    |                                         |                      |                  N/A |
+    +-----------------------------------------+----------------------+----------------------+
 
-    +-----------------------------------------------------------------------------+
-    | Processes:                                                       GPU Memory |
-    |  GPU       PID   Type   Process name                             Usage      |
-    |=============================================================================|
-    |   No running processes found                                                |
-    +-----------------------------------------------------------------------------+
+    +---------------------------------------------------------------------------------------+
+    | Processes:                                                                            |
+    |  GPU   GI   CI        PID   Type   Process name                            GPU Memory |
+    |        ID   ID                                                             Usage      |
+    |=======================================================================================|
+    |  No running processes found                                                           |
+    +---------------------------------------------------------------------------------------+
 
 This snippet can be included in the job script
 
 **check the deep learning framework backend**
 
-For tensorflow, when the following snippet is executed:6Q, Compute Capability 7.0``)
+For tensorflow, when the following snippet is executed:
 
 .. code-block:: python
 
@@ -238,53 +246,37 @@ For tensorflow, when the following snippet is executed:6Q, Compute Capability 7.
      with tf.Session() as sess:
         devices = sess.list_devices()
 
-the GPU(s) should be displayed in the output (search for ``StreamExecutor device (0): GRID V100D-32Q
+the GPU(s) should be displayed in the output. Search for a line like
+``StreamExecutor device (0): Tesla V100-PCIE-32GB, Compute Capability 7.0``; the card
+name is whatever ``nvidia-smi -L`` reports on the node you landed on.
+
+TensorFlow is chatty on start-up - it logs every CUDA library it opens and repeats a
+harmless NUMA warning per device. The output below is trimmed to the lines that matter,
+captured on ``onode11`` with ``python/tensorflow`` (TensorFlow 1.14.0):
 
 .. code-block:: bash
 
-    2019-12-08 01:01:44.211101: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcuda.so.1
-    2019-12-08 01:01:44.246405: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1005] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
-    2019-12-08 01:01:44.247114: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties:
-    name: GRID V100D-32Q major: 7 minor: 0 memoryClockRate(GHz): 1.38
-    pciBusID: 0000:02:02.0
-    2019-12-08 01:01:44.254377: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.1
-    2019-12-08 01:01:44.288733: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10
-    2019-12-08 01:01:44.310036: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10
-    2019-12-08 01:01:44.345122: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10
-    2019-12-08 01:01:44.378862: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10
-    2019-12-08 01:01:44.395244: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10
-    2019-12-08 01:01:44.448277: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
-    2019-12-08 01:01:44.448677: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1005] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
-    2019-12-08 01:01:44.449664: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1005] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
-    2019-12-08 01:01:44.450245: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
-    2019-12-08 01:01:44.451105: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
-    2019-12-08 01:01:44.461730: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 1996250000 Hz
-    2019-12-08 01:01:44.462592: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x5650b0feed20 executing computations on platform Host. Devices:
-    2019-12-08 01:01:44.462644: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): <undefined>, <undefined>
-    2019-12-08 01:01:44.463168: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1005] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
-    2019-12-08 01:01:44.463942: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties:
-    name: GRID V100D-32Q major: 7 minor: 0 memoryClockRate(GHz): 1.38
-    pciBusID: 0000:02:02.0
-    2019-12-08 01:01:44.464020: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.1
-    2019-12-08 01:01:44.464037: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10
-    2019-12-08 01:01:44.464052: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10
-    2019-12-08 01:01:44.464067: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10
-    2019-12-08 01:01:44.464080: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10
-    2019-12-08 01:01:44.464094: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10
-    2019-12-08 01:01:44.464109: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
-    2019-12-08 01:01:44.464181: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1005] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
-    2019-12-08 01:01:44.464867: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1005] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
-    2019-12-08 01:01:44.465426: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
-    2019-12-08 01:01:44.465481: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.1
-    2019-12-08 01:01:44.729323: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
-    2019-12-08 01:01:44.729383: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0
-    2019-12-08 01:01:44.729399: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N
-    2019-12-08 01:01:44.729779: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1005] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
-    2019-12-08 01:01:44.730551: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1005] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
-    2019-12-08 01:01:44.731236: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:1005] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
-    2019-12-08 01:01:44.731866: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 14226 MB memory) -> physical GPU (device: 0, name: GRID V100D-32Q, pci bus id: 0000:02:02.0, compute capability: 7.0)
-    2019-12-08 01:01:44.734308: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x5650b1acf9a0 executing computations on platform CUDA. Devices:
-    2019-12-08 01:01:44.734353: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): GRID V100D-32Q, Compute Capability 7.0
+    2026-09-15 15:13:32.895976: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties:
+    name: Tesla V100-PCIE-32GB major: 7 minor: 0 memoryClockRate(GHz): 1.38
+    pciBusID: 0000:04:00.0
+    2026-09-15 15:13:32.896326: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 1 with properties:
+    name: Tesla V100-PCIE-32GB major: 7 minor: 0 memoryClockRate(GHz): 1.38
+    pciBusID: 0000:1b:00.0
+    ...
+    2026-09-15 15:13:33.571370: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0, 1
+    ...
+    2026-09-15 15:13:33.577946: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): Tesla V100-PCIE-32GB, Compute Capability 7.0
+    2026-09-15 15:13:33.577954: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (1): Tesla V100-PCIE-32GB, Compute Capability 7.0
+
+.. note:: the ``Created TensorFlow device ... with N MB memory`` lines report what was
+    still free on the card at that moment, not the card's size. If that number looks
+    small, another job is already using the GPU - check with ``nvidia-smi``.
+
+.. note:: ``module load python/tensorflow`` currently provides TensorFlow 1.14, where
+    ``tf.Session()`` and ``sess.list_devices()`` are the right API. Newer TensorFlow
+    modules are also installed (``python/tensorflow-2.9.1``, ``python/ai-tensorflow-latest``);
+    on those, ``tf.Session()`` no longer exists and the equivalent check is
+    ``tf.config.list_physical_devices('GPU')``.
 
 This snippet can be included at the top of the notebook or python script.
 

@@ -1,7 +1,7 @@
 Abaqus
 ------
 
-`Abaqus <https://www.3ds.com/products-services/simulia/products/abaqus/>`_ is an
+`Abaqus <https://www.3ds.com/products/simulia/abaqus>`_ is an
 application that is used for solving structural simulation of multi-physics problems.
 
 There are two main modes of running Abaqus on Octopus:
@@ -25,7 +25,14 @@ terminal:
 .. code-block:: bash
 
     module load abaqus
-    abaqus cae
+    abaqus cae -mesa
+
+.. note:: pass ``-mesa`` when you are working over VNC or noVNC. Without it ``CAE``
+    still opens, but it cannot create an OpenGL drawable on the remote display and
+    floods the terminal with ``failed to create drawable`` while the 3D viewport
+    stays unusable. ``-mesa`` selects software rendering, which works. Note also
+    that ``Ctrl+C`` does not close ``CAE`` and does not release its licence - use
+    **File > Exit**, otherwise the seat stays checked out.
 
 
 Template Abaqus job (batch mode)
@@ -40,7 +47,7 @@ one compute node.
 
    ## specify the job and project name
    #SBATCH --job-name=abaqus
-   #SBATCH --account=ab123
+   #SBATCH --account=test02
 
    ## specify the required resources
    #SBATCH --partition=normal
@@ -88,7 +95,7 @@ After the job is executed ``MPI`` must be selected in the the ``ABAQUS`` job in 
 
    ## specify the job and project name
    #SBATCH --job-name=abaqus
-   #SBATCH --account=ab123
+   #SBATCH --account=test02
 
    ## specify the required resources
    #SBATCH --partition=large
@@ -193,7 +200,7 @@ fortran compiler to build the libraries. The following command can be used to
     module load intel/2021
     $ abaqus make library=my_custom_constants.f
 
-    [john@node ~]$ abaqus make library=foo.f
+    [test02@node ~]$ abaqus make library=foo.f
     Abaqus JOB foo.f
     Begin Compiling Abaqus/Standard User Subroutines
     Mon 13 May 2024 05:28:07 AM EEST

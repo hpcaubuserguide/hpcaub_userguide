@@ -96,7 +96,7 @@ The following job script template can be used (for a ``VNC`` session):
 
     ## specify the job and project name
     #SBATCH --job-name=my_fluent_job
-    #SBATCH --account=abc123
+    #SBATCH --account=test02
 
     ## specify the required resources
     #SBATCH --partition=normal
@@ -295,7 +295,7 @@ a job script as shown below:
   #!/bin/bash
 
   #SBATCH --job-name=test-job
-  #SBATCH --account=abc123
+  #SBATCH --account=test02
 
   #SBATCH --partition=normal
   #SBATCH --nodes=1

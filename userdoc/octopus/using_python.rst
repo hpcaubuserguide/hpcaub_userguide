@@ -27,7 +27,7 @@ Users who wish to extend/create custom python these environment can:
 
         import IPython
         print(IPython)
-        >>> <module 'IPython' from '/home/john/.local/lib/python3.7/site-packages/IPython/__init__.py'>
+        >>> <module 'IPython' from '/home/test02/.local/lib/python3.7/site-packages/IPython/__init__.py'>
 
   - a similar approach can be done for ``anaconda`` environments.
 
@@ -35,16 +35,19 @@ Users who wish to extend/create custom python these environment can:
 
       .. code-block:: bash
 
-          conda create --prefix /home/john/test-env python=3.8
+          conda create --prefix /home/test02/my-env python=3.8
 
   - ``virtualenvs`` are by default created in the home directory ``~/.virtualenvs``.
     It might be also useful to use the package ``Virtualenvwrapper``.
 
-  - use ``pipenv`` that is a new and powerful way to creating and managing python
-    environments. The following is an excellent guide on getting started with
-    ``pipenv`` https://robots.thoughtbot.com/how-to-manage-your-python-projects-with-pipenv
+  - use ``conda`` to create and manage environments — available via
+    ``module load python/base/miniconda3``. See the
+    `conda documentation <https://docs.conda.io/projects/conda/en/stable/>`_.
 
-  - install anaconda locally in their home directories
+  - ``uv`` and ``poetry`` are not installed on Octopus, but either can be
+    installed into your own home directory if you prefer them. See the
+    `uv documentation <https://docs.astral.sh/uv/>`_ and the
+    `poetry documentation <https://python-poetry.org/docs/>`_.
 
   - compile and install ``python`` from source. This is non-trivial and requires
     good knowledge of what the user is doing, but gives full control on the build
@@ -69,10 +72,20 @@ A jupyter lab server is run on a compute node to which a user can connect
 to using a browser on the local machine (i.e laptop/desktop/terminal).
 
 - submit the jupyter server script using ``sbatch`` (see below)
-- get the port number from jupyter-${MY_NEW_JOB_ID}.log after the job stars running
+- get the port number from jupyter-${SLURM_JOB_ID}.log after the job starts running
 - create the tunnel to Octopus
-- get the URL with the autnetication token from jupyter-${MY_NEW_JOB_ID}.log and
+- get the URL with the authentication token from jupyter-${SLURM_JOB_ID}.log and
   use that link (with the token) in your browser
+
+.. todo:: document the hosted JupyterHub at https://jupyterhub.aub.edu.lb and record a
+    short screencast for it. The service works and is linked from this guide's navigation
+    bar (see ``html_theme_options`` in ``conf.py``), but it is described nowhere in the
+    guide, so a reader has no way to know what it is, who may use it, or how it relates to
+    the ``sbatch`` + tunnel workflow documented below. At minimum the new section should
+    cover: that it is reachable only from on campus or over the VPN, how to log in, what
+    resources a hub session gets and how those compare with a job on a compute node, and
+    when to prefer it over the workflow on this page. This is new material rather than a
+    correction, so it belongs in its own branch, pull request and ticket.
 
 Jupyter notebook job on a compute node
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -85,14 +98,13 @@ The following job script can be used as a template to submit a job.
 
     #SBATCH --job-name=jupyter-server
     #SBATCH --partition=normal
-    #SBATCH --account=my_account
+    #SBATCH --account=test02
 
     #SBATCH --nodes=1
     #SBATCH --ntasks-per-node=1
     #SBATCH --cpus-per-task=1
     #SBATCH --mem=8000
     #SBATCH --time=0-01:00:00
-    #SBATCH --account=foo_project
 
     source ~/.bashrc
 
@@ -116,8 +128,8 @@ web browser. To create the tunnel, execute (on your local terminal)
       $ ssh -L localhost:38888:localhost:38888 octopus.aub.edu.lb -N
 
 After creating the tunnel, you can access the server from your browser by
-typing in the url (with the token) found in ``jupyter.log`` (see previous
-section)
+typing in the url (with the token) found in ``jupyter-${SLURM_JOB_ID}.log`` (see
+previous section)
 
 The diagram for the steps involved is:
 
@@ -129,9 +141,9 @@ Running production jobs with Jupyter notebooks
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Using Jupyter notebooks through the browser as described above requires
-a contineous and stable connection to the HPC cluster (to keep the ssh tunnel alive).
+a continuous and stable connection to the HPC cluster (to keep the ssh tunnel alive).
 When connected from inside the campus network, such issues are minimal. However
-the connection might experience instability and could get disconected especially
+the connection might experience instability and could get disconnected especially
 when there are no user interactions with the notebook, e.g when running a
 production job when the user is away from the terminal.
 
@@ -157,7 +169,7 @@ are saved and no resources or gpu would be needed to view the results.
     #SBATCH --cpus-per-task=1
     #SBATCH --mem=8000
     #SBATCH --time=0-01:00:00
-    #SBATCH --account=foo_project
+    #SBATCH --account=test02
 
     ## load modules here
     module load python/3

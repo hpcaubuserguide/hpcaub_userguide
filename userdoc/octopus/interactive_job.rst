@@ -12,7 +12,7 @@ GUIs is necessary.
 Prerequisites
 +++++++++++++
 
-For Windows, download the portable version of `RealVNC Viewer <https://www.realvnc.com/en/connect/download/viewer/?lai_vid=8rVE8Wk8DfRz&lai_sr=0-4&lai_sl=l#>`_.
+For Windows, download the portable version of `RealVNC Viewer <https://www.realvnc.com/en/connect/download/viewer/>`_.
 The portable version does not require admin rights to run.
 
 Recommended workflow
@@ -41,9 +41,6 @@ To connect to the vnc session using a vnc viewer (client) a tunnel to the
    :scale: 100 %
    :alt:
 
-details
-^^^^^^^^
-
 Create/edit folder and files
 ++++++++++++++++++++++++++++
 .. _create_vnc_configuration:
@@ -68,7 +65,6 @@ Create/edit folder and files
 
         rm -fvr ~/.vnc
         cp -fvr /home/shared/sample_scripts/slurm_vnc_job/.vnc ~/
-        chown -Rc $USER ~/.vnc
         cp /home/shared/sample_scripts/slurm_vnc_job/job.sh ~/
 
   set the vnc password by executing the command (set a strong password that is
@@ -84,8 +80,8 @@ submit the job
 .. _submit_vnc_job:
 
 The following job script can be used as a template and the resources options
-can be changed to meet the demands of a particular simulation. This job
-script is also included in ~/.vnc folder. After submitting the job, the
+can be changed to meet the demands of a particular simulation. A copy of this
+job script is also available in ``/home/shared/sample_scripts/slurm_vnc_job/``. After submitting the job, the
 ``VNC_HEAD_PORT`` is written to the ``slurm-JOBID.out`` file.
 
     .. code-block:: bash
@@ -94,7 +90,7 @@ script is also included in ~/.vnc folder. After submitting the job, the
 
         ## specify the job and project name
         #SBATCH --job-name=my_job_name
-        #SBATCH --account=abc123
+        #SBATCH --account=test02
 
         ## specify the required resources
         #SBATCH --partition=normal
@@ -125,10 +121,10 @@ script is also included in ~/.vnc folder. After submitting the job, the
         sleep infinity
 
 A copy of this file can be obtained from ``/home/shared/sample_scripts/slurm_vnc_job/job.sh``.
-Altenatively create the file in your ``~/`` directory. The script can be submitted
+Alternatively create the file in your ``~/`` directory. The script can be submitted
 the usual way using ``sbatch``.
 
-.. code-block::bash
+.. code-block:: bash
 
     $ sbatch job.sh
 
@@ -172,11 +168,13 @@ in the browser.
 Workflow
 ++++++++
 
-   1) :ref:`Create the VNC configuration <create_novnc_configuration>`. [one time] This step is
+   1) :ref:`Create the VNC configuration <create_vnc_configuration>`. [one time] This step is
       done when the account is created and hence can be skipped. Execute the procedure
       described there if your VNC configuration does not exist or is corrupted.
-     - [one time] set a vnc password if you have not done so by executing the command ``vncpasswd``
-       (set a strong password that is at least 12 characters long)
+
+      - [one time] set a vnc password if you have not done so by executing the command ``vncpasswd``
+        (set a strong password that is at least 12 characters long)
+
    2) Copy the following job script to your home directory :ref:`submit the job script <submit_novnc_job>` ( e.g ``/home/shared/sample_scripts/slurm_vnc_job/novnc_slurm_job.sh``)
       or create a new file by copying it from the job script below, edit it to change the resources
       options and submit it using ``sbatch``.
@@ -196,7 +194,7 @@ Workflow
             http://localhost:3092/vnc.html
          going to sleep indefinitely to keep the job alive...
    4) Create the tunnel by pasting the ssh command above in your **local** terminal
-      (e.g bash or cmd)` **not** on the cluster. For every job the port number is different, so
+      (e.g bash or cmd) **not** on the cluster. For every job the port number is different, so
       make sure to copy/paste the content of the output of the slurm job.
 
       .. code-block:: bash
@@ -215,13 +213,13 @@ Workflow
          #in the example above, YOUR_PORT is 3092 and the url is
          http://localhost:3092/vnc.html
 
-Submit the job
-++++++++++++++
+Submit the noVNC job
+++++++++++++++++++++
 .. _submit_novnc_job:
 
 The following job script can be used as a template and the resources options
-can be changed to meet the demands of a particular simulation. This job
-script is also included in ~/.vnc folder. After submitting the job, the
+can be changed to meet the demands of a particular simulation. A copy of this
+job script is also available in ``/home/shared/sample_scripts/slurm_vnc_job/``. After submitting the job, the
 ``VNC_HEAD_PORT`` is written to the ``slurm-JOBID.out`` file.
 
     .. code-block:: bash
@@ -229,7 +227,7 @@ script is also included in ~/.vnc folder. After submitting the job, the
       #!/bin/bash
 
       #SBATCH --job-name=novnc
-      #SBATCH --account=abc123
+      #SBATCH --account=test02
 
       ## specify the required resources
       #SBATCH --partition=normal

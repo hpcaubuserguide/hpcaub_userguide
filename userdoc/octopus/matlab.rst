@@ -29,6 +29,22 @@ does not have to login (or interact) with the HPC cluster.
 .. note:: Multiple such parallel configuration can co-exist and can be selected
  at runtime.
  
+.. todo:: this page was reverted to the version on ``main``. It needs another pass:
+
+    - the Slurm integration plugin is linked here as a bundled ``slurm.zip`` on
+      SharePoint; MathWorks now publishes it upstream as the
+      `MATLAB Parallel Server plugin for Slurm <https://github.com/mathworks/matlab-parallel-slurm-plugin>`_,
+      whose folder layout differs (a single flat folder, no
+      ``shared``/``remote``/``nonshared`` subfolder), and the shared-filesystem choice
+      moves to the ``HasSharedFilesystem`` cluster property.
+    - ``PluginScriptsLocation`` has to be set to wherever the plugin was extracted on
+      the client, which cannot be pre-filled in a shared settings profile.
+    - the compute-node job scripts further down load ``matlab/2018b`` while this page
+      documents a 2019b client; ``matlab/2020b`` and ``matlab/2021b`` are also installed.
+    - a command-line alternative to the Cluster Profile Manager dialogs
+      (``parallel.cluster.Generic`` configured directly) is worth adding, since several
+      of the screenshots here are hard to reproduce.
+
 Setting up a Matlab 2019b client
 ++++++++++++++++++++++++++++++++
 
