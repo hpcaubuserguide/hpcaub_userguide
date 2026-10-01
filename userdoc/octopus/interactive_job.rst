@@ -162,7 +162,7 @@ The following screencast walks through the whole workflow end to end: logging in
 vnc password, editing and submitting the job script, creating the tunnel and opening the desktop
 in the browser.
 
-.. youtube:: QlN2fOPpZSQ
+.. youtube:: yTXxpxlZqCs
    :width: 100%
 
 Workflow
