@@ -5,6 +5,14 @@ Getting connected
 Connecting to a terminal
 ========================
 
+Octopus can only be reached from the AUB network. Off campus, connect to the AUB VPN
+first. The following screencast walks through it end to end: installing FortiClient VPN,
+adding a connection to ``vpn.aub.edu.lb`` with single sign-on, and signing in with your
+AUB email, password and authenticator code.
+
+.. youtube:: BBMKo57CbC0
+   :width: 100%
+
 When on the AUB network (also valid when connected through the VPN service
 https://servicedesk.aub.edu.lb/TDClient/1398/Portal/Requests/Service/29740/Secure-Socket-Layer-Virtual-Private-Network-SSL-VPN ),
 any of the following methods can be used to login to the head node of the cluster.
@@ -21,6 +29,13 @@ TIP: Passwordless login can be set up to avoid typing the password every time an
 .. warning:: SECURITY: make sure to change your account password after the
  administrators have created your account. To change the account password
  after logging in, use the command ``passwd``
+
+The following screencast walks through a first login end to end: connecting with ``ssh``
+and the password from your account email, accepting the cluster's host key on the first
+connection, changing the password with ``passwd``, and logging out.
+
+.. youtube:: gMW9NAShcvg
+   :width: 100%
 
 .. note:: direct ssh access to the compute nodes is disabled and not allowed.
 
