@@ -54,6 +54,58 @@ Users who wish to extend/create custom python these environment can:
     process and customization of python. For optimal performance, this is the
     recommended approach.
 
+JupyterHub
+^^^^^^^^^^
+
+The quickest way to use Jupyter on Octopus is the hosted JupyterHub at
+https://jupyterhub.aub.edu.lb. Like the rest of the cluster, it can only be reached from
+the AUB network, so connect to the VPN first when you are off campus (see
+:ref:`Getting_started_octopus`). Log in with your HPC username and password.
+
+After logging in, pick a job profile and press **Start**. Your Jupyter Lab server then
+runs as a Slurm job on a compute node, with the resources of that profile. The profiles
+offered on 2026-10-07 were:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Profile
+     - Resources
+     - Time limit
+   * - Pico
+     - 1 CPU, 4 GB
+     - 1 hour
+   * - Tiny
+     - 4 CPU, 16 GB
+     - 3 hours
+   * - Small (intel), Small (arza)
+     - 16 CPU, 64 GB
+     - 6 hours
+   * - Large (amd)
+     - 64 CPU, 256 GB
+     - 6 hours
+   * - GPU
+     - 1 V100, 8 CPU, 32 GB or 128 GB
+     - 6 hours
+   * - 4 GPU
+     - 4 V100, 4x8 CPU, 2x32 + 2x128 GB
+     - 2 hours
+
+The server is a job like any other: it holds its compute node until you stop it or its
+time limit is reached. When you are done, save your work and stop the server with
+**File**, **Hub Control Panel**, **Stop My Server**.
+
+The following screencast walks through it end to end: logging in, starting a server on
+the Pico profile, running a cell that shows it runs on a compute node, finding the
+server's own job with ``squeue``, and stopping the server so that the job ends.
+
+.. youtube:: Yr2jUnooRVI
+   :width: 100%
+
+Use JupyterHub for interactive work that fits one of the profiles. When you need
+resources or a time limit that no profile offers, or your own Jupyter installation, run
+Jupyter Lab in a job you submit yourself, as described below.
+
 Jupyter notebooks
 ^^^^^^^^^^^^^^^^^
 
@@ -76,16 +128,6 @@ to using a browser on the local machine (i.e laptop/desktop/terminal).
 - create the tunnel to Octopus
 - get the URL with the authentication token from jupyter-${SLURM_JOB_ID}.log and
   use that link (with the token) in your browser
-
-.. todo:: document the hosted JupyterHub at https://jupyterhub.aub.edu.lb and record a
-    short screencast for it. The service works and is linked from this guide's navigation
-    bar (see ``html_theme_options`` in ``conf.py``), but it is described nowhere in the
-    guide, so a reader has no way to know what it is, who may use it, or how it relates to
-    the ``sbatch`` + tunnel workflow documented below. At minimum the new section should
-    cover: that it is reachable only from on campus or over the VPN, how to log in, what
-    resources a hub session gets and how those compare with a job on a compute node, and
-    when to prefer it over the workflow on this page. This is new material rather than a
-    correction, so it belongs in its own branch, pull request and ticket.
 
 Jupyter notebook job on a compute node
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
