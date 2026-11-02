@@ -17,7 +17,7 @@ idna==3.19
 imagesize==2.0.1
 Jinja2==3.1.6
 MarkupSafe==3.0.3
-msgpack==1.2.2
+msgpack==1.2.3
 natsort==8.4.0
 packaging==26.3
 platformdirs==4.11.7
